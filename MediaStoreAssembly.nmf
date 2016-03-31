@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<nmeta:Namespace xmi:version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Uri="http://github.com/georghinkel/mediaStore/Assembly" Prefix="mediaStore" Name="Assembly" xmlns:xmi="http://www.omg.org/XMI" xmlns:nmeta="http://nmf.codeplex.com/nmeta/">
+  <Types xmlns:repo="http://github.com/georghinkel/mediaStore/Repository" xsi:type="repo:MediaStoreSystem" Frontend="//MediaStore/MediaStore1/" Name="MediaStore">
+    <AssemblyContexts xsi:type="repo:MediaStore" Watermarking="//MediaStore/Watermark1/" Name="MediaStore1" />
+    <AssemblyContexts xsi:type="repo:Watermark" Name="Watermark1" />
+  </Types>
+</nmeta:Namespace>

@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<mediaStore:MediaStore xmi:version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Environment="$0" xmlns:xmi="http://www.omg.org/XMI" xmlns:mediaStore="http://github.com/georghinkel/mediaStore/Assembly">
+  <MediaStore1 Name="Application Server" />
+  <Watermark1 Name="Application Server" />
+</mediaStore:MediaStore>

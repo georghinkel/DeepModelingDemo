@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8B7311A5-309B-4379-B025-A26C48B78D14}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FZI.DeepModeling</RootNamespace>
+    <AssemblyName>FZI.DeepModeling.DeepADL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NMF.Collections">
+      <HintPath>..\..\..\..\Projekte\NMF\Models\Models\bin\Debug\NMF.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="NMF.Expressions">
+      <HintPath>..\..\..\..\Projekte\NMF\Models\Models\bin\Debug\NMF.Expressions.dll</HintPath>
+    </Reference>
+    <Reference Include="NMF.Expressions.Linq">
+      <HintPath>..\..\..\..\Projekte\NMF\Models\Models\bin\Debug\NMF.Expressions.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="NMF.Models">
+      <HintPath>..\..\..\..\Projekte\NMF\Models\Models\bin\Debug\NMF.Models.dll</HintPath>
+    </Reference>
+    <Reference Include="NMF.Serialization">
+      <HintPath>..\..\..\..\Projekte\NMF\Models\Models\bin\Debug\NMF.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="NMF.Utilities">
+      <HintPath>..\..\..\..\Projekte\NMF\Models\Models\bin\Debug\NMF.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DeepADL\AssemblyContext.cs" />
+    <Compile Include="DeepADL\ComponentType.cs" />
+    <Compile Include="DeepADL\ComponentTypeBaseTypesCollection.cs" />
+    <Compile Include="DeepADL\ComponentTypeReferencesCollection.cs" />
+    <Compile Include="DeepADL\IAssemblyContext.cs" />
+    <Compile Include="DeepADL\IComponentType.cs" />
+    <Compile Include="DeepADL\IInterface.cs" />
+    <Compile Include="DeepADL\Interface.cs" />
+    <Compile Include="DeepADL\InterfaceBaseTypesCollection.cs" />
+    <Compile Include="DeepADL\IRepository.cs" />
+    <Compile Include="DeepADL\IRequiredInterface.cs" />
+    <Compile Include="DeepADL\IResourceContainer.cs" />
+    <Compile Include="DeepADL\IResourceEnvironment.cs" />
+    <Compile Include="DeepADL\IService.cs" />
+    <Compile Include="DeepADL\ISignature.cs" />
+    <Compile Include="DeepADL\ISystemAllocation.cs" />
+    <Compile Include="DeepADL\ISystemArchitecture.cs" />
+    <Compile Include="DeepADL\ISystemSpecification.cs" />
+    <Compile Include="DeepADL\Repository.cs" />
+    <Compile Include="DeepADL\RepositoryComponentTypesCollection.cs" />
+    <Compile Include="DeepADL\RepositoryInterfacesCollection.cs" />
+    <Compile Include="DeepADL\RepositorySystemSpecificationsCollection.cs" />
+    <Compile Include="DeepADL\RepositoryTypesCollection.cs" />
+    <Compile Include="DeepADL\RequiredInterface.cs" />
+    <Compile Include="DeepADL\ResourceContainer.cs" />
+    <Compile Include="DeepADL\ResourceEnvironment.cs" />
+    <Compile Include="DeepADL\ResourceEnvironmentContainerCollection.cs" />
+    <Compile Include="DeepADL\Service.cs" />
+    <Compile Include="DeepADL\Signature.cs" />
+    <Compile Include="DeepADL\SystemAllocation.cs" />
+    <Compile Include="DeepADL\SystemArchitecture.cs" />
+    <Compile Include="DeepADL\SystemArchitectureBaseTypesCollection.cs" />
+    <Compile Include="DeepADL\SystemArchitectureReferencesCollection.cs" />
+    <Compile Include="DeepADL\SystemSpecification.cs" />
+    <Compile Include="DeepADL\SystemSpecificationBaseTypesCollection.cs" />
+    <Compile Include="DeepADL\SystemSpecificationReferencesCollection.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\DeepADL.nmf">
+      <Link>DeepADL.nmf</Link>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

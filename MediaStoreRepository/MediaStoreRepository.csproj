@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C73B54FD-CA74-483A-8233-66B88AA48184}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FZI.DeepModeling.MediaStore.Repository</RootNamespace>
+    <AssemblyName>FZI.DeepModeling.MediaStore.Repository</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NMF.Collections">
+      <HintPath>..\..\..\..\Projekte\NMF\Models\Models\bin\Debug\NMF.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="NMF.Expressions">
+      <HintPath>..\..\..\..\Projekte\NMF\Models\Models\bin\Debug\NMF.Expressions.dll</HintPath>
+    </Reference>
+    <Reference Include="NMF.Expressions.Linq">
+      <HintPath>..\..\..\..\Projekte\NMF\Models\Models\bin\Debug\NMF.Expressions.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="NMF.Models">
+      <HintPath>..\..\..\..\Projekte\NMF\Models\Models\bin\Debug\NMF.Models.dll</HintPath>
+    </Reference>
+    <Reference Include="NMF.Serialization">
+      <HintPath>..\..\..\..\Projekte\NMF\Models\Models\bin\Debug\NMF.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="NMF.Utilities">
+      <HintPath>..\..\..\..\Projekte\NMF\Models\Models\bin\Debug\NMF.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MediaStoreRepository\IMediaStore.cs" />
+    <Compile Include="MediaStoreRepository\IMediaStoreInterface.cs" />
+    <Compile Include="MediaStoreRepository\IMediaStoreSystem.cs" />
+    <Compile Include="MediaStoreRepository\IWatermark.cs" />
+    <Compile Include="MediaStoreRepository\IWatermarkInterface.cs" />
+    <Compile Include="MediaStoreRepository\MediaStore.cs" />
+    <Compile Include="MediaStoreRepository\MediaStoreInterface.cs" />
+    <Compile Include="MediaStoreRepository\MediaStoreSystem.cs" />
+    <Compile Include="MediaStoreRepository\Watermark.cs" />
+    <Compile Include="MediaStoreRepository\WatermarkInterface.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\MediaStoreRepository.nmf">
+      <Link>MediaStoreRepository.nmf</Link>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DeepADL\DeepADL.csproj">
+      <Project>{8b7311a5-309b-4379-b025-a26c48b78d14}</Project>
+      <Name>DeepADL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
