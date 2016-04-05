@@ -8,7 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using FZI.SoftwareEngineering.DeepModeling.DeepADL;
 using NMF.Collections.Generic;
 using NMF.Collections.ObjectModel;
 using NMF.Expressions;
@@ -27,31 +26,39 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 
-namespace FZI.SoftwareEngineering.DeepModeling.Repository
+namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
 {
     
     
     /// <summary>
-    /// The default implementation of the MediaStoreSystem class
+    /// The default implementation of the Delegate class
     /// </summary>
-    [XmlNamespaceAttribute("http://github.com/georghinkel/mediaStore/Repository")]
-    [XmlNamespacePrefixAttribute("repo")]
-    [ModelRepresentationClassAttribute("http://github.com/georghinkel/mediaStore/Repository#//MediaStoreSystem/")]
-    [DebuggerDisplayAttribute("MediaStoreSystem {Name}")]
-    public class MediaStoreSystem : NMF.Models.Meta.Type, IMediaStoreSystem, IModelElement
+    [XmlNamespaceAttribute("http://github.com/georghinkel/DeepADL/1.0")]
+    [XmlNamespacePrefixAttribute("core")]
+    [ModelRepresentationClassAttribute("http://github.com/georghinkel/DeepADL/1.0#//Delegate/")]
+    [DebuggerDisplayAttribute("Delegate {Name}")]
+    public class Delegate : MetaElement, IDelegate, IModelElement
     {
         
         /// <summary>
-        /// The backing field for the Frontend property
+        /// The backing field for the Type property
         /// </summary>
-        private IHTTP _frontend;
+        private IInterface _type;
         
-        /// <summary>
-        /// The backing field for the AssemblyContexts property
-        /// </summary>
-        private ObservableCompositionList<IAssemblyContext> _assemblyContexts;
-        
-        event EventHandler<ValueChangedEventArgs> IClass.IdentifierChanged
+        event EventHandler<ValueChangedEventArgs> IType.NamespaceChanged
+        {
+            add
+            {
+                IDelegate _this_Delegate = this;
+                _this_Delegate.RepositoryChanged += value;
+            }
+            remove
+            {
+                IDelegate _this_Delegate = this;
+                _this_Delegate.RepositoryChanged -= value;
+            }
+        }
+        event EventHandler<ValueChangedEventArgs> IClass.InstanceOfChanged
         {
             add
             {
@@ -60,7 +67,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             {
             }
         }
-        event EventHandler<ValueChangedEventArgs> IClass.InstanceOfChanged
+        event EventHandler<ValueChangedEventArgs> IClass.IdentifierChanged
         {
             add
             {
@@ -88,54 +95,91 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             }
         }
         
-        public MediaStoreSystem()
-        {
-            this._assemblyContexts = new ObservableCompositionList<IAssemblyContext>(this);
-            this._assemblyContexts.CollectionChanged += this.AssemblyContextsCollectionChanged;
-        }
-        
         /// <summary>
-        /// The Frontend property
+        /// The Repository property
         /// </summary>
+        [DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
         [XmlAttributeAttribute(true)]
-        public virtual IHTTP Frontend
+        [XmlOppositeAttribute("Delegates")]
+        public virtual IRepository Repository
         {
             get
             {
-                return this._frontend;
+                return ModelHelper.CastAs<IRepository>(this.Parent);
             }
             set
             {
-                if ((this._frontend != value))
+                this.Parent = value;
+            }
+        }
+        
+        /// <summary>
+        /// The Type property
+        /// </summary>
+        [XmlAttributeAttribute(true)]
+        public virtual IInterface Type
+        {
+            get
+            {
+                return this._type;
+            }
+            set
+            {
+                if ((this._type != value))
                 {
-                    IHTTP old = this._frontend;
-                    this._frontend = value;
+                    IInterface old = this._type;
+                    this._type = value;
                     if ((old != null))
                     {
-                        old.Deleted -= this.OnResetFrontend;
+                        old.Deleted -= this.OnResetType;
                     }
                     if ((value != null))
                     {
-                        value.Deleted += this.OnResetFrontend;
+                        value.Deleted += this.OnResetType;
                     }
-                    this.OnPropertyChanged("Frontend");
-                    this.OnFrontendChanged(new ValueChangedEventArgs(old, value));
+                    this.OnPropertyChanged("Type");
+                    this.OnTypeChanged(new ValueChangedEventArgs(old, value));
                 }
             }
         }
         
-        /// <summary>
-        /// The AssemblyContexts property
-        /// </summary>
-        [DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Content)]
-        [XmlAttributeAttribute(false)]
-        [ContainmentAttribute()]
-        [ConstantAttribute()]
-        public virtual ICollectionExpression<IAssemblyContext> AssemblyContexts
+        INamespace IType.Namespace
         {
             get
             {
-                return this._assemblyContexts;
+                IDelegate _this = this;
+                if ((_this.Repository != null))
+                {
+                    return _this.Repository;
+                }
+                return null;
+            }
+            set
+            {
+                IDelegate _this = this;
+                if ((value != null))
+                {
+                    IRepository @__Repository = value.As<IRepository>();
+                    if ((@__Repository != null))
+                    {
+                        _this.Repository = @__Repository;
+                        return;
+                    }
+                }
+                else
+                {
+                    _this.Repository = null;
+                    return;
+                }
+                throw new System.ArgumentException("There was no suitable refining reference found for this object");
+            }
+        }
+        
+        ICollectionExpression<IClass> IClass.BaseTypes
+        {
+            get
+            {
+                return new DelegateBaseTypesCollection(this);
             }
         }
         
@@ -143,7 +187,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         {
             get
             {
-                return new SystemArchitectureReferencesCollection(this);
+                return EmptyList<IReference>.Instance;
             }
         }
         
@@ -168,6 +212,21 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             get
             {
                 return EmptyList<IAttributeConstraint>.Instance;
+            }
+        }
+        
+        IClass IClass.InstanceOf
+        {
+            get
+            {
+                return null;
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    throw new System.NotSupportedException();
+                }
             }
         }
         
@@ -202,38 +261,15 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             }
         }
         
-        IClass IClass.InstanceOf
-        {
-            get
-            {
-                return null;
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    throw new System.NotSupportedException();
-                }
-            }
-        }
-        
-        ICollectionExpression<IClass> IClass.BaseTypes
-        {
-            get
-            {
-                return new SystemArchitectureBaseTypesCollection(this);
-            }
-        }
-        
         bool IClass.IsInterface
         {
             get
             {
-                return false;
+                return true;
             }
             set
             {
-                if ((value != false))
+                if ((value != true))
                 {
                     throw new System.NotSupportedException();
                 }
@@ -262,7 +298,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         {
             get
             {
-                return base.ReferencedElements.Concat(new MediaStoreSystemReferencedElementsCollection(this));
+                return base.ReferencedElements.Concat(new DelegateReferencedElementsCollection(this));
             }
         }
         
@@ -273,22 +309,27 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         {
             get
             {
-                return NMF.Models.Repository.MetaRepository.Instance.ResolveClass("http://github.com/georghinkel/mediaStore/Repository#//MediaStoreSystem/");
+                return NMF.Models.Repository.MetaRepository.Instance.ResolveClass("http://github.com/georghinkel/DeepADL/1.0#//Delegate/");
             }
         }
         
         /// <summary>
-        /// Gets fired when the Frontend property changed its value
+        /// Gets fired when the Repository property changed its value
         /// </summary>
-        public event EventHandler<ValueChangedEventArgs> FrontendChanged;
+        public event EventHandler<ValueChangedEventArgs> RepositoryChanged;
         
         /// <summary>
-        /// Raises the FrontendChanged event
+        /// Gets fired when the Type property changed its value
+        /// </summary>
+        public event EventHandler<ValueChangedEventArgs> TypeChanged;
+        
+        /// <summary>
+        /// Raises the RepositoryChanged event
         /// </summary>
         /// <param name="eventArgs">The event data</param>
-        protected virtual void OnFrontendChanged(ValueChangedEventArgs eventArgs)
+        protected virtual void OnRepositoryChanged(ValueChangedEventArgs eventArgs)
         {
-            EventHandler<ValueChangedEventArgs> handler = this.FrontendChanged;
+            EventHandler<ValueChangedEventArgs> handler = this.RepositoryChanged;
             if ((handler != null))
             {
                 handler.Invoke(this, eventArgs);
@@ -296,37 +337,47 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         }
         
         /// <summary>
-        /// Handles the event that the Frontend property must reset
+        /// Gets called when the parent model element of the current model element changes
+        /// </summary>
+        /// <param name="oldParent">The old parent model element</param>
+        /// <param name="newParent">The new parent model element</param>
+        protected override void OnParentChanged(IModelElement newParent, IModelElement oldParent)
+        {
+            IRepository oldRepository = ModelHelper.CastAs<IRepository>(oldParent);
+            IRepository newRepository = ModelHelper.CastAs<IRepository>(newParent);
+            if ((oldRepository != null))
+            {
+                oldRepository.Delegates.Remove(this);
+            }
+            if ((newRepository != null))
+            {
+                newRepository.Delegates.Add(this);
+            }
+            this.OnPropertyChanged("Repository");
+            this.OnRepositoryChanged(new ValueChangedEventArgs(oldRepository, newRepository));
+        }
+        
+        /// <summary>
+        /// Raises the TypeChanged event
+        /// </summary>
+        /// <param name="eventArgs">The event data</param>
+        protected virtual void OnTypeChanged(ValueChangedEventArgs eventArgs)
+        {
+            EventHandler<ValueChangedEventArgs> handler = this.TypeChanged;
+            if ((handler != null))
+            {
+                handler.Invoke(this, eventArgs);
+            }
+        }
+        
+        /// <summary>
+        /// Handles the event that the Type property must reset
         /// </summary>
         /// <param name="sender">The object that sent this reset request</param>
         /// <param name="eventArgs">The event data for the reset event</param>
-        private void OnResetFrontend(object sender, EventArgs eventArgs)
+        private void OnResetType(object sender, EventArgs eventArgs)
         {
-            this.Frontend = null;
-        }
-        
-        /// <summary>
-        /// Forwards change notifications for the AssemblyContexts property to the parent model element
-        /// </summary>
-        /// <param name="sender">The collection that raised the change</param>
-        /// <param name="e">The original event data</param>
-        private void AssemblyContextsCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            this.OnCollectionChanged("AssemblyContexts", e);
-        }
-        
-        /// <summary>
-        /// Gets the Model element collection for the given feature
-        /// </summary>
-        /// <returns>A non-generic list of elements</returns>
-        /// <param name="feature">The requested feature</param>
-        protected override System.Collections.IList GetCollectionForFeature(string feature)
-        {
-            if ((feature == "ASSEMBLYCONTEXTS"))
-            {
-                return this._assemblyContexts;
-            }
-            return base.GetCollectionForFeature(feature);
+            this.Type = null;
         }
         
         /// <summary>
@@ -336,9 +387,14 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// <param name="value">The value that should be set to that feature</param>
         protected override void SetFeature(string feature, object value)
         {
-            if ((feature == "FRONTEND"))
+            if ((feature == "REPOSITORY"))
             {
-                this.Frontend = ((IHTTP)(value));
+                this.Repository = ((IRepository)(value));
+                return;
+            }
+            if ((feature == "TYPE"))
+            {
+                this.Type = ((IInterface)(value));
                 return;
             }
             base.SetFeature(feature, value);
@@ -351,9 +407,13 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// <param name="attribute">The requested attribute in upper case</param>
         protected override NMF.Expressions.INotifyExpression<object> GetExpressionForAttribute(string attribute)
         {
-            if ((attribute == "FRONTEND"))
+            if ((attribute == "REPOSITORY"))
             {
-                return new FrontendProxy(this);
+                return new RepositoryProxy(this);
+            }
+            if ((attribute == "TYPE"))
+            {
+                return new TypeProxy(this);
             }
             return base.GetExpressionForAttribute(attribute);
         }
@@ -365,9 +425,13 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// <param name="reference">The requested reference in upper case</param>
         protected override NMF.Expressions.INotifyExpression<NMF.Models.IModelElement> GetExpressionForReference(string reference)
         {
-            if ((reference == "FRONTEND"))
+            if ((reference == "REPOSITORY"))
             {
-                return new FrontendProxy(this);
+                return new RepositoryProxy(this);
+            }
+            if ((reference == "TYPE"))
+            {
+                return new TypeProxy(this);
             }
             return base.GetExpressionForReference(reference);
         }
@@ -377,21 +441,21 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// </summary>
         public override IClass GetClass()
         {
-            return ((IClass)(NMF.Models.Repository.MetaRepository.Instance.Resolve("http://github.com/georghinkel/mediaStore/Repository#//MediaStoreSystem/")));
+            return ((IClass)(NMF.Models.Repository.MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//Delegate/")));
         }
         
         /// <summary>
-        /// The collection class to to represent the children of the MediaStoreSystem class
+        /// The collection class to to represent the children of the Delegate class
         /// </summary>
-        public class MediaStoreSystemReferencedElementsCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
+        public class DelegateReferencedElementsCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
         {
             
-            private MediaStoreSystem _parent;
+            private Delegate _parent;
             
             /// <summary>
             /// Creates a new instance
             /// </summary>
-            public MediaStoreSystemReferencedElementsCollection(MediaStoreSystem parent)
+            public DelegateReferencedElementsCollection(Delegate parent)
             {
                 this._parent = parent;
             }
@@ -404,25 +468,28 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                 get
                 {
                     int count = 0;
-                    if ((this._parent.Frontend != null))
+                    if ((this._parent.Repository != null))
                     {
                         count = (count + 1);
                     }
-                    count = (count + this._parent.AssemblyContexts.Count);
+                    if ((this._parent.Type != null))
+                    {
+                        count = (count + 1);
+                    }
                     return count;
                 }
             }
             
             protected override void AttachCore()
             {
-                this._parent.FrontendChanged += this.PropagateValueChanges;
-                this._parent.AssemblyContexts.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
+                this._parent.RepositoryChanged += this.PropagateValueChanges;
+                this._parent.TypeChanged += this.PropagateValueChanges;
             }
             
             protected override void DetachCore()
             {
-                this._parent.FrontendChanged -= this.PropagateValueChanges;
-                this._parent.AssemblyContexts.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
+                this._parent.RepositoryChanged -= this.PropagateValueChanges;
+                this._parent.TypeChanged -= this.PropagateValueChanges;
             }
             
             /// <summary>
@@ -431,19 +498,23 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             /// <param name="item">The item to add</param>
             public override void Add(IModelElement item)
             {
-                if ((this._parent.Frontend == null))
+                if ((this._parent.Repository == null))
                 {
-                    IHTTP frontendCasted = item.As<IHTTP>();
-                    if ((frontendCasted != null))
+                    IRepository repositoryCasted = item.As<IRepository>();
+                    if ((repositoryCasted != null))
                     {
-                        this._parent.Frontend = frontendCasted;
+                        this._parent.Repository = repositoryCasted;
                         return;
                     }
                 }
-                IAssemblyContext assemblyContextsCasted = item.As<IAssemblyContext>();
-                if ((assemblyContextsCasted != null))
+                if ((this._parent.Type == null))
                 {
-                    this._parent.AssemblyContexts.Add(assemblyContextsCasted);
+                    IInterface typeCasted = item.As<IInterface>();
+                    if ((typeCasted != null))
+                    {
+                        this._parent.Type = typeCasted;
+                        return;
+                    }
                 }
             }
             
@@ -452,8 +523,8 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             /// </summary>
             public override void Clear()
             {
-                this._parent.Frontend = null;
-                this._parent.AssemblyContexts.Clear();
+                this._parent.Repository = null;
+                this._parent.Type = null;
             }
             
             /// <summary>
@@ -463,11 +534,11 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             /// <param name="item">The item that should be looked out for</param>
             public override bool Contains(IModelElement item)
             {
-                if ((item == this._parent.Frontend))
+                if ((item == this._parent.Repository))
                 {
                     return true;
                 }
-                if (this._parent.AssemblyContexts.Contains(item))
+                if ((item == this._parent.Type))
                 {
                     return true;
                 }
@@ -481,25 +552,15 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             /// <param name="arrayIndex">The starting index</param>
             public override void CopyTo(IModelElement[] array, int arrayIndex)
             {
-                if ((this._parent.Frontend != null))
+                if ((this._parent.Repository != null))
                 {
-                    array[arrayIndex] = this._parent.Frontend;
+                    array[arrayIndex] = this._parent.Repository;
                     arrayIndex = (arrayIndex + 1);
                 }
-                IEnumerator<IModelElement> assemblyContextsEnumerator = this._parent.AssemblyContexts.GetEnumerator();
-                try
+                if ((this._parent.Type != null))
                 {
-                    for (
-                    ; assemblyContextsEnumerator.MoveNext(); 
-                    )
-                    {
-                        array[arrayIndex] = assemblyContextsEnumerator.Current;
-                        arrayIndex = (arrayIndex + 1);
-                    }
-                }
-                finally
-                {
-                    assemblyContextsEnumerator.Dispose();
+                    array[arrayIndex] = this._parent.Type;
+                    arrayIndex = (arrayIndex + 1);
                 }
             }
             
@@ -510,15 +571,14 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             /// <param name="item">The item that should be removed</param>
             public override bool Remove(IModelElement item)
             {
-                if ((this._parent.Frontend == item))
+                if ((this._parent.Repository == item))
                 {
-                    this._parent.Frontend = null;
+                    this._parent.Repository = null;
                     return true;
                 }
-                IAssemblyContext assemblyContextItem = item.As<IAssemblyContext>();
-                if (((assemblyContextItem != null) 
-                            && this._parent.AssemblyContexts.Remove(assemblyContextItem)))
+                if ((this._parent.Type == item))
                 {
+                    this._parent.Type = null;
                     return true;
                 }
                 return false;
@@ -530,21 +590,21 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             /// <returns>A generic enumerator</returns>
             public override IEnumerator<IModelElement> GetEnumerator()
             {
-                return Enumerable.Empty<IModelElement>().Concat(this._parent.Frontend).Concat(this._parent.AssemblyContexts).GetEnumerator();
+                return Enumerable.Empty<IModelElement>().Concat(this._parent.Repository).Concat(this._parent.Type).GetEnumerator();
             }
         }
         
         /// <summary>
-        /// Represents a proxy to represent an incremental access to the Frontend property
+        /// Represents a proxy to represent an incremental access to the Repository property
         /// </summary>
-        private sealed class FrontendProxy : ModelPropertyChange<IMediaStoreSystem, IHTTP>
+        private sealed class RepositoryProxy : ModelPropertyChange<IDelegate, IRepository>
         {
             
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public FrontendProxy(IMediaStoreSystem modelElement) : 
+            public RepositoryProxy(IDelegate modelElement) : 
                     base(modelElement)
             {
             }
@@ -552,15 +612,15 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             /// <summary>
             /// Gets or sets the value of this expression
             /// </summary>
-            public override IHTTP Value
+            public override IRepository Value
             {
                 get
                 {
-                    return this.ModelElement.Frontend;
+                    return this.ModelElement.Repository;
                 }
                 set
                 {
-                    this.ModelElement.Frontend = value;
+                    this.ModelElement.Repository = value;
                 }
             }
             
@@ -570,7 +630,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             /// <param name="handler">The handler that should be subscribed to the property change event</param>
             protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
             {
-                this.ModelElement.FrontendChanged += handler;
+                this.ModelElement.RepositoryChanged += handler;
             }
             
             /// <summary>
@@ -579,7 +639,56 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
             protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
             {
-                this.ModelElement.FrontendChanged -= handler;
+                this.ModelElement.RepositoryChanged -= handler;
+            }
+        }
+        
+        /// <summary>
+        /// Represents a proxy to represent an incremental access to the Type property
+        /// </summary>
+        private sealed class TypeProxy : ModelPropertyChange<IDelegate, IInterface>
+        {
+            
+            /// <summary>
+            /// Creates a new observable property access proxy
+            /// </summary>
+            /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
+            public TypeProxy(IDelegate modelElement) : 
+                    base(modelElement)
+            {
+            }
+            
+            /// <summary>
+            /// Gets or sets the value of this expression
+            /// </summary>
+            public override IInterface Value
+            {
+                get
+                {
+                    return this.ModelElement.Type;
+                }
+                set
+                {
+                    this.ModelElement.Type = value;
+                }
+            }
+            
+            /// <summary>
+            /// Registers an event handler to subscribe specifically on the changed event for this property
+            /// </summary>
+            /// <param name="handler">The handler that should be subscribed to the property change event</param>
+            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
+            {
+                this.ModelElement.TypeChanged += handler;
+            }
+            
+            /// <summary>
+            /// Registers an event handler to subscribe specifically on the changed event for this property
+            /// </summary>
+            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
+            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
+            {
+                this.ModelElement.TypeChanged -= handler;
             }
         }
         
@@ -776,6 +885,55 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
             {
                 this.ModelElement.IdentifierChanged -= handler;
+            }
+        }
+        
+        /// <summary>
+        /// Represents a proxy to represent an incremental access to the Namespace property
+        /// </summary>
+        private sealed class NamespaceProxy : ModelPropertyChange<IType, INamespace>
+        {
+            
+            /// <summary>
+            /// Creates a new observable property access proxy
+            /// </summary>
+            /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
+            public NamespaceProxy(IType modelElement) : 
+                    base(modelElement)
+            {
+            }
+            
+            /// <summary>
+            /// Gets or sets the value of this expression
+            /// </summary>
+            public override INamespace Value
+            {
+                get
+                {
+                    return this.ModelElement.Namespace;
+                }
+                set
+                {
+                    this.ModelElement.Namespace = value;
+                }
+            }
+            
+            /// <summary>
+            /// Registers an event handler to subscribe specifically on the changed event for this property
+            /// </summary>
+            /// <param name="handler">The handler that should be subscribed to the property change event</param>
+            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
+            {
+                this.ModelElement.NamespaceChanged += handler;
+            }
+            
+            /// <summary>
+            /// Registers an event handler to subscribe specifically on the changed event for this property
+            /// </summary>
+            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
+            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
+            {
+                this.ModelElement.NamespaceChanged -= handler;
             }
         }
     }

@@ -30,23 +30,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NMF.Collections">
-      <HintPath>..\..\..\..\Projekte\NMF\Models\Models\bin\Debug\NMF.Collections.dll</HintPath>
+    <Reference Include="NMF.Collections, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMFRepository.1.0.4\lib\net40\NMF.Collections.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="NMF.Expressions">
-      <HintPath>..\..\..\..\Projekte\NMF\Models\Models\bin\Debug\NMF.Expressions.dll</HintPath>
+    <Reference Include="NMF.Expressions, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMFExpressions.1.0.4\lib\net40\NMF.Expressions.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="NMF.Expressions.Linq">
-      <HintPath>..\..\..\..\Projekte\NMF\Models\Models\bin\Debug\NMF.Expressions.Linq.dll</HintPath>
+    <Reference Include="NMF.Expressions.Linq, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMFExpressions.1.0.4\lib\net40\NMF.Expressions.Linq.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="NMF.Models">
-      <HintPath>..\..\..\..\Projekte\NMF\Models\Models\bin\Debug\NMF.Models.dll</HintPath>
+    <Reference Include="NMF.Models, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMFRepository.1.0.4\lib\net40\NMF.Models.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="NMF.Serialization">
-      <HintPath>..\..\..\..\Projekte\NMF\Models\Models\bin\Debug\NMF.Serialization.dll</HintPath>
+    <Reference Include="NMF.Serialization, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMFRepository.1.0.4\lib\net40\NMF.Serialization.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="NMF.Utilities">
-      <HintPath>..\..\..\..\Projekte\NMF\Models\Models\bin\Debug\NMF.Utilities.dll</HintPath>
+    <Reference Include="NMF.Utilities, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMFRepository.1.0.4\lib\net40\NMF.Utilities.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -61,8 +67,13 @@
     <Compile Include="DeepADL\ComponentType.cs" />
     <Compile Include="DeepADL\ComponentTypeBaseTypesCollection.cs" />
     <Compile Include="DeepADL\ComponentTypeReferencesCollection.cs" />
+    <Compile Include="DeepADL\Delegate.cs" />
+    <Compile Include="DeepADL\DelegateBaseTypesCollection.cs" />
+    <Compile Include="DeepADL\DelegationConnector.cs" />
     <Compile Include="DeepADL\IAssemblyContext.cs" />
     <Compile Include="DeepADL\IComponentType.cs" />
+    <Compile Include="DeepADL\IDelegate.cs" />
+    <Compile Include="DeepADL\IDelegationConnector.cs" />
     <Compile Include="DeepADL\IInterface.cs" />
     <Compile Include="DeepADL\Interface.cs" />
     <Compile Include="DeepADL\InterfaceBaseTypesCollection.cs" />
@@ -77,6 +88,7 @@
     <Compile Include="DeepADL\ISystemSpecification.cs" />
     <Compile Include="DeepADL\Repository.cs" />
     <Compile Include="DeepADL\RepositoryComponentTypesCollection.cs" />
+    <Compile Include="DeepADL\RepositoryDelegatesCollection.cs" />
     <Compile Include="DeepADL\RepositoryInterfacesCollection.cs" />
     <Compile Include="DeepADL\RepositorySystemSpecificationsCollection.cs" />
     <Compile Include="DeepADL\RepositoryTypesCollection.cs" />
@@ -99,6 +111,8 @@
     <EmbeddedResource Include="..\DeepADL.nmf">
       <Link>DeepADL.nmf</Link>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

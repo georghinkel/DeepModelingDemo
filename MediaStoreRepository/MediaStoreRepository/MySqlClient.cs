@@ -32,13 +32,13 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
     
     
     /// <summary>
-    /// The default implementation of the Watermark class
+    /// The default implementation of the MySqlClient class
     /// </summary>
     [XmlNamespaceAttribute("http://github.com/georghinkel/mediaStore/Repository")]
     [XmlNamespacePrefixAttribute("repo")]
-    [ModelRepresentationClassAttribute("http://github.com/georghinkel/mediaStore/Repository#//Watermark/")]
-    [DebuggerDisplayAttribute("Watermark {Name}")]
-    public class Watermark : MetaElement, IWatermark, IModelElement
+    [ModelRepresentationClassAttribute("http://github.com/georghinkel/mediaStore/Repository#//MySqlClient/")]
+    [DebuggerDisplayAttribute("MySqlClient {Name}")]
+    public class MySqlClient : MetaElement, IMySqlClient, IModelElement
     {
         
         private static IReferenceType _ReferenceType = NMF.Models.Repository.MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//ResourceContainer/").As<IReferenceType>();
@@ -320,7 +320,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         {
             get
             {
-                return NMF.Models.Repository.MetaRepository.Instance.ResolveClass("http://github.com/georghinkel/mediaStore/Repository#//Watermark/");
+                return NMF.Models.Repository.MetaRepository.Instance.ResolveClass("http://github.com/georghinkel/mediaStore/Repository#//MySqlClient/");
             }
         }
         
@@ -452,7 +452,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// </summary>
         public IComponentType GetComponentType()
         {
-            return ((IComponentType)(NMF.Models.Repository.MetaRepository.Instance.Resolve("http://github.com/georghinkel/mediaStore/Repository#//Watermark/")));
+            return ((IComponentType)(NMF.Models.Repository.MetaRepository.Instance.Resolve("http://github.com/georghinkel/mediaStore/Repository#//MySqlClient/")));
         }
         
         /// <summary>
@@ -460,7 +460,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// </summary>
         public IAssemblyContext GetRequiredInterfacesValue(IRequiredInterface reference)
         {
-            throw new NotImplementedException();
+            return ((IAssemblyContext)(this.GetReferencedElement(reference)));
         }
         
         /// <summary>
@@ -468,7 +468,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// </summary>
         public override IClass GetClass()
         {
-            return ((IClass)(NMF.Models.Repository.MetaRepository.Instance.Resolve("http://github.com/georghinkel/mediaStore/Repository#//Watermark/")));
+            return ((IClass)(NMF.Models.Repository.MetaRepository.Instance.Resolve("http://github.com/georghinkel/mediaStore/Repository#//MySqlClient/")));
         }
         
         /// <summary>

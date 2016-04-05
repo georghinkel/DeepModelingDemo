@@ -8,7 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using FZI.SoftwareEngineering.DeepModeling.DeepADL;
 using NMF.Collections.Generic;
 using NMF.Collections.ObjectModel;
 using NMF.Expressions;
@@ -27,31 +26,36 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 
-namespace FZI.SoftwareEngineering.DeepModeling.Repository
+namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
 {
     
     
     /// <summary>
-    /// The public interface for MediaStoreSystem
+    /// The public interface for DelegationConnector
     /// </summary>
-    [DefaultImplementationTypeAttribute(typeof(MediaStoreSystem))]
-    [XmlDefaultImplementationTypeAttribute(typeof(MediaStoreSystem))]
-    public interface IMediaStoreSystem : IModelElement, ISystemArchitecture
+    [DefaultImplementationTypeAttribute(typeof(DelegationConnector))]
+    [XmlDefaultImplementationTypeAttribute(typeof(DelegationConnector))]
+    public interface IDelegationConnector : IModelElement
     {
         
         /// <summary>
-        /// The Frontend property
+        /// The Port property
         /// </summary>
-        IHTTP Frontend
+        IRequiredInterface Port
         {
             get;
             set;
         }
         
         /// <summary>
-        /// Gets fired when the Frontend property changed its value
+        /// Gets fired when the Port property changed its value
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> FrontendChanged;
+        event EventHandler<ValueChangedEventArgs> PortChanged;
+        
+        /// <summary>
+        /// Gets the Delegate for this model element
+        /// </summary>
+        IDelegate GetDelegate();
     }
 }
 

@@ -30,23 +30,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NMF.Collections">
-      <HintPath>..\..\..\..\Projekte\NMF\Models\Models\bin\Debug\NMF.Collections.dll</HintPath>
+    <Reference Include="NMF.Collections, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMFRepository.1.0.4\lib\net40\NMF.Collections.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="NMF.Expressions">
-      <HintPath>..\..\..\..\Projekte\NMF\Models\Models\bin\Debug\NMF.Expressions.dll</HintPath>
+    <Reference Include="NMF.Expressions, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMFExpressions.1.0.4\lib\net40\NMF.Expressions.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="NMF.Expressions.Linq">
-      <HintPath>..\..\..\..\Projekte\NMF\Models\Models\bin\Debug\NMF.Expressions.Linq.dll</HintPath>
+    <Reference Include="NMF.Expressions.Linq, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMFExpressions.1.0.4\lib\net40\NMF.Expressions.Linq.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="NMF.Models">
-      <HintPath>..\..\..\..\Projekte\NMF\Models\Models\bin\Debug\NMF.Models.dll</HintPath>
+    <Reference Include="NMF.Models, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMFRepository.1.0.4\lib\net40\NMF.Models.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="NMF.Serialization">
-      <HintPath>..\..\..\..\Projekte\NMF\Models\Models\bin\Debug\NMF.Serialization.dll</HintPath>
+    <Reference Include="NMF.Serialization, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMFRepository.1.0.4\lib\net40\NMF.Serialization.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="NMF.Utilities">
-      <HintPath>..\..\..\..\Projekte\NMF\Models\Models\bin\Debug\NMF.Utilities.dll</HintPath>
+    <Reference Include="NMF.Utilities, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMFRepository.1.0.4\lib\net40\NMF.Utilities.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -57,21 +63,48 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MediaStoreRepository\IMediaStore.cs" />
-    <Compile Include="MediaStoreRepository\IMediaStoreInterface.cs" />
+    <Compile Include="MediaStoreRepository\AudioDBInterface.cs" />
+    <Compile Include="MediaStoreRepository\AudioStore.cs" />
+    <Compile Include="MediaStoreRepository\AudioStoreInterface.cs" />
+    <Compile Include="MediaStoreRepository\CommandInterface.cs" />
+    <Compile Include="MediaStoreRepository\ConnectionInterface.cs" />
+    <Compile Include="MediaStoreRepository\DataReaderInterface.cs" />
+    <Compile Include="MediaStoreRepository\DBAdapter.cs" />
+    <Compile Include="MediaStoreRepository\EncoderInterface.cs" />
+    <Compile Include="MediaStoreRepository\EncodingAdapter.cs" />
+    <Compile Include="MediaStoreRepository\HTTP.cs" />
+    <Compile Include="MediaStoreRepository\IAudioDBInterface.cs" />
+    <Compile Include="MediaStoreRepository\IAudioStore.cs" />
+    <Compile Include="MediaStoreRepository\IAudioStoreInterface.cs" />
+    <Compile Include="MediaStoreRepository\ICommandInterface.cs" />
+    <Compile Include="MediaStoreRepository\IConnectionInterface.cs" />
+    <Compile Include="MediaStoreRepository\IDataReaderInterface.cs" />
+    <Compile Include="MediaStoreRepository\IDBAdapter.cs" />
+    <Compile Include="MediaStoreRepository\IEncoderInterface.cs" />
+    <Compile Include="MediaStoreRepository\IEncodingAdapter.cs" />
+    <Compile Include="MediaStoreRepository\IHTTP.cs" />
     <Compile Include="MediaStoreRepository\IMediaStoreSystem.cs" />
-    <Compile Include="MediaStoreRepository\IWatermark.cs" />
-    <Compile Include="MediaStoreRepository\IWatermarkInterface.cs" />
-    <Compile Include="MediaStoreRepository\MediaStore.cs" />
-    <Compile Include="MediaStoreRepository\MediaStoreInterface.cs" />
+    <Compile Include="MediaStoreRepository\IMySqlClient.cs" />
+    <Compile Include="MediaStoreRepository\IOggEncoder.cs" />
+    <Compile Include="MediaStoreRepository\IUserDBInterface.cs" />
+    <Compile Include="MediaStoreRepository\IUserManagement.cs" />
+    <Compile Include="MediaStoreRepository\IUserManagementInterface.cs" />
+    <Compile Include="MediaStoreRepository\IWebBrowser.cs" />
+    <Compile Include="MediaStoreRepository\IWebForm.cs" />
     <Compile Include="MediaStoreRepository\MediaStoreSystem.cs" />
-    <Compile Include="MediaStoreRepository\Watermark.cs" />
-    <Compile Include="MediaStoreRepository\WatermarkInterface.cs" />
+    <Compile Include="MediaStoreRepository\MySqlClient.cs" />
+    <Compile Include="MediaStoreRepository\OggEncoder.cs" />
+    <Compile Include="MediaStoreRepository\UserDBInterface.cs" />
+    <Compile Include="MediaStoreRepository\UserManagement.cs" />
+    <Compile Include="MediaStoreRepository\UserManagementInterface.cs" />
+    <Compile Include="MediaStoreRepository\WebBrowser.cs" />
+    <Compile Include="MediaStoreRepository\WebForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\MediaStoreRepository.nmf">
       <Link>MediaStoreRepository.nmf</Link>
+      <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -81,6 +114,7 @@
       <Name>DeepADL</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

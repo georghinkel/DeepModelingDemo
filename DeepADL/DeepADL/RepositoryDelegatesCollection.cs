@@ -8,7 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using FZI.SoftwareEngineering.DeepModeling.DeepADL;
 using NMF.Collections.Generic;
 using NMF.Collections.ObjectModel;
 using NMF.Expressions;
@@ -27,31 +26,39 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 
-namespace FZI.SoftwareEngineering.DeepModeling.Repository
+namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
 {
     
     
-    /// <summary>
-    /// The public interface for MediaStore
-    /// </summary>
-    [DefaultImplementationTypeAttribute(typeof(MediaStore))]
-    [XmlDefaultImplementationTypeAttribute(typeof(MediaStore))]
-    public interface IMediaStore : IModelElement, IMediaStoreInterface, IAssemblyContext
+    public class RepositoryDelegatesCollection : ObservableOppositeList<IRepository, IDelegate>
     {
         
-        /// <summary>
-        /// The Watermarking property
-        /// </summary>
-        IWatermarkInterface Watermarking
+        public RepositoryDelegatesCollection(IRepository parent) : 
+                base(parent)
         {
-            get;
-            set;
         }
         
-        /// <summary>
-        /// Gets fired when the Watermarking property changed its value
-        /// </summary>
-        event EventHandler<ValueChangedEventArgs> WatermarkingChanged;
+        private void OnItemDeleted(object sender, EventArgs e)
+        {
+            this.Remove(((IDelegate)(sender)));
+        }
+        
+        protected override void SetOpposite(IDelegate item, IRepository parent)
+        {
+            if ((parent != null))
+            {
+                item.Deleted += this.OnItemDeleted;
+                item.Repository = parent;
+            }
+            else
+            {
+                item.Deleted -= this.OnItemDeleted;
+                if ((item.Repository == this.Parent))
+                {
+                    item.Repository = parent;
+                }
+            }
+        }
     }
 }
 

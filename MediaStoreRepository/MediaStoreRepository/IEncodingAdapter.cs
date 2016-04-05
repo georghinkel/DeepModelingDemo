@@ -32,12 +32,40 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
     
     
     /// <summary>
-    /// The public interface for WatermarkInterface
+    /// The public interface for EncodingAdapter
     /// </summary>
-    [DefaultImplementationTypeAttribute(typeof(WatermarkInterface))]
-    [XmlDefaultImplementationTypeAttribute(typeof(WatermarkInterface))]
-    public interface IWatermarkInterface : IModelElement, IAssemblyContext
+    [DefaultImplementationTypeAttribute(typeof(EncodingAdapter))]
+    [XmlDefaultImplementationTypeAttribute(typeof(EncodingAdapter))]
+    public interface IEncodingAdapter : IModelElement, IAudioDBInterface, IAssemblyContext
     {
+        
+        /// <summary>
+        /// The encoder property
+        /// </summary>
+        IEncoderInterface Encoder
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// The database property
+        /// </summary>
+        IAudioDBInterface Database
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Gets fired when the Encoder property changed its value
+        /// </summary>
+        event EventHandler<ValueChangedEventArgs> EncoderChanged;
+        
+        /// <summary>
+        /// Gets fired when the Database property changed its value
+        /// </summary>
+        event EventHandler<ValueChangedEventArgs> DatabaseChanged;
     }
 }
 

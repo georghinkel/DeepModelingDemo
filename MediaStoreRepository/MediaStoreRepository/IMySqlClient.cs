@@ -32,26 +32,12 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
     
     
     /// <summary>
-    /// The public interface for MediaStoreSystem
+    /// The public interface for MySqlClient
     /// </summary>
-    [DefaultImplementationTypeAttribute(typeof(MediaStoreSystem))]
-    [XmlDefaultImplementationTypeAttribute(typeof(MediaStoreSystem))]
-    public interface IMediaStoreSystem : IModelElement, ISystemArchitecture
+    [DefaultImplementationTypeAttribute(typeof(MySqlClient))]
+    [XmlDefaultImplementationTypeAttribute(typeof(MySqlClient))]
+    public interface IMySqlClient : IModelElement, IDataReaderInterface, IConnectionInterface, ICommandInterface, IAssemblyContext
     {
-        
-        /// <summary>
-        /// The Frontend property
-        /// </summary>
-        IHTTP Frontend
-        {
-            get;
-            set;
-        }
-        
-        /// <summary>
-        /// Gets fired when the Frontend property changed its value
-        /// </summary>
-        event EventHandler<ValueChangedEventArgs> FrontendChanged;
     }
 }
 

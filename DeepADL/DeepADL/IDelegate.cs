@@ -8,7 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using FZI.SoftwareEngineering.DeepModeling.DeepADL;
 using NMF.Collections.Generic;
 using NMF.Collections.ObjectModel;
 using NMF.Expressions;
@@ -27,31 +26,45 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 
-namespace FZI.SoftwareEngineering.DeepModeling.Repository
+namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
 {
     
     
     /// <summary>
-    /// The public interface for MediaStoreSystem
+    /// The public interface for Delegate
     /// </summary>
-    [DefaultImplementationTypeAttribute(typeof(MediaStoreSystem))]
-    [XmlDefaultImplementationTypeAttribute(typeof(MediaStoreSystem))]
-    public interface IMediaStoreSystem : IModelElement, ISystemArchitecture
+    [DefaultImplementationTypeAttribute(typeof(Delegate))]
+    [XmlDefaultImplementationTypeAttribute(typeof(Delegate))]
+    public interface IDelegate : IModelElement, IClass
     {
         
         /// <summary>
-        /// The Frontend property
+        /// The Repository property
         /// </summary>
-        IHTTP Frontend
+        IRepository Repository
         {
             get;
             set;
         }
         
         /// <summary>
-        /// Gets fired when the Frontend property changed its value
+        /// The Type property
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> FrontendChanged;
+        IInterface Type
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Gets fired when the Repository property changed its value
+        /// </summary>
+        event EventHandler<ValueChangedEventArgs> RepositoryChanged;
+        
+        /// <summary>
+        /// Gets fired when the Type property changed its value
+        /// </summary>
+        event EventHandler<ValueChangedEventArgs> TypeChanged;
     }
 }
 

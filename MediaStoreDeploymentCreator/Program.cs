@@ -16,7 +16,7 @@ namespace MediaStoreAssemblyCreator
     {
         static void Main(string[] args)
         {
-            var uri = new Uri("http://github.com/georghinkel/mediaStore/Assembly");
+            var uri = new Uri("http://github.com/georghinkel/mediaStore/Deployment");
             var mediaStoreL2 = CreateMediaStoreDeployment(uri);
             var model = new Model()
             {
@@ -36,8 +36,13 @@ namespace MediaStoreAssemblyCreator
             computeEnvironment.Container.Add(appServer);
             var deployment = new MediaStore();
             deployment.Environment = computeEnvironment;
-            deployment.MediaStore1 = appServer;
-            deployment.Watermark1 = appServer;
+            deployment.WebForm = appServer;
+            deployment.AudioStore = appServer;
+            deployment.UserManagement = appServer;
+            deployment.OggEncoder = appServer;
+            deployment.EncodingAdapter = appServer;
+            deployment.DBAdapter = appServer;
+            deployment.MySqlClient = appServer;
             return deployment;
         }
     }

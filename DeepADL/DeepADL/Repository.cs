@@ -56,6 +56,11 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         private RepositorySystemSpecificationsCollection _systemSpecifications;
         
         /// <summary>
+        /// The backing field for the Delegates property
+        /// </summary>
+        private RepositoryDelegatesCollection _delegates;
+        
+        /// <summary>
         /// The backing field for the Uri property
         /// </summary>
         private Uri _uri;
@@ -73,6 +78,8 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             this._interfaces.CollectionChanged += this.InterfacesCollectionChanged;
             this._systemSpecifications = new RepositorySystemSpecificationsCollection(this);
             this._systemSpecifications.CollectionChanged += this.SystemSpecificationsCollectionChanged;
+            this._delegates = new RepositoryDelegatesCollection(this);
+            this._delegates.CollectionChanged += this.DelegatesCollectionChanged;
         }
         
         /// <summary>
@@ -120,6 +127,22 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             get
             {
                 return this._systemSpecifications;
+            }
+        }
+        
+        /// <summary>
+        /// The Delegates property
+        /// </summary>
+        [DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Content)]
+        [XmlAttributeAttribute(false)]
+        [ContainmentAttribute()]
+        [XmlOppositeAttribute("Repository")]
+        [ConstantAttribute()]
+        public virtual ICollectionExpression<IDelegate> Delegates
+        {
+            get
+            {
+                return this._delegates;
             }
         }
         
@@ -280,6 +303,16 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         }
         
         /// <summary>
+        /// Forwards change notifications for the Delegates property to the parent model element
+        /// </summary>
+        /// <param name="sender">The collection that raised the change</param>
+        /// <param name="e">The original event data</param>
+        private void DelegatesCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            this.OnCollectionChanged("Delegates", e);
+        }
+        
+        /// <summary>
         /// Raises the UriChanged event
         /// </summary>
         /// <param name="eventArgs">The event data</param>
@@ -377,6 +410,10 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             {
                 return this._systemSpecifications;
             }
+            if ((feature == "DELEGATES"))
+            {
+                return this._delegates;
+            }
             return base.GetCollectionForFeature(feature);
         }
         
@@ -468,6 +505,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                     count = (count + this._parent.ComponentTypes.Count);
                     count = (count + this._parent.Interfaces.Count);
                     count = (count + this._parent.SystemSpecifications.Count);
+                    count = (count + this._parent.Delegates.Count);
                     return count;
                 }
             }
@@ -477,6 +515,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 this._parent.ComponentTypes.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
                 this._parent.Interfaces.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
                 this._parent.SystemSpecifications.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
+                this._parent.Delegates.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
             }
             
             protected override void DetachCore()
@@ -484,6 +523,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 this._parent.ComponentTypes.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
                 this._parent.Interfaces.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
                 this._parent.SystemSpecifications.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
+                this._parent.Delegates.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
             }
             
             /// <summary>
@@ -507,6 +547,11 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 {
                     this._parent.SystemSpecifications.Add(systemSpecificationsCasted);
                 }
+                IDelegate delegatesCasted = item.As<IDelegate>();
+                if ((delegatesCasted != null))
+                {
+                    this._parent.Delegates.Add(delegatesCasted);
+                }
             }
             
             /// <summary>
@@ -517,6 +562,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 this._parent.ComponentTypes.Clear();
                 this._parent.Interfaces.Clear();
                 this._parent.SystemSpecifications.Clear();
+                this._parent.Delegates.Clear();
             }
             
             /// <summary>
@@ -535,6 +581,10 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                     return true;
                 }
                 if (this._parent.SystemSpecifications.Contains(item))
+                {
+                    return true;
+                }
+                if (this._parent.Delegates.Contains(item))
                 {
                     return true;
                 }
@@ -593,6 +643,21 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 {
                     systemSpecificationsEnumerator.Dispose();
                 }
+                IEnumerator<IModelElement> delegatesEnumerator = this._parent.Delegates.GetEnumerator();
+                try
+                {
+                    for (
+                    ; delegatesEnumerator.MoveNext(); 
+                    )
+                    {
+                        array[arrayIndex] = delegatesEnumerator.Current;
+                        arrayIndex = (arrayIndex + 1);
+                    }
+                }
+                finally
+                {
+                    delegatesEnumerator.Dispose();
+                }
             }
             
             /// <summary>
@@ -620,6 +685,12 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 {
                     return true;
                 }
+                IDelegate delegateItem = item.As<IDelegate>();
+                if (((delegateItem != null) 
+                            && this._parent.Delegates.Remove(delegateItem)))
+                {
+                    return true;
+                }
                 return false;
             }
             
@@ -629,7 +700,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// <returns>A generic enumerator</returns>
             public override IEnumerator<IModelElement> GetEnumerator()
             {
-                return Enumerable.Empty<IModelElement>().Concat(this._parent.ComponentTypes).Concat(this._parent.Interfaces).Concat(this._parent.SystemSpecifications).GetEnumerator();
+                return Enumerable.Empty<IModelElement>().Concat(this._parent.ComponentTypes).Concat(this._parent.Interfaces).Concat(this._parent.SystemSpecifications).Concat(this._parent.Delegates).GetEnumerator();
             }
         }
         
@@ -660,6 +731,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                     count = (count + this._parent.ComponentTypes.Count);
                     count = (count + this._parent.Interfaces.Count);
                     count = (count + this._parent.SystemSpecifications.Count);
+                    count = (count + this._parent.Delegates.Count);
                     if ((this._parent.ParentNamespace != null))
                     {
                         count = (count + 1);
@@ -673,6 +745,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 this._parent.ComponentTypes.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
                 this._parent.Interfaces.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
                 this._parent.SystemSpecifications.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
+                this._parent.Delegates.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
                 this._parent.ParentNamespaceChanged += this.PropagateValueChanges;
             }
             
@@ -681,6 +754,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 this._parent.ComponentTypes.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
                 this._parent.Interfaces.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
                 this._parent.SystemSpecifications.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
+                this._parent.Delegates.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
                 this._parent.ParentNamespaceChanged -= this.PropagateValueChanges;
             }
             
@@ -705,6 +779,11 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 {
                     this._parent.SystemSpecifications.Add(systemSpecificationsCasted);
                 }
+                IDelegate delegatesCasted = item.As<IDelegate>();
+                if ((delegatesCasted != null))
+                {
+                    this._parent.Delegates.Add(delegatesCasted);
+                }
                 if ((this._parent.ParentNamespace == null))
                 {
                     INamespace parentNamespaceCasted = item.As<INamespace>();
@@ -724,6 +803,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 this._parent.ComponentTypes.Clear();
                 this._parent.Interfaces.Clear();
                 this._parent.SystemSpecifications.Clear();
+                this._parent.Delegates.Clear();
                 this._parent.ParentNamespace = null;
             }
             
@@ -743,6 +823,10 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                     return true;
                 }
                 if (this._parent.SystemSpecifications.Contains(item))
+                {
+                    return true;
+                }
+                if (this._parent.Delegates.Contains(item))
                 {
                     return true;
                 }
@@ -805,6 +889,21 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 {
                     systemSpecificationsEnumerator.Dispose();
                 }
+                IEnumerator<IModelElement> delegatesEnumerator = this._parent.Delegates.GetEnumerator();
+                try
+                {
+                    for (
+                    ; delegatesEnumerator.MoveNext(); 
+                    )
+                    {
+                        array[arrayIndex] = delegatesEnumerator.Current;
+                        arrayIndex = (arrayIndex + 1);
+                    }
+                }
+                finally
+                {
+                    delegatesEnumerator.Dispose();
+                }
                 if ((this._parent.ParentNamespace != null))
                 {
                     array[arrayIndex] = this._parent.ParentNamespace;
@@ -837,6 +936,12 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 {
                     return true;
                 }
+                IDelegate delegateItem = item.As<IDelegate>();
+                if (((delegateItem != null) 
+                            && this._parent.Delegates.Remove(delegateItem)))
+                {
+                    return true;
+                }
                 if ((this._parent.ParentNamespace == item))
                 {
                     this._parent.ParentNamespace = null;
@@ -851,7 +956,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// <returns>A generic enumerator</returns>
             public override IEnumerator<IModelElement> GetEnumerator()
             {
-                return Enumerable.Empty<IModelElement>().Concat(this._parent.ComponentTypes).Concat(this._parent.Interfaces).Concat(this._parent.SystemSpecifications).Concat(this._parent.ParentNamespace).GetEnumerator();
+                return Enumerable.Empty<IModelElement>().Concat(this._parent.ComponentTypes).Concat(this._parent.Interfaces).Concat(this._parent.SystemSpecifications).Concat(this._parent.Delegates).Concat(this._parent.ParentNamespace).GetEnumerator();
             }
         }
         

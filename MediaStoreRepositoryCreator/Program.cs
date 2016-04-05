@@ -34,71 +34,198 @@ namespace MediaStoreRepositoryCreator
         {
             var mediaStoreL1 = new Repository() { Name = "Repository", Uri = uri, Prefix = "repo" };
 
-            var iMediaStore = new Interface()
+            var iAudioStore = new Interface()
             {
-                Name = "MediaStoreInterface"
+                Name = "AudioStoreInterface"
             };
-            mediaStoreL1.Interfaces.Add(iMediaStore);
+            mediaStoreL1.Interfaces.Add(iAudioStore);
 
-            var iWatermark = new Interface()
+            var iEncoder = new Interface()
             {
-                Name = "WatermarkInterface"
+                Name = "EncoderInterface"
             };
-            mediaStoreL1.Interfaces.Add(iWatermark);
+            mediaStoreL1.Interfaces.Add(iEncoder);
 
-            var mediaStore = new ComponentType()
+            var iAudioDB = new Interface()
             {
-                Name = "MediaStore"
+                Name = "AudioDBInterface"
             };
-            mediaStoreL1.ComponentTypes.Add(mediaStore);
+            mediaStoreL1.Interfaces.Add(iAudioDB);
 
-            var mediaStoreEncryption = new RequiredInterface()
+            var iUserManagement = new Interface()
             {
-                Interface = iWatermark,
-                Name = "Watermarking"
+                Name = "UserManagementInterface"
             };
+            mediaStoreL1.Interfaces.Add(iUserManagement);
 
-            var watermark = new ComponentType()
+            var iUserDB = new Interface()
             {
-                Name = "Watermark"
+                Name = "UserDBInterface"
             };
-            mediaStoreL1.ComponentTypes.Add(watermark);
+            mediaStoreL1.Interfaces.Add(iUserDB);
 
-            mediaStore.ProvidedInterfaces.Add(iMediaStore);
-            mediaStore.RequiredInterfaces.Add(mediaStoreEncryption);
+            var iCommand = new Interface()
+            {
+                Name = "CommandInterface"
+            };
+            mediaStoreL1.Interfaces.Add(iCommand);
 
-            watermark.ProvidedInterfaces.Add(iWatermark);
+            var iConnection = new Interface()
+            {
+                Name = "ConnectionInterface"
+            };
+            mediaStoreL1.Interfaces.Add(iConnection);
 
-            var watermarkEncrypt = new Signature() { Name = "Encrypt" };
-            var watermarkDecrypt = new Signature() { Name = "Decrypt" };
-            iWatermark.Signatures.Add(watermarkEncrypt);
-            iWatermark.Signatures.Add(watermarkDecrypt);
+            var iDataReaderInterface = new Interface()
+            {
+                Name = "DataReaderInterface"
+            };
+            mediaStoreL1.Interfaces.Add(iDataReaderInterface);
 
-            var mediaStoreUpload = new Signature() { Name = "Upload" };
-            var mediaStoreDownload = new Signature() { Name = "Download" };
-            iMediaStore.Signatures.Add(mediaStoreUpload);
-            iMediaStore.Signatures.Add(mediaStoreDownload);
+            var http = new Interface()
+            {
+                Name = "HTTP"
+            };
+            mediaStoreL1.Interfaces.Add(http);
 
-            watermark.Services.Add(new Service()
+            var webBrowser = new ComponentType()
+            {
+                Name = "WebBrowser"
+            };
+            webBrowser.RequiredInterfaces.Add(new RequiredInterface()
+            {
+                Name = "backend",
+                Interface = http
+            });
+            mediaStoreL1.ComponentTypes.Add(webBrowser);
+
+            var webForm = new ComponentType()
+            {
+                Name = "WebForm"
+            };
+            webForm.ProvidedInterfaces.Add(http);
+            webForm.RequiredInterfaces.Add(new RequiredInterface()
+            {
+                Name = "application",
+                Interface = iAudioStore
+            });
+            mediaStoreL1.ComponentTypes.Add(webForm);
+
+            var audioStore = new ComponentType()
+            {
+                Name = "AudioStore"
+            };
+            audioStore.ProvidedInterfaces.Add(iAudioStore);
+            audioStore.RequiredInterfaces.Add(new RequiredInterface()
+            {
+                Name = "audioDB",
+                Interface = iAudioDB
+            });
+            audioStore.RequiredInterfaces.Add(new RequiredInterface()
+            {
+                Name = "userManagement",
+                Interface = iUserManagement
+            });
+            mediaStoreL1.ComponentTypes.Add(audioStore);
+
+            var encodingAdapter = new ComponentType()
+            {
+                Name = "EncodingAdapter"
+            };
+            encodingAdapter.ProvidedInterfaces.Add(iAudioDB);
+            encodingAdapter.RequiredInterfaces.Add(new RequiredInterface()
+            {
+                Name = "encoder",
+                Interface = iEncoder
+            });
+            encodingAdapter.RequiredInterfaces.Add(new RequiredInterface()
+            {
+                Name = "database",
+                Interface = iAudioDB
+            });
+            mediaStoreL1.ComponentTypes.Add(encodingAdapter);
+
+            var oggEncoder = new ComponentType()
+            {
+                Name = "OggEncoder"
+            };
+            oggEncoder.ProvidedInterfaces.Add(iEncoder);
+            mediaStoreL1.ComponentTypes.Add(oggEncoder);
+
+            var userMgmt = new ComponentType()
+            {
+                Name = "UserManagement"
+            };
+            userMgmt.ProvidedInterfaces.Add(iUserManagement);
+            userMgmt.RequiredInterfaces.Add(new RequiredInterface()
+            {
+                Name = "database",
+                Interface = iUserDB
+            });
+            mediaStoreL1.ComponentTypes.Add(userMgmt);
+
+            var dbadapter = new ComponentType()
+            {
+                Name = "DBAdapter"
+            };
+            dbadapter.ProvidedInterfaces.Add(iUserDB);
+            dbadapter.ProvidedInterfaces.Add(iAudioDB);
+            dbadapter.RequiredInterfaces.Add(new RequiredInterface()
+            {
+                Name = "command",
+                Interface = iCommand
+            });
+            dbadapter.RequiredInterfaces.Add(new RequiredInterface()
+            {
+                Name = "connection",
+                Interface = iConnection
+            });
+            dbadapter.RequiredInterfaces.Add(new RequiredInterface()
+            {
+                Name = "dataReader",
+                Interface = iDataReaderInterface
+            });
+            mediaStoreL1.ComponentTypes.Add(dbadapter);
+
+            var database = new ComponentType()
+            {
+                Name = "MySqlClient"
+            };
+            database.ProvidedInterfaces.Add(iCommand);
+            database.ProvidedInterfaces.Add(iConnection);
+            database.ProvidedInterfaces.Add(iDataReaderInterface);
+            mediaStoreL1.ComponentTypes.Add(database);
+
+            var encrypt = new Signature() { Name = "Encrypt" };
+            var decrypt = new Signature() { Name = "Decrypt" };
+            iEncoder.Signatures.Add(encrypt);
+            iEncoder.Signatures.Add(decrypt);
+
+            var upload = new Signature() { Name = "Upload" };
+            var download = new Signature() { Name = "Download" };
+            iAudioStore.Signatures.Add(upload);
+            iAudioStore.Signatures.Add(download);
+
+            oggEncoder.Services.Add(new Service()
             {
                 Name = "Encrypt",
-                Implements = watermarkEncrypt
+                Implements = encrypt
             });
-            watermark.Services.Add(new Service()
+            oggEncoder.Services.Add(new Service()
             {
                 Name = "Decrypt",
-                Implements = watermarkDecrypt
+                Implements = decrypt
             });
 
-            mediaStore.Services.Add(new Service()
+            audioStore.Services.Add(new Service()
             {
                 Name = "Upload",
-                Implements = mediaStoreUpload
+                Implements = upload
             });
-            mediaStore.Services.Add(new Service()
+            audioStore.Services.Add(new Service()
             {
                 Name = "Download",
-                Implements = mediaStoreDownload
+                Implements = download
             });
 
             var mediaStoreSystem = new SystemSpecification()
@@ -108,7 +235,7 @@ namespace MediaStoreRepositoryCreator
             mediaStoreSystem.PublicInterfaces.Add(new RequiredInterface()
             {
                 Name = "Frontend",
-                Interface = iMediaStore
+                Interface = http
             });
             mediaStoreL1.SystemSpecifications.Add(mediaStoreSystem);
 

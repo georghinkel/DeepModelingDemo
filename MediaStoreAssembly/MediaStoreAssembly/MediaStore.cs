@@ -41,77 +41,267 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
     {
         
         /// <summary>
-        /// The backing field for the MediaStore1 property
+        /// The backing field for the WebForm property
         /// </summary>
-        private IResourceContainer _mediaStore1;
+        private IResourceContainer _webForm;
         
         /// <summary>
-        /// The backing field for the Watermark1 property
+        /// The backing field for the AudioStore property
         /// </summary>
-        private IResourceContainer _watermark1;
+        private IResourceContainer _audioStore;
         
         /// <summary>
-        /// The MediaStore1 property
+        /// The backing field for the UserManagement property
+        /// </summary>
+        private IResourceContainer _userManagement;
+        
+        /// <summary>
+        /// The backing field for the EncodingAdapter property
+        /// </summary>
+        private IResourceContainer _encodingAdapter;
+        
+        /// <summary>
+        /// The backing field for the OggEncoder property
+        /// </summary>
+        private IResourceContainer _oggEncoder;
+        
+        /// <summary>
+        /// The backing field for the DBAdapter property
+        /// </summary>
+        private IResourceContainer _dBAdapter;
+        
+        /// <summary>
+        /// The backing field for the MySqlClient property
+        /// </summary>
+        private IResourceContainer _mySqlClient;
+        
+        /// <summary>
+        /// The WebForm property
         /// </summary>
         [XmlAttributeAttribute(false)]
         [ContainmentAttribute()]
-        public virtual IResourceContainer MediaStore1
+        public virtual IResourceContainer WebForm
         {
             get
             {
-                return this._mediaStore1;
+                return this._webForm;
             }
             set
             {
-                if ((this._mediaStore1 != value))
+                if ((this._webForm != value))
                 {
-                    IResourceContainer old = this._mediaStore1;
-                    this._mediaStore1 = value;
+                    IResourceContainer old = this._webForm;
+                    this._webForm = value;
                     if ((old != null))
                     {
                         old.Parent = null;
-                        old.Deleted -= this.OnResetMediaStore1;
+                        old.Deleted -= this.OnResetWebForm;
                     }
                     if ((value != null))
                     {
                         value.Parent = this;
-                        value.Deleted += this.OnResetMediaStore1;
+                        value.Deleted += this.OnResetWebForm;
                     }
-                    this.OnPropertyChanged("MediaStore1");
-                    this.OnMediaStore1Changed(new ValueChangedEventArgs(old, value));
+                    this.OnPropertyChanged("WebForm");
+                    this.OnWebFormChanged(new ValueChangedEventArgs(old, value));
                 }
             }
         }
         
         /// <summary>
-        /// The Watermark1 property
+        /// The AudioStore property
         /// </summary>
         [XmlAttributeAttribute(false)]
         [ContainmentAttribute()]
-        public virtual IResourceContainer Watermark1
+        public virtual IResourceContainer AudioStore
         {
             get
             {
-                return this._watermark1;
+                return this._audioStore;
             }
             set
             {
-                if ((this._watermark1 != value))
+                if ((this._audioStore != value))
                 {
-                    IResourceContainer old = this._watermark1;
-                    this._watermark1 = value;
+                    IResourceContainer old = this._audioStore;
+                    this._audioStore = value;
                     if ((old != null))
                     {
                         old.Parent = null;
-                        old.Deleted -= this.OnResetWatermark1;
+                        old.Deleted -= this.OnResetAudioStore;
                     }
                     if ((value != null))
                     {
                         value.Parent = this;
-                        value.Deleted += this.OnResetWatermark1;
+                        value.Deleted += this.OnResetAudioStore;
                     }
-                    this.OnPropertyChanged("Watermark1");
-                    this.OnWatermark1Changed(new ValueChangedEventArgs(old, value));
+                    this.OnPropertyChanged("AudioStore");
+                    this.OnAudioStoreChanged(new ValueChangedEventArgs(old, value));
+                }
+            }
+        }
+        
+        /// <summary>
+        /// The UserManagement property
+        /// </summary>
+        [XmlAttributeAttribute(false)]
+        [ContainmentAttribute()]
+        public virtual IResourceContainer UserManagement
+        {
+            get
+            {
+                return this._userManagement;
+            }
+            set
+            {
+                if ((this._userManagement != value))
+                {
+                    IResourceContainer old = this._userManagement;
+                    this._userManagement = value;
+                    if ((old != null))
+                    {
+                        old.Parent = null;
+                        old.Deleted -= this.OnResetUserManagement;
+                    }
+                    if ((value != null))
+                    {
+                        value.Parent = this;
+                        value.Deleted += this.OnResetUserManagement;
+                    }
+                    this.OnPropertyChanged("UserManagement");
+                    this.OnUserManagementChanged(new ValueChangedEventArgs(old, value));
+                }
+            }
+        }
+        
+        /// <summary>
+        /// The EncodingAdapter property
+        /// </summary>
+        [XmlAttributeAttribute(false)]
+        [ContainmentAttribute()]
+        public virtual IResourceContainer EncodingAdapter
+        {
+            get
+            {
+                return this._encodingAdapter;
+            }
+            set
+            {
+                if ((this._encodingAdapter != value))
+                {
+                    IResourceContainer old = this._encodingAdapter;
+                    this._encodingAdapter = value;
+                    if ((old != null))
+                    {
+                        old.Parent = null;
+                        old.Deleted -= this.OnResetEncodingAdapter;
+                    }
+                    if ((value != null))
+                    {
+                        value.Parent = this;
+                        value.Deleted += this.OnResetEncodingAdapter;
+                    }
+                    this.OnPropertyChanged("EncodingAdapter");
+                    this.OnEncodingAdapterChanged(new ValueChangedEventArgs(old, value));
+                }
+            }
+        }
+        
+        /// <summary>
+        /// The OggEncoder property
+        /// </summary>
+        [XmlAttributeAttribute(false)]
+        [ContainmentAttribute()]
+        public virtual IResourceContainer OggEncoder
+        {
+            get
+            {
+                return this._oggEncoder;
+            }
+            set
+            {
+                if ((this._oggEncoder != value))
+                {
+                    IResourceContainer old = this._oggEncoder;
+                    this._oggEncoder = value;
+                    if ((old != null))
+                    {
+                        old.Parent = null;
+                        old.Deleted -= this.OnResetOggEncoder;
+                    }
+                    if ((value != null))
+                    {
+                        value.Parent = this;
+                        value.Deleted += this.OnResetOggEncoder;
+                    }
+                    this.OnPropertyChanged("OggEncoder");
+                    this.OnOggEncoderChanged(new ValueChangedEventArgs(old, value));
+                }
+            }
+        }
+        
+        /// <summary>
+        /// The DBAdapter property
+        /// </summary>
+        [XmlAttributeAttribute(false)]
+        [ContainmentAttribute()]
+        public virtual IResourceContainer DBAdapter
+        {
+            get
+            {
+                return this._dBAdapter;
+            }
+            set
+            {
+                if ((this._dBAdapter != value))
+                {
+                    IResourceContainer old = this._dBAdapter;
+                    this._dBAdapter = value;
+                    if ((old != null))
+                    {
+                        old.Parent = null;
+                        old.Deleted -= this.OnResetDBAdapter;
+                    }
+                    if ((value != null))
+                    {
+                        value.Parent = this;
+                        value.Deleted += this.OnResetDBAdapter;
+                    }
+                    this.OnPropertyChanged("DBAdapter");
+                    this.OnDBAdapterChanged(new ValueChangedEventArgs(old, value));
+                }
+            }
+        }
+        
+        /// <summary>
+        /// The MySqlClient property
+        /// </summary>
+        [XmlAttributeAttribute(false)]
+        [ContainmentAttribute()]
+        public virtual IResourceContainer MySqlClient
+        {
+            get
+            {
+                return this._mySqlClient;
+            }
+            set
+            {
+                if ((this._mySqlClient != value))
+                {
+                    IResourceContainer old = this._mySqlClient;
+                    this._mySqlClient = value;
+                    if ((old != null))
+                    {
+                        old.Parent = null;
+                        old.Deleted -= this.OnResetMySqlClient;
+                    }
+                    if ((value != null))
+                    {
+                        value.Parent = this;
+                        value.Deleted += this.OnResetMySqlClient;
+                    }
+                    this.OnPropertyChanged("MySqlClient");
+                    this.OnMySqlClientChanged(new ValueChangedEventArgs(old, value));
                 }
             }
         }
@@ -150,22 +340,47 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         }
         
         /// <summary>
-        /// Gets fired when the MediaStore1 property changed its value
+        /// Gets fired when the WebForm property changed its value
         /// </summary>
-        public event EventHandler<ValueChangedEventArgs> MediaStore1Changed;
+        public event EventHandler<ValueChangedEventArgs> WebFormChanged;
         
         /// <summary>
-        /// Gets fired when the Watermark1 property changed its value
+        /// Gets fired when the AudioStore property changed its value
         /// </summary>
-        public event EventHandler<ValueChangedEventArgs> Watermark1Changed;
+        public event EventHandler<ValueChangedEventArgs> AudioStoreChanged;
         
         /// <summary>
-        /// Raises the MediaStore1Changed event
+        /// Gets fired when the UserManagement property changed its value
+        /// </summary>
+        public event EventHandler<ValueChangedEventArgs> UserManagementChanged;
+        
+        /// <summary>
+        /// Gets fired when the EncodingAdapter property changed its value
+        /// </summary>
+        public event EventHandler<ValueChangedEventArgs> EncodingAdapterChanged;
+        
+        /// <summary>
+        /// Gets fired when the OggEncoder property changed its value
+        /// </summary>
+        public event EventHandler<ValueChangedEventArgs> OggEncoderChanged;
+        
+        /// <summary>
+        /// Gets fired when the DBAdapter property changed its value
+        /// </summary>
+        public event EventHandler<ValueChangedEventArgs> DBAdapterChanged;
+        
+        /// <summary>
+        /// Gets fired when the MySqlClient property changed its value
+        /// </summary>
+        public event EventHandler<ValueChangedEventArgs> MySqlClientChanged;
+        
+        /// <summary>
+        /// Raises the WebFormChanged event
         /// </summary>
         /// <param name="eventArgs">The event data</param>
-        protected virtual void OnMediaStore1Changed(ValueChangedEventArgs eventArgs)
+        protected virtual void OnWebFormChanged(ValueChangedEventArgs eventArgs)
         {
-            EventHandler<ValueChangedEventArgs> handler = this.MediaStore1Changed;
+            EventHandler<ValueChangedEventArgs> handler = this.WebFormChanged;
             if ((handler != null))
             {
                 handler.Invoke(this, eventArgs);
@@ -173,22 +388,22 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         }
         
         /// <summary>
-        /// Handles the event that the MediaStore1 property must reset
+        /// Handles the event that the WebForm property must reset
         /// </summary>
         /// <param name="sender">The object that sent this reset request</param>
         /// <param name="eventArgs">The event data for the reset event</param>
-        private void OnResetMediaStore1(object sender, EventArgs eventArgs)
+        private void OnResetWebForm(object sender, EventArgs eventArgs)
         {
-            this.MediaStore1 = null;
+            this.WebForm = null;
         }
         
         /// <summary>
-        /// Raises the Watermark1Changed event
+        /// Raises the AudioStoreChanged event
         /// </summary>
         /// <param name="eventArgs">The event data</param>
-        protected virtual void OnWatermark1Changed(ValueChangedEventArgs eventArgs)
+        protected virtual void OnAudioStoreChanged(ValueChangedEventArgs eventArgs)
         {
-            EventHandler<ValueChangedEventArgs> handler = this.Watermark1Changed;
+            EventHandler<ValueChangedEventArgs> handler = this.AudioStoreChanged;
             if ((handler != null))
             {
                 handler.Invoke(this, eventArgs);
@@ -196,13 +411,128 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         }
         
         /// <summary>
-        /// Handles the event that the Watermark1 property must reset
+        /// Handles the event that the AudioStore property must reset
         /// </summary>
         /// <param name="sender">The object that sent this reset request</param>
         /// <param name="eventArgs">The event data for the reset event</param>
-        private void OnResetWatermark1(object sender, EventArgs eventArgs)
+        private void OnResetAudioStore(object sender, EventArgs eventArgs)
         {
-            this.Watermark1 = null;
+            this.AudioStore = null;
+        }
+        
+        /// <summary>
+        /// Raises the UserManagementChanged event
+        /// </summary>
+        /// <param name="eventArgs">The event data</param>
+        protected virtual void OnUserManagementChanged(ValueChangedEventArgs eventArgs)
+        {
+            EventHandler<ValueChangedEventArgs> handler = this.UserManagementChanged;
+            if ((handler != null))
+            {
+                handler.Invoke(this, eventArgs);
+            }
+        }
+        
+        /// <summary>
+        /// Handles the event that the UserManagement property must reset
+        /// </summary>
+        /// <param name="sender">The object that sent this reset request</param>
+        /// <param name="eventArgs">The event data for the reset event</param>
+        private void OnResetUserManagement(object sender, EventArgs eventArgs)
+        {
+            this.UserManagement = null;
+        }
+        
+        /// <summary>
+        /// Raises the EncodingAdapterChanged event
+        /// </summary>
+        /// <param name="eventArgs">The event data</param>
+        protected virtual void OnEncodingAdapterChanged(ValueChangedEventArgs eventArgs)
+        {
+            EventHandler<ValueChangedEventArgs> handler = this.EncodingAdapterChanged;
+            if ((handler != null))
+            {
+                handler.Invoke(this, eventArgs);
+            }
+        }
+        
+        /// <summary>
+        /// Handles the event that the EncodingAdapter property must reset
+        /// </summary>
+        /// <param name="sender">The object that sent this reset request</param>
+        /// <param name="eventArgs">The event data for the reset event</param>
+        private void OnResetEncodingAdapter(object sender, EventArgs eventArgs)
+        {
+            this.EncodingAdapter = null;
+        }
+        
+        /// <summary>
+        /// Raises the OggEncoderChanged event
+        /// </summary>
+        /// <param name="eventArgs">The event data</param>
+        protected virtual void OnOggEncoderChanged(ValueChangedEventArgs eventArgs)
+        {
+            EventHandler<ValueChangedEventArgs> handler = this.OggEncoderChanged;
+            if ((handler != null))
+            {
+                handler.Invoke(this, eventArgs);
+            }
+        }
+        
+        /// <summary>
+        /// Handles the event that the OggEncoder property must reset
+        /// </summary>
+        /// <param name="sender">The object that sent this reset request</param>
+        /// <param name="eventArgs">The event data for the reset event</param>
+        private void OnResetOggEncoder(object sender, EventArgs eventArgs)
+        {
+            this.OggEncoder = null;
+        }
+        
+        /// <summary>
+        /// Raises the DBAdapterChanged event
+        /// </summary>
+        /// <param name="eventArgs">The event data</param>
+        protected virtual void OnDBAdapterChanged(ValueChangedEventArgs eventArgs)
+        {
+            EventHandler<ValueChangedEventArgs> handler = this.DBAdapterChanged;
+            if ((handler != null))
+            {
+                handler.Invoke(this, eventArgs);
+            }
+        }
+        
+        /// <summary>
+        /// Handles the event that the DBAdapter property must reset
+        /// </summary>
+        /// <param name="sender">The object that sent this reset request</param>
+        /// <param name="eventArgs">The event data for the reset event</param>
+        private void OnResetDBAdapter(object sender, EventArgs eventArgs)
+        {
+            this.DBAdapter = null;
+        }
+        
+        /// <summary>
+        /// Raises the MySqlClientChanged event
+        /// </summary>
+        /// <param name="eventArgs">The event data</param>
+        protected virtual void OnMySqlClientChanged(ValueChangedEventArgs eventArgs)
+        {
+            EventHandler<ValueChangedEventArgs> handler = this.MySqlClientChanged;
+            if ((handler != null))
+            {
+                handler.Invoke(this, eventArgs);
+            }
+        }
+        
+        /// <summary>
+        /// Handles the event that the MySqlClient property must reset
+        /// </summary>
+        /// <param name="sender">The object that sent this reset request</param>
+        /// <param name="eventArgs">The event data for the reset event</param>
+        private void OnResetMySqlClient(object sender, EventArgs eventArgs)
+        {
+            this.MySqlClient = null;
         }
         
         /// <summary>
@@ -212,13 +542,33 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         /// <param name="element">The element that should be looked for</param>
         protected override string GetRelativePathForNonIdentifiedChild(IModelElement element)
         {
-            if ((element == this.MediaStore1))
+            if ((element == this.WebForm))
             {
-                return ModelHelper.CreatePath("MediaStore1");
+                return ModelHelper.CreatePath("WebForm");
             }
-            if ((element == this.Watermark1))
+            if ((element == this.AudioStore))
             {
-                return ModelHelper.CreatePath("Watermark1");
+                return ModelHelper.CreatePath("AudioStore");
+            }
+            if ((element == this.UserManagement))
+            {
+                return ModelHelper.CreatePath("UserManagement");
+            }
+            if ((element == this.EncodingAdapter))
+            {
+                return ModelHelper.CreatePath("EncodingAdapter");
+            }
+            if ((element == this.OggEncoder))
+            {
+                return ModelHelper.CreatePath("OggEncoder");
+            }
+            if ((element == this.DBAdapter))
+            {
+                return ModelHelper.CreatePath("DBAdapter");
+            }
+            if ((element == this.MySqlClient))
+            {
+                return ModelHelper.CreatePath("MySqlClient");
             }
             return base.GetRelativePathForNonIdentifiedChild(element);
         }
@@ -231,13 +581,33 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         /// <param name="index">The index of this reference</param>
         protected override IModelElement GetModelElementForReference(string reference, int index)
         {
-            if ((reference == "MEDIASTORE1"))
+            if ((reference == "WEBFORM"))
             {
-                return this.MediaStore1;
+                return this.WebForm;
             }
-            if ((reference == "WATERMARK1"))
+            if ((reference == "AUDIOSTORE"))
             {
-                return this.Watermark1;
+                return this.AudioStore;
+            }
+            if ((reference == "USERMANAGEMENT"))
+            {
+                return this.UserManagement;
+            }
+            if ((reference == "ENCODINGADAPTER"))
+            {
+                return this.EncodingAdapter;
+            }
+            if ((reference == "OGGENCODER"))
+            {
+                return this.OggEncoder;
+            }
+            if ((reference == "DBADAPTER"))
+            {
+                return this.DBAdapter;
+            }
+            if ((reference == "MYSQLCLIENT"))
+            {
+                return this.MySqlClient;
             }
             return base.GetModelElementForReference(reference, index);
         }
@@ -249,14 +619,39 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         /// <param name="value">The value that should be set to that feature</param>
         protected override void SetFeature(string feature, object value)
         {
-            if ((feature == "MEDIASTORE1"))
+            if ((feature == "WEBFORM"))
             {
-                this.MediaStore1 = ((IResourceContainer)(value));
+                this.WebForm = ((IResourceContainer)(value));
                 return;
             }
-            if ((feature == "WATERMARK1"))
+            if ((feature == "AUDIOSTORE"))
             {
-                this.Watermark1 = ((IResourceContainer)(value));
+                this.AudioStore = ((IResourceContainer)(value));
+                return;
+            }
+            if ((feature == "USERMANAGEMENT"))
+            {
+                this.UserManagement = ((IResourceContainer)(value));
+                return;
+            }
+            if ((feature == "ENCODINGADAPTER"))
+            {
+                this.EncodingAdapter = ((IResourceContainer)(value));
+                return;
+            }
+            if ((feature == "OGGENCODER"))
+            {
+                this.OggEncoder = ((IResourceContainer)(value));
+                return;
+            }
+            if ((feature == "DBADAPTER"))
+            {
+                this.DBAdapter = ((IResourceContainer)(value));
+                return;
+            }
+            if ((feature == "MYSQLCLIENT"))
+            {
+                this.MySqlClient = ((IResourceContainer)(value));
                 return;
             }
             base.SetFeature(feature, value);
@@ -269,13 +664,33 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         /// <param name="attribute">The requested attribute in upper case</param>
         protected override NMF.Expressions.INotifyExpression<object> GetExpressionForAttribute(string attribute)
         {
-            if ((attribute == "MEDIASTORE1"))
+            if ((attribute == "WEBFORM"))
             {
-                return new MediaStore1Proxy(this);
+                return new WebFormProxy(this);
             }
-            if ((attribute == "WATERMARK1"))
+            if ((attribute == "AUDIOSTORE"))
             {
-                return new Watermark1Proxy(this);
+                return new AudioStoreProxy(this);
+            }
+            if ((attribute == "USERMANAGEMENT"))
+            {
+                return new UserManagementProxy(this);
+            }
+            if ((attribute == "ENCODINGADAPTER"))
+            {
+                return new EncodingAdapterProxy(this);
+            }
+            if ((attribute == "OGGENCODER"))
+            {
+                return new OggEncoderProxy(this);
+            }
+            if ((attribute == "DBADAPTER"))
+            {
+                return new DBAdapterProxy(this);
+            }
+            if ((attribute == "MYSQLCLIENT"))
+            {
+                return new MySqlClientProxy(this);
             }
             return base.GetExpressionForAttribute(attribute);
         }
@@ -287,13 +702,33 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         /// <param name="reference">The requested reference in upper case</param>
         protected override NMF.Expressions.INotifyExpression<NMF.Models.IModelElement> GetExpressionForReference(string reference)
         {
-            if ((reference == "MEDIASTORE1"))
+            if ((reference == "WEBFORM"))
             {
-                return new MediaStore1Proxy(this);
+                return new WebFormProxy(this);
             }
-            if ((reference == "WATERMARK1"))
+            if ((reference == "AUDIOSTORE"))
             {
-                return new Watermark1Proxy(this);
+                return new AudioStoreProxy(this);
+            }
+            if ((reference == "USERMANAGEMENT"))
+            {
+                return new UserManagementProxy(this);
+            }
+            if ((reference == "ENCODINGADAPTER"))
+            {
+                return new EncodingAdapterProxy(this);
+            }
+            if ((reference == "OGGENCODER"))
+            {
+                return new OggEncoderProxy(this);
+            }
+            if ((reference == "DBADAPTER"))
+            {
+                return new DBAdapterProxy(this);
+            }
+            if ((reference == "MYSQLCLIENT"))
+            {
+                return new MySqlClientProxy(this);
             }
             return base.GetExpressionForReference(reference);
         }
@@ -330,11 +765,31 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
                 get
                 {
                     int count = 0;
-                    if ((this._parent.MediaStore1 != null))
+                    if ((this._parent.WebForm != null))
                     {
                         count = (count + 1);
                     }
-                    if ((this._parent.Watermark1 != null))
+                    if ((this._parent.AudioStore != null))
+                    {
+                        count = (count + 1);
+                    }
+                    if ((this._parent.UserManagement != null))
+                    {
+                        count = (count + 1);
+                    }
+                    if ((this._parent.EncodingAdapter != null))
+                    {
+                        count = (count + 1);
+                    }
+                    if ((this._parent.OggEncoder != null))
+                    {
+                        count = (count + 1);
+                    }
+                    if ((this._parent.DBAdapter != null))
+                    {
+                        count = (count + 1);
+                    }
+                    if ((this._parent.MySqlClient != null))
                     {
                         count = (count + 1);
                     }
@@ -344,14 +799,24 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
             
             protected override void AttachCore()
             {
-                this._parent.MediaStore1Changed += this.PropagateValueChanges;
-                this._parent.Watermark1Changed += this.PropagateValueChanges;
+                this._parent.WebFormChanged += this.PropagateValueChanges;
+                this._parent.AudioStoreChanged += this.PropagateValueChanges;
+                this._parent.UserManagementChanged += this.PropagateValueChanges;
+                this._parent.EncodingAdapterChanged += this.PropagateValueChanges;
+                this._parent.OggEncoderChanged += this.PropagateValueChanges;
+                this._parent.DBAdapterChanged += this.PropagateValueChanges;
+                this._parent.MySqlClientChanged += this.PropagateValueChanges;
             }
             
             protected override void DetachCore()
             {
-                this._parent.MediaStore1Changed -= this.PropagateValueChanges;
-                this._parent.Watermark1Changed -= this.PropagateValueChanges;
+                this._parent.WebFormChanged -= this.PropagateValueChanges;
+                this._parent.AudioStoreChanged -= this.PropagateValueChanges;
+                this._parent.UserManagementChanged -= this.PropagateValueChanges;
+                this._parent.EncodingAdapterChanged -= this.PropagateValueChanges;
+                this._parent.OggEncoderChanged -= this.PropagateValueChanges;
+                this._parent.DBAdapterChanged -= this.PropagateValueChanges;
+                this._parent.MySqlClientChanged -= this.PropagateValueChanges;
             }
             
             /// <summary>
@@ -360,21 +825,66 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
             /// <param name="item">The item to add</param>
             public override void Add(IModelElement item)
             {
-                if ((this._parent.MediaStore1 == null))
+                if ((this._parent.WebForm == null))
                 {
-                    IResourceContainer mediaStore1Casted = item.As<IResourceContainer>();
-                    if ((mediaStore1Casted != null))
+                    IResourceContainer webFormCasted = item.As<IResourceContainer>();
+                    if ((webFormCasted != null))
                     {
-                        this._parent.MediaStore1 = mediaStore1Casted;
+                        this._parent.WebForm = webFormCasted;
                         return;
                     }
                 }
-                if ((this._parent.Watermark1 == null))
+                if ((this._parent.AudioStore == null))
                 {
-                    IResourceContainer watermark1Casted = item.As<IResourceContainer>();
-                    if ((watermark1Casted != null))
+                    IResourceContainer audioStoreCasted = item.As<IResourceContainer>();
+                    if ((audioStoreCasted != null))
                     {
-                        this._parent.Watermark1 = watermark1Casted;
+                        this._parent.AudioStore = audioStoreCasted;
+                        return;
+                    }
+                }
+                if ((this._parent.UserManagement == null))
+                {
+                    IResourceContainer userManagementCasted = item.As<IResourceContainer>();
+                    if ((userManagementCasted != null))
+                    {
+                        this._parent.UserManagement = userManagementCasted;
+                        return;
+                    }
+                }
+                if ((this._parent.EncodingAdapter == null))
+                {
+                    IResourceContainer encodingAdapterCasted = item.As<IResourceContainer>();
+                    if ((encodingAdapterCasted != null))
+                    {
+                        this._parent.EncodingAdapter = encodingAdapterCasted;
+                        return;
+                    }
+                }
+                if ((this._parent.OggEncoder == null))
+                {
+                    IResourceContainer oggEncoderCasted = item.As<IResourceContainer>();
+                    if ((oggEncoderCasted != null))
+                    {
+                        this._parent.OggEncoder = oggEncoderCasted;
+                        return;
+                    }
+                }
+                if ((this._parent.DBAdapter == null))
+                {
+                    IResourceContainer dBAdapterCasted = item.As<IResourceContainer>();
+                    if ((dBAdapterCasted != null))
+                    {
+                        this._parent.DBAdapter = dBAdapterCasted;
+                        return;
+                    }
+                }
+                if ((this._parent.MySqlClient == null))
+                {
+                    IResourceContainer mySqlClientCasted = item.As<IResourceContainer>();
+                    if ((mySqlClientCasted != null))
+                    {
+                        this._parent.MySqlClient = mySqlClientCasted;
                         return;
                     }
                 }
@@ -385,8 +895,13 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
             /// </summary>
             public override void Clear()
             {
-                this._parent.MediaStore1 = null;
-                this._parent.Watermark1 = null;
+                this._parent.WebForm = null;
+                this._parent.AudioStore = null;
+                this._parent.UserManagement = null;
+                this._parent.EncodingAdapter = null;
+                this._parent.OggEncoder = null;
+                this._parent.DBAdapter = null;
+                this._parent.MySqlClient = null;
             }
             
             /// <summary>
@@ -396,11 +911,31 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
             /// <param name="item">The item that should be looked out for</param>
             public override bool Contains(IModelElement item)
             {
-                if ((item == this._parent.MediaStore1))
+                if ((item == this._parent.WebForm))
                 {
                     return true;
                 }
-                if ((item == this._parent.Watermark1))
+                if ((item == this._parent.AudioStore))
+                {
+                    return true;
+                }
+                if ((item == this._parent.UserManagement))
+                {
+                    return true;
+                }
+                if ((item == this._parent.EncodingAdapter))
+                {
+                    return true;
+                }
+                if ((item == this._parent.OggEncoder))
+                {
+                    return true;
+                }
+                if ((item == this._parent.DBAdapter))
+                {
+                    return true;
+                }
+                if ((item == this._parent.MySqlClient))
                 {
                     return true;
                 }
@@ -414,14 +949,39 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
             /// <param name="arrayIndex">The starting index</param>
             public override void CopyTo(IModelElement[] array, int arrayIndex)
             {
-                if ((this._parent.MediaStore1 != null))
+                if ((this._parent.WebForm != null))
                 {
-                    array[arrayIndex] = this._parent.MediaStore1;
+                    array[arrayIndex] = this._parent.WebForm;
                     arrayIndex = (arrayIndex + 1);
                 }
-                if ((this._parent.Watermark1 != null))
+                if ((this._parent.AudioStore != null))
                 {
-                    array[arrayIndex] = this._parent.Watermark1;
+                    array[arrayIndex] = this._parent.AudioStore;
+                    arrayIndex = (arrayIndex + 1);
+                }
+                if ((this._parent.UserManagement != null))
+                {
+                    array[arrayIndex] = this._parent.UserManagement;
+                    arrayIndex = (arrayIndex + 1);
+                }
+                if ((this._parent.EncodingAdapter != null))
+                {
+                    array[arrayIndex] = this._parent.EncodingAdapter;
+                    arrayIndex = (arrayIndex + 1);
+                }
+                if ((this._parent.OggEncoder != null))
+                {
+                    array[arrayIndex] = this._parent.OggEncoder;
+                    arrayIndex = (arrayIndex + 1);
+                }
+                if ((this._parent.DBAdapter != null))
+                {
+                    array[arrayIndex] = this._parent.DBAdapter;
+                    arrayIndex = (arrayIndex + 1);
+                }
+                if ((this._parent.MySqlClient != null))
+                {
+                    array[arrayIndex] = this._parent.MySqlClient;
                     arrayIndex = (arrayIndex + 1);
                 }
             }
@@ -433,14 +993,39 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
             /// <param name="item">The item that should be removed</param>
             public override bool Remove(IModelElement item)
             {
-                if ((this._parent.MediaStore1 == item))
+                if ((this._parent.WebForm == item))
                 {
-                    this._parent.MediaStore1 = null;
+                    this._parent.WebForm = null;
                     return true;
                 }
-                if ((this._parent.Watermark1 == item))
+                if ((this._parent.AudioStore == item))
                 {
-                    this._parent.Watermark1 = null;
+                    this._parent.AudioStore = null;
+                    return true;
+                }
+                if ((this._parent.UserManagement == item))
+                {
+                    this._parent.UserManagement = null;
+                    return true;
+                }
+                if ((this._parent.EncodingAdapter == item))
+                {
+                    this._parent.EncodingAdapter = null;
+                    return true;
+                }
+                if ((this._parent.OggEncoder == item))
+                {
+                    this._parent.OggEncoder = null;
+                    return true;
+                }
+                if ((this._parent.DBAdapter == item))
+                {
+                    this._parent.DBAdapter = null;
+                    return true;
+                }
+                if ((this._parent.MySqlClient == item))
+                {
+                    this._parent.MySqlClient = null;
                     return true;
                 }
                 return false;
@@ -452,7 +1037,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
             /// <returns>A generic enumerator</returns>
             public override IEnumerator<IModelElement> GetEnumerator()
             {
-                return Enumerable.Empty<IModelElement>().Concat(this._parent.MediaStore1).Concat(this._parent.Watermark1).GetEnumerator();
+                return Enumerable.Empty<IModelElement>().Concat(this._parent.WebForm).Concat(this._parent.AudioStore).Concat(this._parent.UserManagement).Concat(this._parent.EncodingAdapter).Concat(this._parent.OggEncoder).Concat(this._parent.DBAdapter).Concat(this._parent.MySqlClient).GetEnumerator();
             }
         }
         
@@ -480,11 +1065,31 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
                 get
                 {
                     int count = 0;
-                    if ((this._parent.MediaStore1 != null))
+                    if ((this._parent.WebForm != null))
                     {
                         count = (count + 1);
                     }
-                    if ((this._parent.Watermark1 != null))
+                    if ((this._parent.AudioStore != null))
+                    {
+                        count = (count + 1);
+                    }
+                    if ((this._parent.UserManagement != null))
+                    {
+                        count = (count + 1);
+                    }
+                    if ((this._parent.EncodingAdapter != null))
+                    {
+                        count = (count + 1);
+                    }
+                    if ((this._parent.OggEncoder != null))
+                    {
+                        count = (count + 1);
+                    }
+                    if ((this._parent.DBAdapter != null))
+                    {
+                        count = (count + 1);
+                    }
+                    if ((this._parent.MySqlClient != null))
                     {
                         count = (count + 1);
                     }
@@ -494,14 +1099,24 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
             
             protected override void AttachCore()
             {
-                this._parent.MediaStore1Changed += this.PropagateValueChanges;
-                this._parent.Watermark1Changed += this.PropagateValueChanges;
+                this._parent.WebFormChanged += this.PropagateValueChanges;
+                this._parent.AudioStoreChanged += this.PropagateValueChanges;
+                this._parent.UserManagementChanged += this.PropagateValueChanges;
+                this._parent.EncodingAdapterChanged += this.PropagateValueChanges;
+                this._parent.OggEncoderChanged += this.PropagateValueChanges;
+                this._parent.DBAdapterChanged += this.PropagateValueChanges;
+                this._parent.MySqlClientChanged += this.PropagateValueChanges;
             }
             
             protected override void DetachCore()
             {
-                this._parent.MediaStore1Changed -= this.PropagateValueChanges;
-                this._parent.Watermark1Changed -= this.PropagateValueChanges;
+                this._parent.WebFormChanged -= this.PropagateValueChanges;
+                this._parent.AudioStoreChanged -= this.PropagateValueChanges;
+                this._parent.UserManagementChanged -= this.PropagateValueChanges;
+                this._parent.EncodingAdapterChanged -= this.PropagateValueChanges;
+                this._parent.OggEncoderChanged -= this.PropagateValueChanges;
+                this._parent.DBAdapterChanged -= this.PropagateValueChanges;
+                this._parent.MySqlClientChanged -= this.PropagateValueChanges;
             }
             
             /// <summary>
@@ -510,21 +1125,66 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
             /// <param name="item">The item to add</param>
             public override void Add(IModelElement item)
             {
-                if ((this._parent.MediaStore1 == null))
+                if ((this._parent.WebForm == null))
                 {
-                    IResourceContainer mediaStore1Casted = item.As<IResourceContainer>();
-                    if ((mediaStore1Casted != null))
+                    IResourceContainer webFormCasted = item.As<IResourceContainer>();
+                    if ((webFormCasted != null))
                     {
-                        this._parent.MediaStore1 = mediaStore1Casted;
+                        this._parent.WebForm = webFormCasted;
                         return;
                     }
                 }
-                if ((this._parent.Watermark1 == null))
+                if ((this._parent.AudioStore == null))
                 {
-                    IResourceContainer watermark1Casted = item.As<IResourceContainer>();
-                    if ((watermark1Casted != null))
+                    IResourceContainer audioStoreCasted = item.As<IResourceContainer>();
+                    if ((audioStoreCasted != null))
                     {
-                        this._parent.Watermark1 = watermark1Casted;
+                        this._parent.AudioStore = audioStoreCasted;
+                        return;
+                    }
+                }
+                if ((this._parent.UserManagement == null))
+                {
+                    IResourceContainer userManagementCasted = item.As<IResourceContainer>();
+                    if ((userManagementCasted != null))
+                    {
+                        this._parent.UserManagement = userManagementCasted;
+                        return;
+                    }
+                }
+                if ((this._parent.EncodingAdapter == null))
+                {
+                    IResourceContainer encodingAdapterCasted = item.As<IResourceContainer>();
+                    if ((encodingAdapterCasted != null))
+                    {
+                        this._parent.EncodingAdapter = encodingAdapterCasted;
+                        return;
+                    }
+                }
+                if ((this._parent.OggEncoder == null))
+                {
+                    IResourceContainer oggEncoderCasted = item.As<IResourceContainer>();
+                    if ((oggEncoderCasted != null))
+                    {
+                        this._parent.OggEncoder = oggEncoderCasted;
+                        return;
+                    }
+                }
+                if ((this._parent.DBAdapter == null))
+                {
+                    IResourceContainer dBAdapterCasted = item.As<IResourceContainer>();
+                    if ((dBAdapterCasted != null))
+                    {
+                        this._parent.DBAdapter = dBAdapterCasted;
+                        return;
+                    }
+                }
+                if ((this._parent.MySqlClient == null))
+                {
+                    IResourceContainer mySqlClientCasted = item.As<IResourceContainer>();
+                    if ((mySqlClientCasted != null))
+                    {
+                        this._parent.MySqlClient = mySqlClientCasted;
                         return;
                     }
                 }
@@ -535,8 +1195,13 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
             /// </summary>
             public override void Clear()
             {
-                this._parent.MediaStore1 = null;
-                this._parent.Watermark1 = null;
+                this._parent.WebForm = null;
+                this._parent.AudioStore = null;
+                this._parent.UserManagement = null;
+                this._parent.EncodingAdapter = null;
+                this._parent.OggEncoder = null;
+                this._parent.DBAdapter = null;
+                this._parent.MySqlClient = null;
             }
             
             /// <summary>
@@ -546,11 +1211,31 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
             /// <param name="item">The item that should be looked out for</param>
             public override bool Contains(IModelElement item)
             {
-                if ((item == this._parent.MediaStore1))
+                if ((item == this._parent.WebForm))
                 {
                     return true;
                 }
-                if ((item == this._parent.Watermark1))
+                if ((item == this._parent.AudioStore))
+                {
+                    return true;
+                }
+                if ((item == this._parent.UserManagement))
+                {
+                    return true;
+                }
+                if ((item == this._parent.EncodingAdapter))
+                {
+                    return true;
+                }
+                if ((item == this._parent.OggEncoder))
+                {
+                    return true;
+                }
+                if ((item == this._parent.DBAdapter))
+                {
+                    return true;
+                }
+                if ((item == this._parent.MySqlClient))
                 {
                     return true;
                 }
@@ -564,14 +1249,39 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
             /// <param name="arrayIndex">The starting index</param>
             public override void CopyTo(IModelElement[] array, int arrayIndex)
             {
-                if ((this._parent.MediaStore1 != null))
+                if ((this._parent.WebForm != null))
                 {
-                    array[arrayIndex] = this._parent.MediaStore1;
+                    array[arrayIndex] = this._parent.WebForm;
                     arrayIndex = (arrayIndex + 1);
                 }
-                if ((this._parent.Watermark1 != null))
+                if ((this._parent.AudioStore != null))
                 {
-                    array[arrayIndex] = this._parent.Watermark1;
+                    array[arrayIndex] = this._parent.AudioStore;
+                    arrayIndex = (arrayIndex + 1);
+                }
+                if ((this._parent.UserManagement != null))
+                {
+                    array[arrayIndex] = this._parent.UserManagement;
+                    arrayIndex = (arrayIndex + 1);
+                }
+                if ((this._parent.EncodingAdapter != null))
+                {
+                    array[arrayIndex] = this._parent.EncodingAdapter;
+                    arrayIndex = (arrayIndex + 1);
+                }
+                if ((this._parent.OggEncoder != null))
+                {
+                    array[arrayIndex] = this._parent.OggEncoder;
+                    arrayIndex = (arrayIndex + 1);
+                }
+                if ((this._parent.DBAdapter != null))
+                {
+                    array[arrayIndex] = this._parent.DBAdapter;
+                    arrayIndex = (arrayIndex + 1);
+                }
+                if ((this._parent.MySqlClient != null))
+                {
+                    array[arrayIndex] = this._parent.MySqlClient;
                     arrayIndex = (arrayIndex + 1);
                 }
             }
@@ -583,14 +1293,39 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
             /// <param name="item">The item that should be removed</param>
             public override bool Remove(IModelElement item)
             {
-                if ((this._parent.MediaStore1 == item))
+                if ((this._parent.WebForm == item))
                 {
-                    this._parent.MediaStore1 = null;
+                    this._parent.WebForm = null;
                     return true;
                 }
-                if ((this._parent.Watermark1 == item))
+                if ((this._parent.AudioStore == item))
                 {
-                    this._parent.Watermark1 = null;
+                    this._parent.AudioStore = null;
+                    return true;
+                }
+                if ((this._parent.UserManagement == item))
+                {
+                    this._parent.UserManagement = null;
+                    return true;
+                }
+                if ((this._parent.EncodingAdapter == item))
+                {
+                    this._parent.EncodingAdapter = null;
+                    return true;
+                }
+                if ((this._parent.OggEncoder == item))
+                {
+                    this._parent.OggEncoder = null;
+                    return true;
+                }
+                if ((this._parent.DBAdapter == item))
+                {
+                    this._parent.DBAdapter = null;
+                    return true;
+                }
+                if ((this._parent.MySqlClient == item))
+                {
+                    this._parent.MySqlClient = null;
                     return true;
                 }
                 return false;
@@ -602,21 +1337,21 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
             /// <returns>A generic enumerator</returns>
             public override IEnumerator<IModelElement> GetEnumerator()
             {
-                return Enumerable.Empty<IModelElement>().Concat(this._parent.MediaStore1).Concat(this._parent.Watermark1).GetEnumerator();
+                return Enumerable.Empty<IModelElement>().Concat(this._parent.WebForm).Concat(this._parent.AudioStore).Concat(this._parent.UserManagement).Concat(this._parent.EncodingAdapter).Concat(this._parent.OggEncoder).Concat(this._parent.DBAdapter).Concat(this._parent.MySqlClient).GetEnumerator();
             }
         }
         
         /// <summary>
-        /// Represents a proxy to represent an incremental access to the MediaStore1 property
+        /// Represents a proxy to represent an incremental access to the WebForm property
         /// </summary>
-        private sealed class MediaStore1Proxy : ModelPropertyChange<IMediaStore, IResourceContainer>
+        private sealed class WebFormProxy : ModelPropertyChange<IMediaStore, IResourceContainer>
         {
             
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public MediaStore1Proxy(IMediaStore modelElement) : 
+            public WebFormProxy(IMediaStore modelElement) : 
                     base(modelElement)
             {
             }
@@ -628,11 +1363,11 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
             {
                 get
                 {
-                    return this.ModelElement.MediaStore1;
+                    return this.ModelElement.WebForm;
                 }
                 set
                 {
-                    this.ModelElement.MediaStore1 = value;
+                    this.ModelElement.WebForm = value;
                 }
             }
             
@@ -642,7 +1377,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
             /// <param name="handler">The handler that should be subscribed to the property change event</param>
             protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
             {
-                this.ModelElement.MediaStore1Changed += handler;
+                this.ModelElement.WebFormChanged += handler;
             }
             
             /// <summary>
@@ -651,21 +1386,21 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
             /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
             protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
             {
-                this.ModelElement.MediaStore1Changed -= handler;
+                this.ModelElement.WebFormChanged -= handler;
             }
         }
         
         /// <summary>
-        /// Represents a proxy to represent an incremental access to the Watermark1 property
+        /// Represents a proxy to represent an incremental access to the AudioStore property
         /// </summary>
-        private sealed class Watermark1Proxy : ModelPropertyChange<IMediaStore, IResourceContainer>
+        private sealed class AudioStoreProxy : ModelPropertyChange<IMediaStore, IResourceContainer>
         {
             
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public Watermark1Proxy(IMediaStore modelElement) : 
+            public AudioStoreProxy(IMediaStore modelElement) : 
                     base(modelElement)
             {
             }
@@ -677,11 +1412,11 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
             {
                 get
                 {
-                    return this.ModelElement.Watermark1;
+                    return this.ModelElement.AudioStore;
                 }
                 set
                 {
-                    this.ModelElement.Watermark1 = value;
+                    this.ModelElement.AudioStore = value;
                 }
             }
             
@@ -691,7 +1426,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
             /// <param name="handler">The handler that should be subscribed to the property change event</param>
             protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
             {
-                this.ModelElement.Watermark1Changed += handler;
+                this.ModelElement.AudioStoreChanged += handler;
             }
             
             /// <summary>
@@ -700,7 +1435,252 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
             /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
             protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
             {
-                this.ModelElement.Watermark1Changed -= handler;
+                this.ModelElement.AudioStoreChanged -= handler;
+            }
+        }
+        
+        /// <summary>
+        /// Represents a proxy to represent an incremental access to the UserManagement property
+        /// </summary>
+        private sealed class UserManagementProxy : ModelPropertyChange<IMediaStore, IResourceContainer>
+        {
+            
+            /// <summary>
+            /// Creates a new observable property access proxy
+            /// </summary>
+            /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
+            public UserManagementProxy(IMediaStore modelElement) : 
+                    base(modelElement)
+            {
+            }
+            
+            /// <summary>
+            /// Gets or sets the value of this expression
+            /// </summary>
+            public override IResourceContainer Value
+            {
+                get
+                {
+                    return this.ModelElement.UserManagement;
+                }
+                set
+                {
+                    this.ModelElement.UserManagement = value;
+                }
+            }
+            
+            /// <summary>
+            /// Registers an event handler to subscribe specifically on the changed event for this property
+            /// </summary>
+            /// <param name="handler">The handler that should be subscribed to the property change event</param>
+            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
+            {
+                this.ModelElement.UserManagementChanged += handler;
+            }
+            
+            /// <summary>
+            /// Registers an event handler to subscribe specifically on the changed event for this property
+            /// </summary>
+            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
+            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
+            {
+                this.ModelElement.UserManagementChanged -= handler;
+            }
+        }
+        
+        /// <summary>
+        /// Represents a proxy to represent an incremental access to the EncodingAdapter property
+        /// </summary>
+        private sealed class EncodingAdapterProxy : ModelPropertyChange<IMediaStore, IResourceContainer>
+        {
+            
+            /// <summary>
+            /// Creates a new observable property access proxy
+            /// </summary>
+            /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
+            public EncodingAdapterProxy(IMediaStore modelElement) : 
+                    base(modelElement)
+            {
+            }
+            
+            /// <summary>
+            /// Gets or sets the value of this expression
+            /// </summary>
+            public override IResourceContainer Value
+            {
+                get
+                {
+                    return this.ModelElement.EncodingAdapter;
+                }
+                set
+                {
+                    this.ModelElement.EncodingAdapter = value;
+                }
+            }
+            
+            /// <summary>
+            /// Registers an event handler to subscribe specifically on the changed event for this property
+            /// </summary>
+            /// <param name="handler">The handler that should be subscribed to the property change event</param>
+            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
+            {
+                this.ModelElement.EncodingAdapterChanged += handler;
+            }
+            
+            /// <summary>
+            /// Registers an event handler to subscribe specifically on the changed event for this property
+            /// </summary>
+            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
+            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
+            {
+                this.ModelElement.EncodingAdapterChanged -= handler;
+            }
+        }
+        
+        /// <summary>
+        /// Represents a proxy to represent an incremental access to the OggEncoder property
+        /// </summary>
+        private sealed class OggEncoderProxy : ModelPropertyChange<IMediaStore, IResourceContainer>
+        {
+            
+            /// <summary>
+            /// Creates a new observable property access proxy
+            /// </summary>
+            /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
+            public OggEncoderProxy(IMediaStore modelElement) : 
+                    base(modelElement)
+            {
+            }
+            
+            /// <summary>
+            /// Gets or sets the value of this expression
+            /// </summary>
+            public override IResourceContainer Value
+            {
+                get
+                {
+                    return this.ModelElement.OggEncoder;
+                }
+                set
+                {
+                    this.ModelElement.OggEncoder = value;
+                }
+            }
+            
+            /// <summary>
+            /// Registers an event handler to subscribe specifically on the changed event for this property
+            /// </summary>
+            /// <param name="handler">The handler that should be subscribed to the property change event</param>
+            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
+            {
+                this.ModelElement.OggEncoderChanged += handler;
+            }
+            
+            /// <summary>
+            /// Registers an event handler to subscribe specifically on the changed event for this property
+            /// </summary>
+            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
+            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
+            {
+                this.ModelElement.OggEncoderChanged -= handler;
+            }
+        }
+        
+        /// <summary>
+        /// Represents a proxy to represent an incremental access to the DBAdapter property
+        /// </summary>
+        private sealed class DBAdapterProxy : ModelPropertyChange<IMediaStore, IResourceContainer>
+        {
+            
+            /// <summary>
+            /// Creates a new observable property access proxy
+            /// </summary>
+            /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
+            public DBAdapterProxy(IMediaStore modelElement) : 
+                    base(modelElement)
+            {
+            }
+            
+            /// <summary>
+            /// Gets or sets the value of this expression
+            /// </summary>
+            public override IResourceContainer Value
+            {
+                get
+                {
+                    return this.ModelElement.DBAdapter;
+                }
+                set
+                {
+                    this.ModelElement.DBAdapter = value;
+                }
+            }
+            
+            /// <summary>
+            /// Registers an event handler to subscribe specifically on the changed event for this property
+            /// </summary>
+            /// <param name="handler">The handler that should be subscribed to the property change event</param>
+            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
+            {
+                this.ModelElement.DBAdapterChanged += handler;
+            }
+            
+            /// <summary>
+            /// Registers an event handler to subscribe specifically on the changed event for this property
+            /// </summary>
+            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
+            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
+            {
+                this.ModelElement.DBAdapterChanged -= handler;
+            }
+        }
+        
+        /// <summary>
+        /// Represents a proxy to represent an incremental access to the MySqlClient property
+        /// </summary>
+        private sealed class MySqlClientProxy : ModelPropertyChange<IMediaStore, IResourceContainer>
+        {
+            
+            /// <summary>
+            /// Creates a new observable property access proxy
+            /// </summary>
+            /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
+            public MySqlClientProxy(IMediaStore modelElement) : 
+                    base(modelElement)
+            {
+            }
+            
+            /// <summary>
+            /// Gets or sets the value of this expression
+            /// </summary>
+            public override IResourceContainer Value
+            {
+                get
+                {
+                    return this.ModelElement.MySqlClient;
+                }
+                set
+                {
+                    this.ModelElement.MySqlClient = value;
+                }
+            }
+            
+            /// <summary>
+            /// Registers an event handler to subscribe specifically on the changed event for this property
+            /// </summary>
+            /// <param name="handler">The handler that should be subscribed to the property change event</param>
+            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
+            {
+                this.ModelElement.MySqlClientChanged += handler;
+            }
+            
+            /// <summary>
+            /// Registers an event handler to subscribe specifically on the changed event for this property
+            /// </summary>
+            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
+            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
+            {
+                this.ModelElement.MySqlClientChanged -= handler;
             }
         }
     }

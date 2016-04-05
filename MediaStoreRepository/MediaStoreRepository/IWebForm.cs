@@ -32,26 +32,26 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
     
     
     /// <summary>
-    /// The public interface for MediaStoreSystem
+    /// The public interface for WebForm
     /// </summary>
-    [DefaultImplementationTypeAttribute(typeof(MediaStoreSystem))]
-    [XmlDefaultImplementationTypeAttribute(typeof(MediaStoreSystem))]
-    public interface IMediaStoreSystem : IModelElement, ISystemArchitecture
+    [DefaultImplementationTypeAttribute(typeof(WebForm))]
+    [XmlDefaultImplementationTypeAttribute(typeof(WebForm))]
+    public interface IWebForm : IModelElement, IHTTP, IAssemblyContext
     {
         
         /// <summary>
-        /// The Frontend property
+        /// The application property
         /// </summary>
-        IHTTP Frontend
+        IAudioStoreInterface Application
         {
             get;
             set;
         }
         
         /// <summary>
-        /// Gets fired when the Frontend property changed its value
+        /// Gets fired when the Application property changed its value
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> FrontendChanged;
+        event EventHandler<ValueChangedEventArgs> ApplicationChanged;
     }
 }
 

@@ -32,19 +32,14 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
     
     
     /// <summary>
-    /// The default implementation of the MediaStore class
+    /// The default implementation of the ConnectionInterface class
     /// </summary>
     [XmlNamespaceAttribute("http://github.com/georghinkel/mediaStore/Repository")]
     [XmlNamespacePrefixAttribute("repo")]
-    [ModelRepresentationClassAttribute("http://github.com/georghinkel/mediaStore/Repository#//MediaStore/")]
-    [DebuggerDisplayAttribute("MediaStore {Name}")]
-    public class MediaStore : MetaElement, IMediaStore, IModelElement
+    [ModelRepresentationClassAttribute("http://github.com/georghinkel/mediaStore/Repository#//ConnectionInterface/")]
+    [DebuggerDisplayAttribute("ConnectionInterface {Name}")]
+    public class ConnectionInterface : MetaElement, IConnectionInterface, IModelElement
     {
-        
-        /// <summary>
-        /// The backing field for the Watermarking property
-        /// </summary>
-        private IWatermarkInterface _watermarking;
         
         private static IReferenceType _ReferenceType = NMF.Models.Repository.MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//ResourceContainer/").As<IReferenceType>();
         
@@ -127,36 +122,6 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             {
                 IReference _this_Reference = this;
                 _this_Reference.ReferenceTypeChanged -= value;
-            }
-        }
-        
-        /// <summary>
-        /// The Watermarking property
-        /// </summary>
-        [XmlAttributeAttribute(true)]
-        public virtual IWatermarkInterface Watermarking
-        {
-            get
-            {
-                return this._watermarking;
-            }
-            set
-            {
-                if ((this._watermarking != value))
-                {
-                    IWatermarkInterface old = this._watermarking;
-                    this._watermarking = value;
-                    if ((old != null))
-                    {
-                        old.Deleted -= this.OnResetWatermarking;
-                    }
-                    if ((value != null))
-                    {
-                        value.Deleted += this.OnResetWatermarking;
-                    }
-                    this.OnPropertyChanged("Watermarking");
-                    this.OnWatermarkingChanged(new ValueChangedEventArgs(old, value));
-                }
             }
         }
         
@@ -349,31 +314,15 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         }
         
         /// <summary>
-        /// Gets the referenced model elements of this model element
-        /// </summary>
-        public override IEnumerableExpression<IModelElement> ReferencedElements
-        {
-            get
-            {
-                return base.ReferencedElements.Concat(new MediaStoreReferencedElementsCollection(this));
-            }
-        }
-        
-        /// <summary>
         /// Gets the Class element that describes the structure of this type
         /// </summary>
         public new static NMF.Models.Meta.IClass ClassInstance
         {
             get
             {
-                return NMF.Models.Repository.MetaRepository.Instance.ResolveClass("http://github.com/georghinkel/mediaStore/Repository#//MediaStore/");
+                return NMF.Models.Repository.MetaRepository.Instance.ResolveClass("http://github.com/georghinkel/mediaStore/Repository#//ConnectionInterface/");
             }
         }
-        
-        /// <summary>
-        /// Gets fired when the Watermarking property changed its value
-        /// </summary>
-        public event EventHandler<ValueChangedEventArgs> WatermarkingChanged;
         
         /// <summary>
         /// Gets fired when the DeclaringType property changed its value
@@ -384,29 +333,6 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// Gets fired when the Opposite property changed its value
         /// </summary>
         public event EventHandler<ValueChangedEventArgs> OppositeChanged;
-        
-        /// <summary>
-        /// Raises the WatermarkingChanged event
-        /// </summary>
-        /// <param name="eventArgs">The event data</param>
-        protected virtual void OnWatermarkingChanged(ValueChangedEventArgs eventArgs)
-        {
-            EventHandler<ValueChangedEventArgs> handler = this.WatermarkingChanged;
-            if ((handler != null))
-            {
-                handler.Invoke(this, eventArgs);
-            }
-        }
-        
-        /// <summary>
-        /// Handles the event that the Watermarking property must reset
-        /// </summary>
-        /// <param name="sender">The object that sent this reset request</param>
-        /// <param name="eventArgs">The event data for the reset event</param>
-        private void OnResetWatermarking(object sender, EventArgs eventArgs)
-        {
-            this.Watermarking = null;
-        }
         
         /// <summary>
         /// Raises the DeclaringTypeChanged event
@@ -472,11 +398,6 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// <param name="value">The value that should be set to that feature</param>
         protected override void SetFeature(string feature, object value)
         {
-            if ((feature == "WATERMARKING"))
-            {
-                this.Watermarking = ((IWatermarkInterface)(value));
-                return;
-            }
             if ((feature == "DECLARINGTYPE"))
             {
                 this.DeclaringType = ((IReferenceType)(value));
@@ -497,10 +418,6 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// <param name="attribute">The requested attribute in upper case</param>
         protected override NMF.Expressions.INotifyExpression<object> GetExpressionForAttribute(string attribute)
         {
-            if ((attribute == "WATERMARKING"))
-            {
-                return new WatermarkingProxy(this);
-            }
             if ((attribute == "DECLARINGTYPE"))
             {
                 return new DeclaringTypeProxy(this);
@@ -519,10 +436,6 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// <param name="reference">The requested reference in upper case</param>
         protected override NMF.Expressions.INotifyExpression<NMF.Models.IModelElement> GetExpressionForReference(string reference)
         {
-            if ((reference == "WATERMARKING"))
-            {
-                return new WatermarkingProxy(this);
-            }
             if ((reference == "DECLARINGTYPE"))
             {
                 return new DeclaringTypeProxy(this);
@@ -539,7 +452,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// </summary>
         public IComponentType GetComponentType()
         {
-            return ((IComponentType)(NMF.Models.Repository.MetaRepository.Instance.Resolve("http://github.com/georghinkel/mediaStore/Repository#//MediaStore/")));
+            return ((IComponentType)(NMF.Models.Repository.MetaRepository.Instance.Resolve("http://github.com/georghinkel/mediaStore/Repository#//ConnectionInterface/")));
         }
         
         /// <summary>
@@ -547,7 +460,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// </summary>
         public IAssemblyContext GetRequiredInterfacesValue(IRequiredInterface reference)
         {
-            return (IAssemblyContext)GetReferencedElement(reference);
+            return ((IAssemblyContext)(this.GetReferencedElement(reference)));
         }
         
         /// <summary>
@@ -555,236 +468,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// </summary>
         public override IClass GetClass()
         {
-            return ((IClass)(NMF.Models.Repository.MetaRepository.Instance.Resolve("http://github.com/georghinkel/mediaStore/Repository#//MediaStore/")));
-        }
-        
-        /// <summary>
-        /// The collection class to to represent the children of the MediaStore class
-        /// </summary>
-        public class MediaStoreReferencedElementsCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
-        {
-            
-            private MediaStore _parent;
-            
-            /// <summary>
-            /// Creates a new instance
-            /// </summary>
-            public MediaStoreReferencedElementsCollection(MediaStore parent)
-            {
-                this._parent = parent;
-            }
-            
-            /// <summary>
-            /// Gets the amount of elements contained in this collection
-            /// </summary>
-            public override int Count
-            {
-                get
-                {
-                    int count = 0;
-                    if ((this._parent.Watermarking != null))
-                    {
-                        count = (count + 1);
-                    }
-                    if ((this._parent.DeclaringType != null))
-                    {
-                        count = (count + 1);
-                    }
-                    if ((this._parent.Opposite != null))
-                    {
-                        count = (count + 1);
-                    }
-                    return count;
-                }
-            }
-            
-            protected override void AttachCore()
-            {
-                this._parent.WatermarkingChanged += this.PropagateValueChanges;
-                this._parent.DeclaringTypeChanged += this.PropagateValueChanges;
-                this._parent.OppositeChanged += this.PropagateValueChanges;
-            }
-            
-            protected override void DetachCore()
-            {
-                this._parent.WatermarkingChanged -= this.PropagateValueChanges;
-                this._parent.DeclaringTypeChanged -= this.PropagateValueChanges;
-                this._parent.OppositeChanged -= this.PropagateValueChanges;
-            }
-            
-            /// <summary>
-            /// Adds the given element to the collection
-            /// </summary>
-            /// <param name="item">The item to add</param>
-            public override void Add(IModelElement item)
-            {
-                if ((this._parent.Watermarking == null))
-                {
-                    IWatermarkInterface watermarkingCasted = item.As<IWatermarkInterface>();
-                    if ((watermarkingCasted != null))
-                    {
-                        this._parent.Watermarking = watermarkingCasted;
-                        return;
-                    }
-                }
-                if ((this._parent.DeclaringType == null))
-                {
-                    IReferenceType declaringTypeCasted = item.As<IReferenceType>();
-                    if ((declaringTypeCasted != null))
-                    {
-                        this._parent.DeclaringType = declaringTypeCasted;
-                        return;
-                    }
-                }
-                if ((this._parent.Opposite == null))
-                {
-                    IReference oppositeCasted = item.As<IReference>();
-                    if ((oppositeCasted != null))
-                    {
-                        this._parent.Opposite = oppositeCasted;
-                        return;
-                    }
-                }
-            }
-            
-            /// <summary>
-            /// Clears the collection and resets all references that implement it.
-            /// </summary>
-            public override void Clear()
-            {
-                this._parent.Watermarking = null;
-                this._parent.DeclaringType = null;
-                this._parent.Opposite = null;
-            }
-            
-            /// <summary>
-            /// Gets a value indicating whether the given element is contained in the collection
-            /// </summary>
-            /// <returns>True, if it is contained, otherwise False</returns>
-            /// <param name="item">The item that should be looked out for</param>
-            public override bool Contains(IModelElement item)
-            {
-                if ((item == this._parent.Watermarking))
-                {
-                    return true;
-                }
-                if ((item == this._parent.DeclaringType))
-                {
-                    return true;
-                }
-                if ((item == this._parent.Opposite))
-                {
-                    return true;
-                }
-                return false;
-            }
-            
-            /// <summary>
-            /// Copies the contents of the collection to the given array starting from the given array index
-            /// </summary>
-            /// <param name="array">The array in which the elements should be copied</param>
-            /// <param name="arrayIndex">The starting index</param>
-            public override void CopyTo(IModelElement[] array, int arrayIndex)
-            {
-                if ((this._parent.Watermarking != null))
-                {
-                    array[arrayIndex] = this._parent.Watermarking;
-                    arrayIndex = (arrayIndex + 1);
-                }
-                if ((this._parent.DeclaringType != null))
-                {
-                    array[arrayIndex] = this._parent.DeclaringType;
-                    arrayIndex = (arrayIndex + 1);
-                }
-                if ((this._parent.Opposite != null))
-                {
-                    array[arrayIndex] = this._parent.Opposite;
-                    arrayIndex = (arrayIndex + 1);
-                }
-            }
-            
-            /// <summary>
-            /// Removes the given item from the collection
-            /// </summary>
-            /// <returns>True, if the item was removed, otherwise False</returns>
-            /// <param name="item">The item that should be removed</param>
-            public override bool Remove(IModelElement item)
-            {
-                if ((this._parent.Watermarking == item))
-                {
-                    this._parent.Watermarking = null;
-                    return true;
-                }
-                if ((this._parent.DeclaringType == item))
-                {
-                    this._parent.DeclaringType = null;
-                    return true;
-                }
-                if ((this._parent.Opposite == item))
-                {
-                    this._parent.Opposite = null;
-                    return true;
-                }
-                return false;
-            }
-            
-            /// <summary>
-            /// Gets an enumerator that enumerates the collection
-            /// </summary>
-            /// <returns>A generic enumerator</returns>
-            public override IEnumerator<IModelElement> GetEnumerator()
-            {
-                return Enumerable.Empty<IModelElement>().Concat(this._parent.Watermarking).Concat(this._parent.DeclaringType).Concat(this._parent.Opposite).GetEnumerator();
-            }
-        }
-        
-        /// <summary>
-        /// Represents a proxy to represent an incremental access to the Watermarking property
-        /// </summary>
-        private sealed class WatermarkingProxy : ModelPropertyChange<IMediaStore, IWatermarkInterface>
-        {
-            
-            /// <summary>
-            /// Creates a new observable property access proxy
-            /// </summary>
-            /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public WatermarkingProxy(IMediaStore modelElement) : 
-                    base(modelElement)
-            {
-            }
-            
-            /// <summary>
-            /// Gets or sets the value of this expression
-            /// </summary>
-            public override IWatermarkInterface Value
-            {
-                get
-                {
-                    return this.ModelElement.Watermarking;
-                }
-                set
-                {
-                    this.ModelElement.Watermarking = value;
-                }
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.WatermarkingChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.WatermarkingChanged -= handler;
-            }
+            return ((IClass)(NMF.Models.Repository.MetaRepository.Instance.Resolve("http://github.com/georghinkel/mediaStore/Repository#//ConnectionInterface/")));
         }
         
         /// <summary>

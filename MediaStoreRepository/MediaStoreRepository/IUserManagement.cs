@@ -32,26 +32,26 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
     
     
     /// <summary>
-    /// The public interface for MediaStoreSystem
+    /// The public interface for UserManagement
     /// </summary>
-    [DefaultImplementationTypeAttribute(typeof(MediaStoreSystem))]
-    [XmlDefaultImplementationTypeAttribute(typeof(MediaStoreSystem))]
-    public interface IMediaStoreSystem : IModelElement, ISystemArchitecture
+    [DefaultImplementationTypeAttribute(typeof(UserManagement))]
+    [XmlDefaultImplementationTypeAttribute(typeof(UserManagement))]
+    public interface IUserManagement : IModelElement, IUserManagementInterface, IAssemblyContext
     {
         
         /// <summary>
-        /// The Frontend property
+        /// The database property
         /// </summary>
-        IHTTP Frontend
+        IUserDBInterface Database
         {
             get;
             set;
         }
         
         /// <summary>
-        /// Gets fired when the Frontend property changed its value
+        /// Gets fired when the Database property changed its value
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> FrontendChanged;
+        event EventHandler<ValueChangedEventArgs> DatabaseChanged;
     }
 }
 

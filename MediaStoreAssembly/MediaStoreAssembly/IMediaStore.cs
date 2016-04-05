@@ -40,32 +40,102 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
     {
         
         /// <summary>
-        /// The MediaStore1 property
+        /// The WebForm property
         /// </summary>
-        IResourceContainer MediaStore1
+        IResourceContainer WebForm
         {
             get;
             set;
         }
         
         /// <summary>
-        /// The Watermark1 property
+        /// The AudioStore property
         /// </summary>
-        IResourceContainer Watermark1
+        IResourceContainer AudioStore
         {
             get;
             set;
         }
         
         /// <summary>
-        /// Gets fired when the MediaStore1 property changed its value
+        /// The UserManagement property
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> MediaStore1Changed;
+        IResourceContainer UserManagement
+        {
+            get;
+            set;
+        }
         
         /// <summary>
-        /// Gets fired when the Watermark1 property changed its value
+        /// The EncodingAdapter property
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> Watermark1Changed;
+        IResourceContainer EncodingAdapter
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// The OggEncoder property
+        /// </summary>
+        IResourceContainer OggEncoder
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// The DBAdapter property
+        /// </summary>
+        IResourceContainer DBAdapter
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// The MySqlClient property
+        /// </summary>
+        IResourceContainer MySqlClient
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Gets fired when the WebForm property changed its value
+        /// </summary>
+        event EventHandler<ValueChangedEventArgs> WebFormChanged;
+        
+        /// <summary>
+        /// Gets fired when the AudioStore property changed its value
+        /// </summary>
+        event EventHandler<ValueChangedEventArgs> AudioStoreChanged;
+        
+        /// <summary>
+        /// Gets fired when the UserManagement property changed its value
+        /// </summary>
+        event EventHandler<ValueChangedEventArgs> UserManagementChanged;
+        
+        /// <summary>
+        /// Gets fired when the EncodingAdapter property changed its value
+        /// </summary>
+        event EventHandler<ValueChangedEventArgs> EncodingAdapterChanged;
+        
+        /// <summary>
+        /// Gets fired when the OggEncoder property changed its value
+        /// </summary>
+        event EventHandler<ValueChangedEventArgs> OggEncoderChanged;
+        
+        /// <summary>
+        /// Gets fired when the DBAdapter property changed its value
+        /// </summary>
+        event EventHandler<ValueChangedEventArgs> DBAdapterChanged;
+        
+        /// <summary>
+        /// Gets fired when the MySqlClient property changed its value
+        /// </summary>
+        event EventHandler<ValueChangedEventArgs> MySqlClientChanged;
     }
 }
 

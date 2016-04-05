@@ -37,17 +37,57 @@ namespace MediaStoreAssemblyCreator
             {
                 Name = "MediaStore"
             };
-            var mediaStore = new MediaStore()
+            var webForm = new WebForm()
             {
-                Name = "MediaStore1"
+                Name = "WebForm"
             };
-            var watermark = new Watermark()
+            var audioStore = new AudioStore()
             {
-                Name = "Watermark1"
+                Name = "AudioStore"
             };
-            mediaStore.Watermarking = watermark;
-            system.AssemblyContexts.Add(mediaStore);
-            system.AssemblyContexts.Add(watermark);
+            var encodingadapter = new EncodingAdapter()
+            {
+                Name = "EncodingAdapter"
+            };
+            var encoder = new OggEncoder()
+            {
+                Name = "OggEncoder"
+            };
+            var userMgmt = new UserManagement()
+            {
+                Name = "UserManagement"
+            };
+            var dbAdapter = new DBAdapter()
+            {
+                Name = "DBAdapter"
+            };
+            var mySqlClient = new MySqlClient()
+            {
+                Name = "MySqlClient"
+            };
+            system.AssemblyContexts.Add(webForm);
+            system.AssemblyContexts.Add(audioStore);
+            system.AssemblyContexts.Add(userMgmt);
+            system.AssemblyContexts.Add(encodingadapter);
+            system.AssemblyContexts.Add(encoder);
+            system.AssemblyContexts.Add(dbAdapter);
+            system.AssemblyContexts.Add(mySqlClient);
+
+            webForm.Application = audioStore;
+
+            audioStore.UserManagement = userMgmt;
+            audioStore.AudioDB = encodingadapter;
+
+            userMgmt.Database = dbAdapter;
+
+            encodingadapter.Encoder = encoder;
+            encodingadapter.Database = dbAdapter;
+
+            dbAdapter.Command = mySqlClient;
+            dbAdapter.Connection = mySqlClient;
+            dbAdapter.DataReader = mySqlClient;
+
+            system.Frontend = webForm;
 
             var mediaStoreL2 = new Namespace()
             {
@@ -55,8 +95,6 @@ namespace MediaStoreAssemblyCreator
                 Uri = uri,
                 Prefix = "mediaStore"
             };
-
-            system.Frontend = mediaStore;
 
             mediaStoreL2.Types.Add(system);
             return mediaStoreL2;

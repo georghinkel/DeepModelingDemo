@@ -32,12 +32,40 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
     
     
     /// <summary>
-    /// The public interface for Watermark
+    /// The public interface for AudioStore
     /// </summary>
-    [DefaultImplementationTypeAttribute(typeof(Watermark))]
-    [XmlDefaultImplementationTypeAttribute(typeof(Watermark))]
-    public interface IWatermark : IModelElement, IWatermarkInterface, IAssemblyContext
+    [DefaultImplementationTypeAttribute(typeof(AudioStore))]
+    [XmlDefaultImplementationTypeAttribute(typeof(AudioStore))]
+    public interface IAudioStore : IModelElement, IAudioStoreInterface, IAssemblyContext
     {
+        
+        /// <summary>
+        /// The audioDB property
+        /// </summary>
+        IAudioDBInterface AudioDB
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// The userManagement property
+        /// </summary>
+        IUserManagementInterface UserManagement
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Gets fired when the AudioDB property changed its value
+        /// </summary>
+        event EventHandler<ValueChangedEventArgs> AudioDBChanged;
+        
+        /// <summary>
+        /// Gets fired when the UserManagement property changed its value
+        /// </summary>
+        event EventHandler<ValueChangedEventArgs> UserManagementChanged;
     }
 }
 

@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using FZI.SoftwareEngineering.DeepModeling.DeepADL;
 using NMF.Collections.Generic;
 using NMF.Collections.ObjectModel;
 using NMF.Expressions;
@@ -26,49 +27,59 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 
-namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
+namespace FZI.SoftwareEngineering.DeepModeling.Repository
 {
     
     
     /// <summary>
-    /// The public interface for Repository
+    /// The public interface for DBAdapter
     /// </summary>
-    [DefaultImplementationTypeAttribute(typeof(Repository))]
-    [XmlDefaultImplementationTypeAttribute(typeof(Repository))]
-    public interface IRepository : IModelElement, INamespace
+    [DefaultImplementationTypeAttribute(typeof(DBAdapter))]
+    [XmlDefaultImplementationTypeAttribute(typeof(DBAdapter))]
+    public interface IDBAdapter : IModelElement, IAudioDBInterface, IUserDBInterface, IAssemblyContext
     {
         
         /// <summary>
-        /// The ComponentTypes property
+        /// The command property
         /// </summary>
-        ICollectionExpression<IComponentType> ComponentTypes
+        ICommandInterface Command
         {
             get;
+            set;
         }
         
         /// <summary>
-        /// The Interfaces property
+        /// The connection property
         /// </summary>
-        ICollectionExpression<IInterface> Interfaces
+        IConnectionInterface Connection
         {
             get;
+            set;
         }
         
         /// <summary>
-        /// The SystemSpecifications property
+        /// The dataReader property
         /// </summary>
-        ICollectionExpression<ISystemSpecification> SystemSpecifications
+        IDataReaderInterface DataReader
         {
             get;
+            set;
         }
         
         /// <summary>
-        /// The Delegates property
+        /// Gets fired when the Command property changed its value
         /// </summary>
-        ICollectionExpression<IDelegate> Delegates
-        {
-            get;
-        }
+        event EventHandler<ValueChangedEventArgs> CommandChanged;
+        
+        /// <summary>
+        /// Gets fired when the Connection property changed its value
+        /// </summary>
+        event EventHandler<ValueChangedEventArgs> ConnectionChanged;
+        
+        /// <summary>
+        /// Gets fired when the DataReader property changed its value
+        /// </summary>
+        event EventHandler<ValueChangedEventArgs> DataReaderChanged;
     }
 }
 

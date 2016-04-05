@@ -32,11 +32,11 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
     
     
     /// <summary>
-    /// The public interface for MediaStoreInterface
+    /// The public interface for ConnectionInterface
     /// </summary>
-    [DefaultImplementationTypeAttribute(typeof(MediaStoreInterface))]
-    [XmlDefaultImplementationTypeAttribute(typeof(MediaStoreInterface))]
-    public interface IMediaStoreInterface : IModelElement, IAssemblyContext
+    [DefaultImplementationTypeAttribute(typeof(ConnectionInterface))]
+    [XmlDefaultImplementationTypeAttribute(typeof(ConnectionInterface))]
+    public interface IConnectionInterface : IModelElement, IAssemblyContext
     {
     }
 }

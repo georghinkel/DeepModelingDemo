@@ -130,6 +130,25 @@ namespace DeepADLCreator
 
             core.Types.Add(assemblyContext);
 
+            var delegateType = new Class()
+            {
+                Name = "Delegate",
+                IsAbstract = false
+            };
+            delegateType.BaseTypes.Add(classClass);
+            delegateType.ConstrainReference("References");
+            delegateType.ConstrainReference("ReferenceConstraints");
+            delegateType.ConstrainReference("Attributes");
+            delegateType.ConstrainReference("AttributeConstraints");
+            delegateType.ConstrainReference("InstanceOf");
+            delegateType.ConstrainReference("Events");
+            delegateType.ConstrainReference("Operations");
+            delegateType.ConstrainReference("Identifier");
+            delegateType.ConstrainAttribute("IsInterface", "True");
+            delegateType.ConstrainAttribute("IsAbstract", "False");
+
+            core.Types.Add(delegateType);
+
             var system = new Class()
             {
                 Name = "SystemArchitecture",
@@ -315,6 +334,15 @@ namespace DeepADLCreator
                 Refines = namespaceClass.LookupReference("Types")
             };
             repository.References.Add(repositorySystemSpecs);
+            var repositoryDelegates = new Reference()
+            {
+                Name = "Delegates",
+                ReferenceType = delegateType,
+                UpperBound = -1,
+                IsContainment = true,
+                Refines = namespaceClass.LookupReference("Types")
+            };
+            repository.References.Add(repositoryDelegates);
             repository.ConstrainReference("ChildNamespaces");
             core.Types.Add(repository);
 
@@ -347,6 +375,74 @@ namespace DeepADLCreator
                 IsContainment = false,
                 Refines = classClass.LookupReference("Namespace"),
                 Opposite = repositorySystemSpecs
+            });
+
+            var delegationConnector = new Class()
+            {
+                Name = "DelegationConnector",
+                IsAbstract = true
+            };
+            delegateType.References.Add(new Reference()
+            {
+                Name = "Repository",
+                UpperBound = 1,
+                LowerBound = 1,
+                IsContainment = false,
+                ReferenceType = repository,
+                Refines = classClass.LookupReference("Namespace"),
+                Opposite = repositoryDelegates
+            });
+            delegateType.ConstrainReference("BaseTypes", delegationConnector);
+            delegateType.References.Add(new Reference()
+            {
+                Name = "Type",
+                UpperBound = 1,
+                LowerBound = 1,
+                IsContainment = false,
+                ReferenceType = interfaceDecl,
+                Refines = classClass.LookupReference("BaseTypes")
+            });
+            delegationConnector.InstanceOf = delegateType;
+            delegationConnector.References.Add(new Reference()
+            {
+                Name = "Port",
+                LowerBound = 1,
+                UpperBound = 1,
+                ReferenceType = requiredInterface,
+                IsContainment = false
+            });
+
+            core.Types.Add(delegationConnector);
+
+            var compositeComponentType = new Class()
+            {
+                Name = "CompositeComponent",
+                IsAbstract = false
+            };
+            compositeComponentType.BaseTypes.Add(componentType);
+            compositeComponentType.References.Add(new Reference()
+            {
+                Name = "Assemblies",
+                LowerBound = 1,
+                UpperBound = -1,
+                IsContainment = true,
+                ReferenceType = assemblyContext
+            });
+            compositeComponentType.References.Add(new Reference()
+            {
+                Name = "ExposedAssemblies",
+                LowerBound = 1,
+                UpperBound = -1,
+                IsContainment = false,
+                ReferenceType = assemblyContext
+            });
+            compositeComponentType.References.Add(new Reference()
+            {
+                Name = "Delegations",
+                LowerBound = 0,
+                UpperBound = -1,
+                IsContainment = true,
+                ReferenceType = delegationConnector
             });
 
             return core;

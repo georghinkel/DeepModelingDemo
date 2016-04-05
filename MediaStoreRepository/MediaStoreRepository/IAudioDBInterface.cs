@@ -32,26 +32,12 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
     
     
     /// <summary>
-    /// The public interface for MediaStoreSystem
+    /// The public interface for AudioDBInterface
     /// </summary>
-    [DefaultImplementationTypeAttribute(typeof(MediaStoreSystem))]
-    [XmlDefaultImplementationTypeAttribute(typeof(MediaStoreSystem))]
-    public interface IMediaStoreSystem : IModelElement, ISystemArchitecture
+    [DefaultImplementationTypeAttribute(typeof(AudioDBInterface))]
+    [XmlDefaultImplementationTypeAttribute(typeof(AudioDBInterface))]
+    public interface IAudioDBInterface : IModelElement, IAssemblyContext
     {
-        
-        /// <summary>
-        /// The Frontend property
-        /// </summary>
-        IHTTP Frontend
-        {
-            get;
-            set;
-        }
-        
-        /// <summary>
-        /// Gets fired when the Frontend property changed its value
-        /// </summary>
-        event EventHandler<ValueChangedEventArgs> FrontendChanged;
     }
 }
 

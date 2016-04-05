@@ -1,23 +1,50 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <core:Repository xmi:version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Uri="http://github.com/georghinkel/mediaStore/Repository" Prefix="repo" Name="Repository" xmlns:xmi="http://www.omg.org/XMI" xmlns:core="http://github.com/georghinkel/DeepADL/1.0">
-  <ComponentTypes ProvidedInterfaces="//MediaStoreInterface/" Name="MediaStore">
-    <RequiredInterfaces Interface="//WatermarkInterface/" Name="Watermarking" />
-    <Services Name="Upload" Implements="//MediaStoreInterface/Upload/" />
-    <Services Name="Download" Implements="//MediaStoreInterface/Download/" />
+  <ComponentTypes Name="WebBrowser">
+    <RequiredInterfaces Interface="//HTTP/" Name="backend" />
   </ComponentTypes>
-  <ComponentTypes ProvidedInterfaces="//WatermarkInterface/" Name="Watermark">
-    <Services Name="Encrypt" Implements="//WatermarkInterface/Encrypt/" />
-    <Services Name="Decrypt" Implements="//WatermarkInterface/Decrypt/" />
+  <ComponentTypes ProvidedInterfaces="//HTTP/" Name="WebForm">
+    <RequiredInterfaces Interface="//AudioStoreInterface/" Name="application" />
   </ComponentTypes>
-  <Interfaces Name="MediaStoreInterface">
+  <ComponentTypes ProvidedInterfaces="//AudioStoreInterface/" Name="AudioStore">
+    <RequiredInterfaces Interface="//AudioDBInterface/" Name="audioDB" />
+    <RequiredInterfaces Interface="//UserManagementInterface/" Name="userManagement" />
+    <Services Name="Upload" Implements="//AudioStoreInterface/Upload/" />
+    <Services Name="Download" Implements="//AudioStoreInterface/Download/" />
+  </ComponentTypes>
+  <ComponentTypes ProvidedInterfaces="//AudioDBInterface/" Name="EncodingAdapter">
+    <RequiredInterfaces Interface="//EncoderInterface/" Name="encoder" />
+    <RequiredInterfaces Interface="//AudioDBInterface/" Name="database" />
+  </ComponentTypes>
+  <ComponentTypes ProvidedInterfaces="//EncoderInterface/" Name="OggEncoder">
+    <Services Name="Encrypt" Implements="//EncoderInterface/Encrypt/" />
+    <Services Name="Decrypt" Implements="//EncoderInterface/Decrypt/" />
+  </ComponentTypes>
+  <ComponentTypes ProvidedInterfaces="//UserManagementInterface/" Name="UserManagement">
+    <RequiredInterfaces Interface="//UserDBInterface/" Name="database" />
+  </ComponentTypes>
+  <ComponentTypes ProvidedInterfaces="//UserDBInterface/ //AudioDBInterface/" Name="DBAdapter">
+    <RequiredInterfaces Interface="//CommandInterface/" Name="command" />
+    <RequiredInterfaces Interface="//ConnectionInterface/" Name="connection" />
+    <RequiredInterfaces Interface="//DataReaderInterface/" Name="dataReader" />
+  </ComponentTypes>
+  <ComponentTypes ProvidedInterfaces="//CommandInterface/ //ConnectionInterface/ //DataReaderInterface/" Name="MySqlClient" />
+  <Interfaces Name="AudioStoreInterface">
     <Signatures Name="Upload" />
     <Signatures Name="Download" />
   </Interfaces>
-  <Interfaces Name="WatermarkInterface">
+  <Interfaces Name="EncoderInterface">
     <Signatures Name="Encrypt" />
     <Signatures Name="Decrypt" />
   </Interfaces>
+  <Interfaces Name="AudioDBInterface" />
+  <Interfaces Name="UserManagementInterface" />
+  <Interfaces Name="UserDBInterface" />
+  <Interfaces Name="CommandInterface" />
+  <Interfaces Name="ConnectionInterface" />
+  <Interfaces Name="DataReaderInterface" />
+  <Interfaces Name="HTTP" />
   <SystemSpecifications Name="MediaStoreSystem">
-    <PublicInterfaces Interface="//MediaStoreInterface/" Name="Frontend" />
+    <PublicInterfaces Interface="//HTTP/" Name="Frontend" />
   </SystemSpecifications>
 </core:Repository>

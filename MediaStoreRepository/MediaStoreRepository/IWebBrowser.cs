@@ -32,26 +32,26 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
     
     
     /// <summary>
-    /// The public interface for MediaStoreSystem
+    /// The public interface for WebBrowser
     /// </summary>
-    [DefaultImplementationTypeAttribute(typeof(MediaStoreSystem))]
-    [XmlDefaultImplementationTypeAttribute(typeof(MediaStoreSystem))]
-    public interface IMediaStoreSystem : IModelElement, ISystemArchitecture
+    [DefaultImplementationTypeAttribute(typeof(WebBrowser))]
+    [XmlDefaultImplementationTypeAttribute(typeof(WebBrowser))]
+    public interface IWebBrowser : IModelElement, IAssemblyContext
     {
         
         /// <summary>
-        /// The Frontend property
+        /// The backend property
         /// </summary>
-        IHTTP Frontend
+        IHTTP Backend
         {
             get;
             set;
         }
         
         /// <summary>
-        /// Gets fired when the Frontend property changed its value
+        /// Gets fired when the Backend property changed its value
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> FrontendChanged;
+        event EventHandler<ValueChangedEventArgs> BackendChanged;
     }
 }
 
