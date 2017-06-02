@@ -16,12 +16,14 @@ using NMF.Models;
 using NMF.Models.Collections;
 using NMF.Models.Expressions;
 using NMF.Models.Meta;
+using NMF.Models.Repository;
 using NMF.Serialization;
 using NMF.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -35,19 +37,34 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
     /// </summary>
     [XmlNamespaceAttribute("http://github.com/georghinkel/DeepADL/1.0")]
     [XmlNamespacePrefixAttribute("core")]
-    [ModelRepresentationClassAttribute("http://github.com/georghinkel/DeepADL/1.0#//ResourceEnvironment/")]
-    public class ResourceEnvironment : ModelElement, IResourceEnvironment, IModelElement
+    [ModelRepresentationClassAttribute("http://github.com/georghinkel/DeepADL/1.0#//ResourceEnvironment")]
+    public partial class ResourceEnvironment : NMF.Models.ModelElement, IResourceEnvironment, NMF.Models.IModelElement
     {
+        
+        private static Lazy<NMF.Models.Meta.ITypedElement> _containerReference = new Lazy<NMF.Models.Meta.ITypedElement>(RetrieveContainerReference);
         
         /// <summary>
         /// The backing field for the Container property
         /// </summary>
         private ResourceEnvironmentContainerCollection _container;
         
+        private static Lazy<NMF.Models.Meta.ITypedElement> _linksReference = new Lazy<NMF.Models.Meta.ITypedElement>(RetrieveLinksReference);
+        
+        /// <summary>
+        /// The backing field for the Links property
+        /// </summary>
+        private ResourceEnvironmentLinksCollection _links;
+        
+        private static NMF.Models.Meta.IClass _classInstance;
+        
         public ResourceEnvironment()
         {
             this._container = new ResourceEnvironmentContainerCollection(this);
+            this._container.CollectionChanging += this.ContainerCollectionChanging;
             this._container.CollectionChanged += this.ContainerCollectionChanged;
+            this._links = new ResourceEnvironmentLinksCollection(this);
+            this._links.CollectionChanging += this.LinksCollectionChanging;
+            this._links.CollectionChanged += this.LinksCollectionChanged;
         }
         
         /// <summary>
@@ -58,7 +75,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         [ContainmentAttribute()]
         [XmlOppositeAttribute("Environment")]
         [ConstantAttribute()]
-        public virtual ICollectionExpression<IResourceContainer> Container
+        public ICollectionExpression<IResourceContainer> Container
         {
             get
             {
@@ -67,9 +84,25 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         }
         
         /// <summary>
+        /// The Links property
+        /// </summary>
+        [DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Content)]
+        [XmlAttributeAttribute(false)]
+        [ContainmentAttribute()]
+        [XmlOppositeAttribute("Environment")]
+        [ConstantAttribute()]
+        public ICollectionExpression<IResourceLink> Links
+        {
+            get
+            {
+                return this._links;
+            }
+        }
+        
+        /// <summary>
         /// Gets the child model elements of this model element
         /// </summary>
-        public override IEnumerableExpression<IModelElement> Children
+        public override IEnumerableExpression<NMF.Models.IModelElement> Children
         {
             get
             {
@@ -80,7 +113,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// Gets the referenced model elements of this model element
         /// </summary>
-        public override IEnumerableExpression<IModelElement> ReferencedElements
+        public override IEnumerableExpression<NMF.Models.IModelElement> ReferencedElements
         {
             get
             {
@@ -89,24 +122,68 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         }
         
         /// <summary>
-        /// Gets the Class element that describes the structure of this type
+        /// Gets the Class model for this type
         /// </summary>
         public new static NMF.Models.Meta.IClass ClassInstance
         {
             get
             {
-                return NMF.Models.Repository.MetaRepository.Instance.ResolveClass("http://github.com/georghinkel/DeepADL/1.0#//ResourceEnvironment/");
+                if ((_classInstance == null))
+                {
+                    _classInstance = ((NMF.Models.Meta.IClass)(MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//ResourceEnvironment")));
+                }
+                return _classInstance;
             }
         }
         
+        private static NMF.Models.Meta.ITypedElement RetrieveContainerReference()
+        {
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.ResourceEnvironment.ClassInstance)).Resolve("Container")));
+        }
+        
         /// <summary>
-        /// Forwards change notifications for the Container property to the parent model element
+        /// Forwards CollectionChanging notifications for the Container property to the parent model element
         /// </summary>
         /// <param name="sender">The collection that raised the change</param>
         /// <param name="e">The original event data</param>
-        private void ContainerCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void ContainerCollectionChanging(object sender, NotifyCollectionChangingEventArgs e)
         {
-            this.OnCollectionChanged("Container", e);
+            this.OnCollectionChanging("Container", e, _containerReference);
+        }
+        
+        /// <summary>
+        /// Forwards CollectionChanged notifications for the Container property to the parent model element
+        /// </summary>
+        /// <param name="sender">The collection that raised the change</param>
+        /// <param name="e">The original event data</param>
+        private void ContainerCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            this.OnCollectionChanged("Container", e, _containerReference);
+        }
+        
+        private static NMF.Models.Meta.ITypedElement RetrieveLinksReference()
+        {
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.ResourceEnvironment.ClassInstance)).Resolve("Links")));
+        }
+        
+        /// <summary>
+        /// Forwards CollectionChanging notifications for the Links property to the parent model element
+        /// </summary>
+        /// <param name="sender">The collection that raised the change</param>
+        /// <param name="e">The original event data</param>
+        private void LinksCollectionChanging(object sender, NotifyCollectionChangingEventArgs e)
+        {
+            this.OnCollectionChanging("Links", e, _linksReference);
+        }
+        
+        /// <summary>
+        /// Forwards CollectionChanged notifications for the Links property to the parent model element
+        /// </summary>
+        /// <param name="sender">The collection that raised the change</param>
+        /// <param name="e">The original event data</param>
+        private void LinksCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            this.OnCollectionChanged("Links", e, _linksReference);
         }
         
         /// <summary>
@@ -120,21 +197,47 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             {
                 return this._container;
             }
+            if ((feature == "LINKS"))
+            {
+                return this._links;
+            }
             return base.GetCollectionForFeature(feature);
+        }
+        
+        /// <summary>
+        /// Gets the property name for the given container
+        /// </summary>
+        /// <returns>The name of the respective container reference</returns>
+        /// <param name="container">The container object</param>
+        protected override string GetCompositionName(object container)
+        {
+            if ((container == this._container))
+            {
+                return "Container";
+            }
+            if ((container == this._links))
+            {
+                return "Links";
+            }
+            return base.GetCompositionName(container);
         }
         
         /// <summary>
         /// Gets the Class for this model element
         /// </summary>
-        public override IClass GetClass()
+        public override NMF.Models.Meta.IClass GetClass()
         {
-            return ((IClass)(NMF.Models.Repository.MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//ResourceEnvironment/")));
+            if ((_classInstance == null))
+            {
+                _classInstance = ((NMF.Models.Meta.IClass)(MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//ResourceEnvironment")));
+            }
+            return _classInstance;
         }
         
         /// <summary>
         /// The collection class to to represent the children of the ResourceEnvironment class
         /// </summary>
-        public class ResourceEnvironmentChildrenCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
+        public class ResourceEnvironmentChildrenCollection : ReferenceCollection, ICollectionExpression<NMF.Models.IModelElement>, ICollection<NMF.Models.IModelElement>
         {
             
             private ResourceEnvironment _parent;
@@ -156,6 +259,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 {
                     int count = 0;
                     count = (count + this._parent.Container.Count);
+                    count = (count + this._parent.Links.Count);
                     return count;
                 }
             }
@@ -163,23 +267,30 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             protected override void AttachCore()
             {
                 this._parent.Container.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
+                this._parent.Links.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
             }
             
             protected override void DetachCore()
             {
                 this._parent.Container.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
+                this._parent.Links.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
             }
             
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
             /// <param name="item">The item to add</param>
-            public override void Add(IModelElement item)
+            public override void Add(NMF.Models.IModelElement item)
             {
                 IResourceContainer containerCasted = item.As<IResourceContainer>();
                 if ((containerCasted != null))
                 {
                     this._parent.Container.Add(containerCasted);
+                }
+                IResourceLink linksCasted = item.As<IResourceLink>();
+                if ((linksCasted != null))
+                {
+                    this._parent.Links.Add(linksCasted);
                 }
             }
             
@@ -189,6 +300,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             public override void Clear()
             {
                 this._parent.Container.Clear();
+                this._parent.Links.Clear();
             }
             
             /// <summary>
@@ -196,9 +308,13 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <returns>True, if it is contained, otherwise False</returns>
             /// <param name="item">The item that should be looked out for</param>
-            public override bool Contains(IModelElement item)
+            public override bool Contains(NMF.Models.IModelElement item)
             {
                 if (this._parent.Container.Contains(item))
+                {
+                    return true;
+                }
+                if (this._parent.Links.Contains(item))
                 {
                     return true;
                 }
@@ -210,9 +326,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <param name="array">The array in which the elements should be copied</param>
             /// <param name="arrayIndex">The starting index</param>
-            public override void CopyTo(IModelElement[] array, int arrayIndex)
+            public override void CopyTo(NMF.Models.IModelElement[] array, int arrayIndex)
             {
-                IEnumerator<IModelElement> containerEnumerator = this._parent.Container.GetEnumerator();
+                IEnumerator<NMF.Models.IModelElement> containerEnumerator = this._parent.Container.GetEnumerator();
                 try
                 {
                     for (
@@ -227,6 +343,21 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 {
                     containerEnumerator.Dispose();
                 }
+                IEnumerator<NMF.Models.IModelElement> linksEnumerator = this._parent.Links.GetEnumerator();
+                try
+                {
+                    for (
+                    ; linksEnumerator.MoveNext(); 
+                    )
+                    {
+                        array[arrayIndex] = linksEnumerator.Current;
+                        arrayIndex = (arrayIndex + 1);
+                    }
+                }
+                finally
+                {
+                    linksEnumerator.Dispose();
+                }
             }
             
             /// <summary>
@@ -234,11 +365,17 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <returns>True, if the item was removed, otherwise False</returns>
             /// <param name="item">The item that should be removed</param>
-            public override bool Remove(IModelElement item)
+            public override bool Remove(NMF.Models.IModelElement item)
             {
                 IResourceContainer resourceContainerItem = item.As<IResourceContainer>();
                 if (((resourceContainerItem != null) 
                             && this._parent.Container.Remove(resourceContainerItem)))
+                {
+                    return true;
+                }
+                IResourceLink resourceLinkItem = item.As<IResourceLink>();
+                if (((resourceLinkItem != null) 
+                            && this._parent.Links.Remove(resourceLinkItem)))
                 {
                     return true;
                 }
@@ -249,16 +386,16 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// Gets an enumerator that enumerates the collection
             /// </summary>
             /// <returns>A generic enumerator</returns>
-            public override IEnumerator<IModelElement> GetEnumerator()
+            public override IEnumerator<NMF.Models.IModelElement> GetEnumerator()
             {
-                return Enumerable.Empty<IModelElement>().Concat(this._parent.Container).GetEnumerator();
+                return Enumerable.Empty<NMF.Models.IModelElement>().Concat(this._parent.Container).Concat(this._parent.Links).GetEnumerator();
             }
         }
         
         /// <summary>
         /// The collection class to to represent the children of the ResourceEnvironment class
         /// </summary>
-        public class ResourceEnvironmentReferencedElementsCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
+        public class ResourceEnvironmentReferencedElementsCollection : ReferenceCollection, ICollectionExpression<NMF.Models.IModelElement>, ICollection<NMF.Models.IModelElement>
         {
             
             private ResourceEnvironment _parent;
@@ -280,6 +417,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 {
                     int count = 0;
                     count = (count + this._parent.Container.Count);
+                    count = (count + this._parent.Links.Count);
                     return count;
                 }
             }
@@ -287,23 +425,30 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             protected override void AttachCore()
             {
                 this._parent.Container.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
+                this._parent.Links.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
             }
             
             protected override void DetachCore()
             {
                 this._parent.Container.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
+                this._parent.Links.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
             }
             
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
             /// <param name="item">The item to add</param>
-            public override void Add(IModelElement item)
+            public override void Add(NMF.Models.IModelElement item)
             {
                 IResourceContainer containerCasted = item.As<IResourceContainer>();
                 if ((containerCasted != null))
                 {
                     this._parent.Container.Add(containerCasted);
+                }
+                IResourceLink linksCasted = item.As<IResourceLink>();
+                if ((linksCasted != null))
+                {
+                    this._parent.Links.Add(linksCasted);
                 }
             }
             
@@ -313,6 +458,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             public override void Clear()
             {
                 this._parent.Container.Clear();
+                this._parent.Links.Clear();
             }
             
             /// <summary>
@@ -320,9 +466,13 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <returns>True, if it is contained, otherwise False</returns>
             /// <param name="item">The item that should be looked out for</param>
-            public override bool Contains(IModelElement item)
+            public override bool Contains(NMF.Models.IModelElement item)
             {
                 if (this._parent.Container.Contains(item))
+                {
+                    return true;
+                }
+                if (this._parent.Links.Contains(item))
                 {
                     return true;
                 }
@@ -334,9 +484,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <param name="array">The array in which the elements should be copied</param>
             /// <param name="arrayIndex">The starting index</param>
-            public override void CopyTo(IModelElement[] array, int arrayIndex)
+            public override void CopyTo(NMF.Models.IModelElement[] array, int arrayIndex)
             {
-                IEnumerator<IModelElement> containerEnumerator = this._parent.Container.GetEnumerator();
+                IEnumerator<NMF.Models.IModelElement> containerEnumerator = this._parent.Container.GetEnumerator();
                 try
                 {
                     for (
@@ -351,6 +501,21 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 {
                     containerEnumerator.Dispose();
                 }
+                IEnumerator<NMF.Models.IModelElement> linksEnumerator = this._parent.Links.GetEnumerator();
+                try
+                {
+                    for (
+                    ; linksEnumerator.MoveNext(); 
+                    )
+                    {
+                        array[arrayIndex] = linksEnumerator.Current;
+                        arrayIndex = (arrayIndex + 1);
+                    }
+                }
+                finally
+                {
+                    linksEnumerator.Dispose();
+                }
             }
             
             /// <summary>
@@ -358,11 +523,17 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <returns>True, if the item was removed, otherwise False</returns>
             /// <param name="item">The item that should be removed</param>
-            public override bool Remove(IModelElement item)
+            public override bool Remove(NMF.Models.IModelElement item)
             {
                 IResourceContainer resourceContainerItem = item.As<IResourceContainer>();
                 if (((resourceContainerItem != null) 
                             && this._parent.Container.Remove(resourceContainerItem)))
+                {
+                    return true;
+                }
+                IResourceLink resourceLinkItem = item.As<IResourceLink>();
+                if (((resourceLinkItem != null) 
+                            && this._parent.Links.Remove(resourceLinkItem)))
                 {
                     return true;
                 }
@@ -373,9 +544,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// Gets an enumerator that enumerates the collection
             /// </summary>
             /// <returns>A generic enumerator</returns>
-            public override IEnumerator<IModelElement> GetEnumerator()
+            public override IEnumerator<NMF.Models.IModelElement> GetEnumerator()
             {
-                return Enumerable.Empty<IModelElement>().Concat(this._parent.Container).GetEnumerator();
+                return Enumerable.Empty<NMF.Models.IModelElement>().Concat(this._parent.Container).Concat(this._parent.Links).GetEnumerator();
             }
         }
     }

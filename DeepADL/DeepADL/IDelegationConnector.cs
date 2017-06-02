@@ -16,12 +16,14 @@ using NMF.Models;
 using NMF.Models.Collections;
 using NMF.Models.Expressions;
 using NMF.Models.Meta;
+using NMF.Models.Repository;
 using NMF.Serialization;
 using NMF.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -35,7 +37,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
     /// </summary>
     [DefaultImplementationTypeAttribute(typeof(DelegationConnector))]
     [XmlDefaultImplementationTypeAttribute(typeof(DelegationConnector))]
-    public interface IDelegationConnector : IModelElement
+    public interface IDelegationConnector : NMF.Models.IModelElement
     {
         
         /// <summary>
@@ -48,9 +50,14 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         }
         
         /// <summary>
+        /// Gets fired before the Port property changes its value
+        /// </summary>
+        event System.EventHandler<ValueChangedEventArgs> PortChanging;
+        
+        /// <summary>
         /// Gets fired when the Port property changed its value
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> PortChanged;
+        event System.EventHandler<ValueChangedEventArgs> PortChanged;
         
         /// <summary>
         /// Gets the Delegate for this model element

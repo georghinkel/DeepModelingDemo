@@ -17,12 +17,14 @@ using NMF.Models;
 using NMF.Models.Collections;
 using NMF.Models.Expressions;
 using NMF.Models.Meta;
+using NMF.Models.Repository;
 using NMF.Serialization;
 using NMF.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -36,7 +38,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
     /// </summary>
     [DefaultImplementationTypeAttribute(typeof(WebForm))]
     [XmlDefaultImplementationTypeAttribute(typeof(WebForm))]
-    public interface IWebForm : IModelElement, IHTTP, IAssemblyContext
+    public interface IWebForm : NMF.Models.IModelElement, IHTTP, IAssemblyContext
     {
         
         /// <summary>
@@ -49,9 +51,14 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         }
         
         /// <summary>
+        /// Gets fired before the Application property changes its value
+        /// </summary>
+        event System.EventHandler<ValueChangedEventArgs> ApplicationChanging;
+        
+        /// <summary>
         /// Gets fired when the Application property changed its value
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> ApplicationChanged;
+        event System.EventHandler<ValueChangedEventArgs> ApplicationChanged;
     }
 }
 

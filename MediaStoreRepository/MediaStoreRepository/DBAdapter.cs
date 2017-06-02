@@ -17,12 +17,14 @@ using NMF.Models;
 using NMF.Models.Collections;
 using NMF.Models.Expressions;
 using NMF.Models.Meta;
+using NMF.Models.Repository;
 using NMF.Serialization;
 using NMF.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -36,34 +38,62 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
     /// </summary>
     [XmlNamespaceAttribute("http://github.com/georghinkel/mediaStore/Repository")]
     [XmlNamespacePrefixAttribute("repo")]
-    [ModelRepresentationClassAttribute("http://github.com/georghinkel/mediaStore/Repository#//DBAdapter/")]
+    [ModelRepresentationClassAttribute("http://github.com/georghinkel/mediaStore/Repository#//DBAdapter")]
     [DebuggerDisplayAttribute("DBAdapter {Name}")]
-    public class DBAdapter : MetaElement, IDBAdapter, IModelElement
+    public partial class DBAdapter : NMF.Models.Meta.MetaElement, IDBAdapter, NMF.Models.IModelElement
     {
+        
+        private static Lazy<NMF.Models.Meta.ITypedElement> _commandReference = new Lazy<NMF.Models.Meta.ITypedElement>(RetrieveCommandReference);
         
         /// <summary>
         /// The backing field for the Command property
         /// </summary>
         private ICommandInterface _command;
         
+        private static Lazy<NMF.Models.Meta.ITypedElement> _connectionReference = new Lazy<NMF.Models.Meta.ITypedElement>(RetrieveConnectionReference);
+        
         /// <summary>
         /// The backing field for the Connection property
         /// </summary>
         private IConnectionInterface _connection;
+        
+        private static Lazy<NMF.Models.Meta.ITypedElement> _dataReaderReference = new Lazy<NMF.Models.Meta.ITypedElement>(RetrieveDataReaderReference);
         
         /// <summary>
         /// The backing field for the DataReader property
         /// </summary>
         private IDataReaderInterface _dataReader;
         
-        private static IReferenceType _ReferenceType = NMF.Models.Repository.MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//ResourceContainer/").As<IReferenceType>();
+        private static NMF.Models.Meta.IReferenceType _ReferenceType = NMF.Models.Repository.MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//ResourceContainer").As<NMF.Models.Meta.IReferenceType>();
+        
+        private static Lazy<NMF.Models.Meta.ITypedElement> _declaringTypeReference = new Lazy<NMF.Models.Meta.ITypedElement>(RetrieveDeclaringTypeReference);
+        
+        private static Lazy<NMF.Models.Meta.ITypedElement> _oppositeReference = new Lazy<NMF.Models.Meta.ITypedElement>(RetrieveOppositeReference);
         
         /// <summary>
         /// The backing field for the Opposite property
         /// </summary>
-        private IReference _opposite;
+        private NMF.Models.Meta.IReference _opposite;
+        
+        private static Lazy<NMF.Models.Meta.ITypedElement> _anchorReference = new Lazy<NMF.Models.Meta.ITypedElement>(RetrieveAnchorReference);
+        
+        /// <summary>
+        /// The backing field for the Anchor property
+        /// </summary>
+        private NMF.Models.Meta.IClass _anchor;
+        
+        private static NMF.Models.Meta.IClass _classInstance;
         
         event EventHandler<ValueChangedEventArgs> IReference.RefinesChanged
+        {
+            add
+            {
+            }
+            remove
+            {
+            }
+        }
+        event EventHandler<ValueChangedEventArgs> IReference.RefinesChanging
         {
             add
             {
@@ -81,7 +111,51 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             {
             }
         }
+        event EventHandler<ValueChangedEventArgs> IReference.ReferenceTypeChanging
+        {
+            add
+            {
+            }
+            remove
+            {
+            }
+        }
+        event EventHandler<ValueChangedEventArgs> ITypedElement.TypeChanged
+        {
+            add
+            {
+                IReference _this_IReference = this;
+                _this_IReference.ReferenceTypeChanged += value;
+            }
+            remove
+            {
+                IReference _this_IReference = this;
+                _this_IReference.ReferenceTypeChanged -= value;
+            }
+        }
+        event EventHandler<ValueChangedEventArgs> ITypedElement.TypeChanging
+        {
+            add
+            {
+                IReference _this_IReference = this;
+                _this_IReference.ReferenceTypeChanging += value;
+            }
+            remove
+            {
+                IReference _this_IReference = this;
+                _this_IReference.ReferenceTypeChanging -= value;
+            }
+        }
         event EventHandler<ValueChangedEventArgs> ITypedElement.LowerBoundChanged
+        {
+            add
+            {
+            }
+            remove
+            {
+            }
+        }
+        event EventHandler<ValueChangedEventArgs> ITypedElement.LowerBoundChanging
         {
             add
             {
@@ -99,7 +173,25 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             {
             }
         }
+        event EventHandler<ValueChangedEventArgs> ITypedElement.UpperBoundChanging
+        {
+            add
+            {
+            }
+            remove
+            {
+            }
+        }
         event EventHandler<ValueChangedEventArgs> IReference.IsContainmentChanged
+        {
+            add
+            {
+            }
+            remove
+            {
+            }
+        }
+        event EventHandler<ValueChangedEventArgs> IReference.IsContainmentChanging
         {
             add
             {
@@ -117,6 +209,15 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             {
             }
         }
+        event EventHandler<ValueChangedEventArgs> ITypedElement.IsOrderedChanging
+        {
+            add
+            {
+            }
+            remove
+            {
+            }
+        }
         event EventHandler<ValueChangedEventArgs> ITypedElement.IsUniqueChanged
         {
             add
@@ -126,17 +227,13 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             {
             }
         }
-        event EventHandler<ValueChangedEventArgs> ITypedElement.TypeChanged
+        event EventHandler<ValueChangedEventArgs> ITypedElement.IsUniqueChanging
         {
             add
             {
-                IReference _this_Reference = this;
-                _this_Reference.ReferenceTypeChanged += value;
             }
             remove
             {
-                IReference _this_Reference = this;
-                _this_Reference.ReferenceTypeChanged -= value;
             }
         }
         
@@ -145,7 +242,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// </summary>
         [XmlElementNameAttribute("command")]
         [XmlAttributeAttribute(true)]
-        public virtual ICommandInterface Command
+        public ICommandInterface Command
         {
             get
             {
@@ -156,6 +253,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                 if ((this._command != value))
                 {
                     ICommandInterface old = this._command;
+                    ValueChangedEventArgs e = new ValueChangedEventArgs(old, value);
+                    this.OnCommandChanging(e);
+                    this.OnPropertyChanging("Command", e, _commandReference);
                     this._command = value;
                     if ((old != null))
                     {
@@ -165,8 +265,8 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                     {
                         value.Deleted += this.OnResetCommand;
                     }
-                    this.OnPropertyChanged("Command");
-                    this.OnCommandChanged(new ValueChangedEventArgs(old, value));
+                    this.OnCommandChanged(e);
+                    this.OnPropertyChanged("Command", e, _commandReference);
                 }
             }
         }
@@ -176,7 +276,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// </summary>
         [XmlElementNameAttribute("connection")]
         [XmlAttributeAttribute(true)]
-        public virtual IConnectionInterface Connection
+        public IConnectionInterface Connection
         {
             get
             {
@@ -187,6 +287,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                 if ((this._connection != value))
                 {
                     IConnectionInterface old = this._connection;
+                    ValueChangedEventArgs e = new ValueChangedEventArgs(old, value);
+                    this.OnConnectionChanging(e);
+                    this.OnPropertyChanging("Connection", e, _connectionReference);
                     this._connection = value;
                     if ((old != null))
                     {
@@ -196,8 +299,8 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                     {
                         value.Deleted += this.OnResetConnection;
                     }
-                    this.OnPropertyChanged("Connection");
-                    this.OnConnectionChanged(new ValueChangedEventArgs(old, value));
+                    this.OnConnectionChanged(e);
+                    this.OnPropertyChanged("Connection", e, _connectionReference);
                 }
             }
         }
@@ -207,7 +310,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// </summary>
         [XmlElementNameAttribute("dataReader")]
         [XmlAttributeAttribute(true)]
-        public virtual IDataReaderInterface DataReader
+        public IDataReaderInterface DataReader
         {
             get
             {
@@ -218,6 +321,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                 if ((this._dataReader != value))
                 {
                     IDataReaderInterface old = this._dataReader;
+                    ValueChangedEventArgs e = new ValueChangedEventArgs(old, value);
+                    this.OnDataReaderChanging(e);
+                    this.OnPropertyChanging("DataReader", e, _dataReaderReference);
                     this._dataReader = value;
                     if ((old != null))
                     {
@@ -227,13 +333,13 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                     {
                         value.Deleted += this.OnResetDataReader;
                     }
-                    this.OnPropertyChanged("DataReader");
-                    this.OnDataReaderChanged(new ValueChangedEventArgs(old, value));
+                    this.OnDataReaderChanged(e);
+                    this.OnPropertyChanged("DataReader", e, _dataReaderReference);
                 }
             }
         }
         
-        IReference IReference.Refines
+        NMF.Models.Meta.IReference NMF.Models.Meta.IReference.Refines
         {
             get
             {
@@ -248,7 +354,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             }
         }
         
-        IReferenceType IReference.ReferenceType
+        NMF.Models.Meta.IReferenceType NMF.Models.Meta.IReference.ReferenceType
         {
             get
             {
@@ -263,7 +369,39 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             }
         }
         
-        int ITypedElement.LowerBound
+        NMF.Models.Meta.IType NMF.Models.Meta.ITypedElement.Type
+        {
+            get
+            {
+                IDBAdapter _this = this;
+                if ((_this.ReferenceType != null))
+                {
+                    return _this.ReferenceType;
+                }
+                return null;
+            }
+            set
+            {
+                IDBAdapter _this = this;
+                if ((value != null))
+                {
+                    NMF.Models.Meta.IReferenceType @__ReferenceType = value.As<NMF.Models.Meta.IReferenceType>();
+                    if ((@__ReferenceType != null))
+                    {
+                        _this.ReferenceType = @__ReferenceType;
+                        return;
+                    }
+                }
+                else
+                {
+                    _this.ReferenceType = null;
+                    return;
+                }
+                throw new System.ArgumentException("There was no suitable refining reference found for this object");
+            }
+        }
+        
+        int NMF.Models.Meta.ITypedElement.LowerBound
         {
             get
             {
@@ -278,7 +416,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             }
         }
         
-        int ITypedElement.UpperBound
+        int NMF.Models.Meta.ITypedElement.UpperBound
         {
             get
             {
@@ -293,7 +431,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             }
         }
         
-        bool IReference.IsContainment
+        bool NMF.Models.Meta.IReference.IsContainment
         {
             get
             {
@@ -308,7 +446,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             }
         }
         
-        bool ITypedElement.IsOrdered
+        bool NMF.Models.Meta.ITypedElement.IsOrdered
         {
             get
             {
@@ -323,7 +461,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             }
         }
         
-        bool ITypedElement.IsUnique
+        bool NMF.Models.Meta.ITypedElement.IsUnique
         {
             get
             {
@@ -344,11 +482,11 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         [DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
         [XmlAttributeAttribute(true)]
         [XmlOppositeAttribute("References")]
-        public virtual IReferenceType DeclaringType
+        public NMF.Models.Meta.IReferenceType DeclaringType
         {
             get
             {
-                return ModelHelper.CastAs<IReferenceType>(this.Parent);
+                return ModelHelper.CastAs<NMF.Models.Meta.IReferenceType>(this.Parent);
             }
             set
             {
@@ -361,7 +499,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// </summary>
         [XmlAttributeAttribute(true)]
         [XmlOppositeAttribute("Opposite")]
-        public virtual IReference Opposite
+        public NMF.Models.Meta.IReference Opposite
         {
             get
             {
@@ -371,7 +509,10 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             {
                 if ((this._opposite != value))
                 {
-                    IReference old = this._opposite;
+                    NMF.Models.Meta.IReference old = this._opposite;
+                    ValueChangedEventArgs e = new ValueChangedEventArgs(old, value);
+                    this.OnOppositeChanging(e);
+                    this.OnPropertyChanging("Opposite", e, _oppositeReference);
                     this._opposite = value;
                     if ((old != null))
                     {
@@ -383,48 +524,60 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                         value.Opposite = this;
                         value.Deleted += this.OnResetOpposite;
                     }
-                    this.OnPropertyChanged("Opposite");
-                    this.OnOppositeChanged(new ValueChangedEventArgs(old, value));
+                    this.OnOppositeChanged(e);
+                    this.OnPropertyChanged("Opposite", e, _oppositeReference);
                 }
             }
         }
         
-        IType ITypedElement.Type
+        /// <summary>
+        /// The least common anchestor of an instance and its referenced element, if statically known
+        /// </summary>
+        [XmlAttributeAttribute(true)]
+        public NMF.Models.Meta.IClass Anchor
         {
             get
             {
-                IReference _this = this;
-                if ((_this.ReferenceType != null))
-                {
-                    return _this.ReferenceType;
-                }
-                return null;
+                return this._anchor;
             }
             set
             {
-                IReference _this = this;
-                if ((value != null))
+                if ((this._anchor != value))
                 {
-                    IReferenceType @__ReferenceType = value.As<IReferenceType>();
-                    if ((@__ReferenceType != null))
+                    NMF.Models.Meta.IClass old = this._anchor;
+                    ValueChangedEventArgs e = new ValueChangedEventArgs(old, value);
+                    this.OnAnchorChanging(e);
+                    this.OnPropertyChanging("Anchor", e, _anchorReference);
+                    this._anchor = value;
+                    if ((old != null))
                     {
-                        _this.ReferenceType = @__ReferenceType;
-                        return;
+                        old.Deleted -= this.OnResetAnchor;
                     }
+                    if ((value != null))
+                    {
+                        value.Deleted += this.OnResetAnchor;
+                    }
+                    this.OnAnchorChanged(e);
+                    this.OnPropertyChanged("Anchor", e, _anchorReference);
                 }
-                else
-                {
-                    _this.ReferenceType = null;
-                    return;
-                }
-                throw new System.ArgumentException("There was no suitable refining reference found for this object");
+            }
+        }
+        
+        /// <summary>
+        /// Gets the child model elements of this model element
+        /// </summary>
+        public override IEnumerableExpression<NMF.Models.IModelElement> Children
+        {
+            get
+            {
+                return base.Children.Concat(new DBAdapterChildrenCollection(this));
             }
         }
         
         /// <summary>
         /// Gets the referenced model elements of this model element
         /// </summary>
-        public override IEnumerableExpression<IModelElement> ReferencedElements
+        public override IEnumerableExpression<NMF.Models.IModelElement> ReferencedElements
         {
             get
             {
@@ -433,40 +586,112 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         }
         
         /// <summary>
-        /// Gets the Class element that describes the structure of this type
+        /// Gets the ComponentType model for this type
+        /// </summary>
+        public new static IComponentType ComponentTypeInstance
+        {
+            get
+            {
+                if ((_classInstance == null))
+                {
+                    _classInstance = ((NMF.Models.Meta.IClass)(MetaRepository.Instance.Resolve("http://github.com/georghinkel/mediaStore/Repository#//DBAdapter")));
+                }
+                return ((IComponentType)(_classInstance));
+            }
+        }
+        
+        /// <summary>
+        /// Gets the Class model for this type
         /// </summary>
         public new static NMF.Models.Meta.IClass ClassInstance
         {
             get
             {
-                return NMF.Models.Repository.MetaRepository.Instance.ResolveClass("http://github.com/georghinkel/mediaStore/Repository#//DBAdapter/");
+                if ((_classInstance == null))
+                {
+                    _classInstance = ((NMF.Models.Meta.IClass)(MetaRepository.Instance.Resolve("http://github.com/georghinkel/mediaStore/Repository#//DBAdapter")));
+                }
+                return _classInstance;
             }
         }
         
         /// <summary>
+        /// Gets fired before the Command property changes its value
+        /// </summary>
+        public event System.EventHandler<ValueChangedEventArgs> CommandChanging;
+        
+        /// <summary>
         /// Gets fired when the Command property changed its value
         /// </summary>
-        public event EventHandler<ValueChangedEventArgs> CommandChanged;
+        public event System.EventHandler<ValueChangedEventArgs> CommandChanged;
+        
+        /// <summary>
+        /// Gets fired before the Connection property changes its value
+        /// </summary>
+        public event System.EventHandler<ValueChangedEventArgs> ConnectionChanging;
         
         /// <summary>
         /// Gets fired when the Connection property changed its value
         /// </summary>
-        public event EventHandler<ValueChangedEventArgs> ConnectionChanged;
+        public event System.EventHandler<ValueChangedEventArgs> ConnectionChanged;
+        
+        /// <summary>
+        /// Gets fired before the DataReader property changes its value
+        /// </summary>
+        public event System.EventHandler<ValueChangedEventArgs> DataReaderChanging;
         
         /// <summary>
         /// Gets fired when the DataReader property changed its value
         /// </summary>
-        public event EventHandler<ValueChangedEventArgs> DataReaderChanged;
+        public event System.EventHandler<ValueChangedEventArgs> DataReaderChanged;
+        
+        /// <summary>
+        /// Gets fired before the DeclaringType property changes its value
+        /// </summary>
+        public event System.EventHandler<ValueChangedEventArgs> DeclaringTypeChanging;
         
         /// <summary>
         /// Gets fired when the DeclaringType property changed its value
         /// </summary>
-        public event EventHandler<ValueChangedEventArgs> DeclaringTypeChanged;
+        public event System.EventHandler<ValueChangedEventArgs> DeclaringTypeChanged;
+        
+        /// <summary>
+        /// Gets fired before the Opposite property changes its value
+        /// </summary>
+        public event System.EventHandler<ValueChangedEventArgs> OppositeChanging;
         
         /// <summary>
         /// Gets fired when the Opposite property changed its value
         /// </summary>
-        public event EventHandler<ValueChangedEventArgs> OppositeChanged;
+        public event System.EventHandler<ValueChangedEventArgs> OppositeChanged;
+        
+        /// <summary>
+        /// Gets fired before the Anchor property changes its value
+        /// </summary>
+        public event System.EventHandler<ValueChangedEventArgs> AnchorChanging;
+        
+        /// <summary>
+        /// Gets fired when the Anchor property changed its value
+        /// </summary>
+        public event System.EventHandler<ValueChangedEventArgs> AnchorChanged;
+        
+        private static NMF.Models.Meta.ITypedElement RetrieveCommandReference()
+        {
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.Repository.DBAdapter.ClassInstance)).Resolve("command")));
+        }
+        
+        /// <summary>
+        /// Raises the CommandChanging event
+        /// </summary>
+        /// <param name="eventArgs">The event data</param>
+        protected virtual void OnCommandChanging(ValueChangedEventArgs eventArgs)
+        {
+            System.EventHandler<ValueChangedEventArgs> handler = this.CommandChanging;
+            if ((handler != null))
+            {
+                handler.Invoke(this, eventArgs);
+            }
+        }
         
         /// <summary>
         /// Raises the CommandChanged event
@@ -474,7 +699,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// <param name="eventArgs">The event data</param>
         protected virtual void OnCommandChanged(ValueChangedEventArgs eventArgs)
         {
-            EventHandler<ValueChangedEventArgs> handler = this.CommandChanged;
+            System.EventHandler<ValueChangedEventArgs> handler = this.CommandChanged;
             if ((handler != null))
             {
                 handler.Invoke(this, eventArgs);
@@ -486,9 +711,27 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// </summary>
         /// <param name="sender">The object that sent this reset request</param>
         /// <param name="eventArgs">The event data for the reset event</param>
-        private void OnResetCommand(object sender, EventArgs eventArgs)
+        private void OnResetCommand(object sender, System.EventArgs eventArgs)
         {
             this.Command = null;
+        }
+        
+        private static NMF.Models.Meta.ITypedElement RetrieveConnectionReference()
+        {
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.Repository.DBAdapter.ClassInstance)).Resolve("connection")));
+        }
+        
+        /// <summary>
+        /// Raises the ConnectionChanging event
+        /// </summary>
+        /// <param name="eventArgs">The event data</param>
+        protected virtual void OnConnectionChanging(ValueChangedEventArgs eventArgs)
+        {
+            System.EventHandler<ValueChangedEventArgs> handler = this.ConnectionChanging;
+            if ((handler != null))
+            {
+                handler.Invoke(this, eventArgs);
+            }
         }
         
         /// <summary>
@@ -497,7 +740,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// <param name="eventArgs">The event data</param>
         protected virtual void OnConnectionChanged(ValueChangedEventArgs eventArgs)
         {
-            EventHandler<ValueChangedEventArgs> handler = this.ConnectionChanged;
+            System.EventHandler<ValueChangedEventArgs> handler = this.ConnectionChanged;
             if ((handler != null))
             {
                 handler.Invoke(this, eventArgs);
@@ -509,9 +752,27 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// </summary>
         /// <param name="sender">The object that sent this reset request</param>
         /// <param name="eventArgs">The event data for the reset event</param>
-        private void OnResetConnection(object sender, EventArgs eventArgs)
+        private void OnResetConnection(object sender, System.EventArgs eventArgs)
         {
             this.Connection = null;
+        }
+        
+        private static NMF.Models.Meta.ITypedElement RetrieveDataReaderReference()
+        {
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.Repository.DBAdapter.ClassInstance)).Resolve("dataReader")));
+        }
+        
+        /// <summary>
+        /// Raises the DataReaderChanging event
+        /// </summary>
+        /// <param name="eventArgs">The event data</param>
+        protected virtual void OnDataReaderChanging(ValueChangedEventArgs eventArgs)
+        {
+            System.EventHandler<ValueChangedEventArgs> handler = this.DataReaderChanging;
+            if ((handler != null))
+            {
+                handler.Invoke(this, eventArgs);
+            }
         }
         
         /// <summary>
@@ -520,7 +781,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// <param name="eventArgs">The event data</param>
         protected virtual void OnDataReaderChanged(ValueChangedEventArgs eventArgs)
         {
-            EventHandler<ValueChangedEventArgs> handler = this.DataReaderChanged;
+            System.EventHandler<ValueChangedEventArgs> handler = this.DataReaderChanged;
             if ((handler != null))
             {
                 handler.Invoke(this, eventArgs);
@@ -532,9 +793,41 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// </summary>
         /// <param name="sender">The object that sent this reset request</param>
         /// <param name="eventArgs">The event data for the reset event</param>
-        private void OnResetDataReader(object sender, EventArgs eventArgs)
+        private void OnResetDataReader(object sender, System.EventArgs eventArgs)
         {
             this.DataReader = null;
+        }
+        
+        private static NMF.Models.Meta.ITypedElement RetrieveDeclaringTypeReference()
+        {
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(NMF.Models.Meta.Reference.ClassInstance)).Resolve("DeclaringType")));
+        }
+        
+        /// <summary>
+        /// Raises the DeclaringTypeChanging event
+        /// </summary>
+        /// <param name="eventArgs">The event data</param>
+        protected virtual void OnDeclaringTypeChanging(ValueChangedEventArgs eventArgs)
+        {
+            System.EventHandler<ValueChangedEventArgs> handler = this.DeclaringTypeChanging;
+            if ((handler != null))
+            {
+                handler.Invoke(this, eventArgs);
+            }
+        }
+        
+        /// <summary>
+        /// Gets called when the parent model element of the current model element is about to change
+        /// </summary>
+        /// <param name="oldParent">The old parent model element</param>
+        /// <param name="newParent">The new parent model element</param>
+        protected override void OnParentChanging(NMF.Models.IModelElement newParent, NMF.Models.IModelElement oldParent)
+        {
+            NMF.Models.Meta.IReferenceType oldDeclaringType = ModelHelper.CastAs<NMF.Models.Meta.IReferenceType>(oldParent);
+            NMF.Models.Meta.IReferenceType newDeclaringType = ModelHelper.CastAs<NMF.Models.Meta.IReferenceType>(newParent);
+            ValueChangedEventArgs e = new ValueChangedEventArgs(oldDeclaringType, newDeclaringType);
+            this.OnDeclaringTypeChanging(e);
+            this.OnPropertyChanging("DeclaringType", e, _declaringTypeReference);
         }
         
         /// <summary>
@@ -543,7 +836,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// <param name="eventArgs">The event data</param>
         protected virtual void OnDeclaringTypeChanged(ValueChangedEventArgs eventArgs)
         {
-            EventHandler<ValueChangedEventArgs> handler = this.DeclaringTypeChanged;
+            System.EventHandler<ValueChangedEventArgs> handler = this.DeclaringTypeChanged;
             if ((handler != null))
             {
                 handler.Invoke(this, eventArgs);
@@ -555,10 +848,10 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// </summary>
         /// <param name="oldParent">The old parent model element</param>
         /// <param name="newParent">The new parent model element</param>
-        protected override void OnParentChanged(IModelElement newParent, IModelElement oldParent)
+        protected override void OnParentChanged(NMF.Models.IModelElement newParent, NMF.Models.IModelElement oldParent)
         {
-            IReferenceType oldDeclaringType = ModelHelper.CastAs<IReferenceType>(oldParent);
-            IReferenceType newDeclaringType = ModelHelper.CastAs<IReferenceType>(newParent);
+            NMF.Models.Meta.IReferenceType oldDeclaringType = ModelHelper.CastAs<NMF.Models.Meta.IReferenceType>(oldParent);
+            NMF.Models.Meta.IReferenceType newDeclaringType = ModelHelper.CastAs<NMF.Models.Meta.IReferenceType>(newParent);
             if ((oldDeclaringType != null))
             {
                 oldDeclaringType.References.Remove(this);
@@ -567,8 +860,28 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             {
                 newDeclaringType.References.Add(this);
             }
-            this.OnPropertyChanged("DeclaringType");
-            this.OnDeclaringTypeChanged(new ValueChangedEventArgs(oldDeclaringType, newDeclaringType));
+            ValueChangedEventArgs e = new ValueChangedEventArgs(oldDeclaringType, newDeclaringType);
+            this.OnDeclaringTypeChanged(e);
+            this.OnPropertyChanged("DeclaringType", e, _declaringTypeReference);
+            base.OnParentChanged(newParent, oldParent);
+        }
+        
+        private static NMF.Models.Meta.ITypedElement RetrieveOppositeReference()
+        {
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(NMF.Models.Meta.Reference.ClassInstance)).Resolve("Opposite")));
+        }
+        
+        /// <summary>
+        /// Raises the OppositeChanging event
+        /// </summary>
+        /// <param name="eventArgs">The event data</param>
+        protected virtual void OnOppositeChanging(ValueChangedEventArgs eventArgs)
+        {
+            System.EventHandler<ValueChangedEventArgs> handler = this.OppositeChanging;
+            if ((handler != null))
+            {
+                handler.Invoke(this, eventArgs);
+            }
         }
         
         /// <summary>
@@ -577,7 +890,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// <param name="eventArgs">The event data</param>
         protected virtual void OnOppositeChanged(ValueChangedEventArgs eventArgs)
         {
-            EventHandler<ValueChangedEventArgs> handler = this.OppositeChanged;
+            System.EventHandler<ValueChangedEventArgs> handler = this.OppositeChanged;
             if ((handler != null))
             {
                 handler.Invoke(this, eventArgs);
@@ -589,9 +902,50 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// </summary>
         /// <param name="sender">The object that sent this reset request</param>
         /// <param name="eventArgs">The event data for the reset event</param>
-        private void OnResetOpposite(object sender, EventArgs eventArgs)
+        private void OnResetOpposite(object sender, System.EventArgs eventArgs)
         {
             this.Opposite = null;
+        }
+        
+        private static NMF.Models.Meta.ITypedElement RetrieveAnchorReference()
+        {
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(NMF.Models.Meta.Reference.ClassInstance)).Resolve("Anchor")));
+        }
+        
+        /// <summary>
+        /// Raises the AnchorChanging event
+        /// </summary>
+        /// <param name="eventArgs">The event data</param>
+        protected virtual void OnAnchorChanging(ValueChangedEventArgs eventArgs)
+        {
+            System.EventHandler<ValueChangedEventArgs> handler = this.AnchorChanging;
+            if ((handler != null))
+            {
+                handler.Invoke(this, eventArgs);
+            }
+        }
+        
+        /// <summary>
+        /// Raises the AnchorChanged event
+        /// </summary>
+        /// <param name="eventArgs">The event data</param>
+        protected virtual void OnAnchorChanged(ValueChangedEventArgs eventArgs)
+        {
+            System.EventHandler<ValueChangedEventArgs> handler = this.AnchorChanged;
+            if ((handler != null))
+            {
+                handler.Invoke(this, eventArgs);
+            }
+        }
+        
+        /// <summary>
+        /// Handles the event that the Anchor property must reset
+        /// </summary>
+        /// <param name="sender">The object that sent this reset request</param>
+        /// <param name="eventArgs">The event data for the reset event</param>
+        private void OnResetAnchor(object sender, System.EventArgs eventArgs)
+        {
+            this.Anchor = null;
         }
         
         /// <summary>
@@ -618,12 +972,17 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             }
             if ((feature == "DECLARINGTYPE"))
             {
-                this.DeclaringType = ((IReferenceType)(value));
+                this.DeclaringType = ((NMF.Models.Meta.IReferenceType)(value));
                 return;
             }
             if ((feature == "OPPOSITE"))
             {
-                this.Opposite = ((IReference)(value));
+                this.Opposite = ((NMF.Models.Meta.IReference)(value));
+                return;
+            }
+            if ((feature == "ANCHOR"))
+            {
+                this.Anchor = ((NMF.Models.Meta.IClass)(value));
                 return;
             }
             base.SetFeature(feature, value);
@@ -636,25 +995,29 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// <param name="attribute">The requested attribute in upper case</param>
         protected override NMF.Expressions.INotifyExpression<object> GetExpressionForAttribute(string attribute)
         {
-            if ((attribute == "COMMAND"))
+            if ((attribute == "Command"))
             {
                 return new CommandProxy(this);
             }
-            if ((attribute == "CONNECTION"))
+            if ((attribute == "Connection"))
             {
                 return new ConnectionProxy(this);
             }
-            if ((attribute == "DATAREADER"))
+            if ((attribute == "DataReader"))
             {
                 return new DataReaderProxy(this);
             }
-            if ((attribute == "DECLARINGTYPE"))
+            if ((attribute == "DeclaringType"))
             {
                 return new DeclaringTypeProxy(this);
             }
-            if ((attribute == "OPPOSITE"))
+            if ((attribute == "Opposite"))
             {
                 return new OppositeProxy(this);
+            }
+            if ((attribute == "Anchor"))
+            {
+                return new AnchorProxy(this);
             }
             return base.GetExpressionForAttribute(attribute);
         }
@@ -666,25 +1029,29 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// <param name="reference">The requested reference in upper case</param>
         protected override NMF.Expressions.INotifyExpression<NMF.Models.IModelElement> GetExpressionForReference(string reference)
         {
-            if ((reference == "COMMAND"))
+            if ((reference == "Command"))
             {
                 return new CommandProxy(this);
             }
-            if ((reference == "CONNECTION"))
+            if ((reference == "Connection"))
             {
                 return new ConnectionProxy(this);
             }
-            if ((reference == "DATAREADER"))
+            if ((reference == "DataReader"))
             {
                 return new DataReaderProxy(this);
             }
-            if ((reference == "DECLARINGTYPE"))
+            if ((reference == "DeclaringType"))
             {
                 return new DeclaringTypeProxy(this);
             }
-            if ((reference == "OPPOSITE"))
+            if ((reference == "Opposite"))
             {
                 return new OppositeProxy(this);
+            }
+            if ((reference == "Anchor"))
+            {
+                return new AnchorProxy(this);
             }
             return base.GetExpressionForReference(reference);
         }
@@ -692,15 +1059,19 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// <summary>
         /// Gets the ComponentType for this model element
         /// </summary>
-        public IComponentType GetComponentType()
+        public virtual IComponentType GetComponentType()
         {
-            return ((IComponentType)(NMF.Models.Repository.MetaRepository.Instance.Resolve("http://github.com/georghinkel/mediaStore/Repository#//DBAdapter/")));
+            if ((_classInstance == null))
+            {
+                _classInstance = ((NMF.Models.Meta.IClass)(MetaRepository.Instance.Resolve("http://github.com/georghinkel/mediaStore/Repository#//DBAdapter")));
+            }
+            return ((IComponentType)(_classInstance));
         }
         
         /// <summary>
         /// Gets the referenced value for a RequiredInterfaces of the enclosing ComponentType.
         /// </summary>
-        public IAssemblyContext GetRequiredInterfacesValue(IRequiredInterface reference)
+        public virtual IAssemblyContext GetRequiredInterfacesValue(IRequiredInterface reference)
         {
             return ((IAssemblyContext)(this.GetReferencedElement(reference)));
         }
@@ -708,15 +1079,109 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// <summary>
         /// Gets the Class for this model element
         /// </summary>
-        public override IClass GetClass()
+        public override NMF.Models.Meta.IClass GetClass()
         {
-            return ((IClass)(NMF.Models.Repository.MetaRepository.Instance.Resolve("http://github.com/georghinkel/mediaStore/Repository#//DBAdapter/")));
+            if ((_classInstance == null))
+            {
+                _classInstance = ((NMF.Models.Meta.IClass)(MetaRepository.Instance.Resolve("http://github.com/georghinkel/mediaStore/Repository#//DBAdapter")));
+            }
+            return _classInstance;
         }
         
         /// <summary>
         /// The collection class to to represent the children of the DBAdapter class
         /// </summary>
-        public class DBAdapterReferencedElementsCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
+        public class DBAdapterChildrenCollection : ReferenceCollection, ICollectionExpression<NMF.Models.IModelElement>, ICollection<NMF.Models.IModelElement>
+        {
+            
+            private DBAdapter _parent;
+            
+            /// <summary>
+            /// Creates a new instance
+            /// </summary>
+            public DBAdapterChildrenCollection(DBAdapter parent)
+            {
+                this._parent = parent;
+            }
+            
+            /// <summary>
+            /// Gets the amount of elements contained in this collection
+            /// </summary>
+            public override int Count
+            {
+                get
+                {
+                    int count = 0;
+                    return count;
+                }
+            }
+            
+            protected override void AttachCore()
+            {
+            }
+            
+            protected override void DetachCore()
+            {
+            }
+            
+            /// <summary>
+            /// Adds the given element to the collection
+            /// </summary>
+            /// <param name="item">The item to add</param>
+            public override void Add(NMF.Models.IModelElement item)
+            {
+            }
+            
+            /// <summary>
+            /// Clears the collection and resets all references that implement it.
+            /// </summary>
+            public override void Clear()
+            {
+            }
+            
+            /// <summary>
+            /// Gets a value indicating whether the given element is contained in the collection
+            /// </summary>
+            /// <returns>True, if it is contained, otherwise False</returns>
+            /// <param name="item">The item that should be looked out for</param>
+            public override bool Contains(NMF.Models.IModelElement item)
+            {
+                return false;
+            }
+            
+            /// <summary>
+            /// Copies the contents of the collection to the given array starting from the given array index
+            /// </summary>
+            /// <param name="array">The array in which the elements should be copied</param>
+            /// <param name="arrayIndex">The starting index</param>
+            public override void CopyTo(NMF.Models.IModelElement[] array, int arrayIndex)
+            {
+            }
+            
+            /// <summary>
+            /// Removes the given item from the collection
+            /// </summary>
+            /// <returns>True, if the item was removed, otherwise False</returns>
+            /// <param name="item">The item that should be removed</param>
+            public override bool Remove(NMF.Models.IModelElement item)
+            {
+                return false;
+            }
+            
+            /// <summary>
+            /// Gets an enumerator that enumerates the collection
+            /// </summary>
+            /// <returns>A generic enumerator</returns>
+            public override IEnumerator<NMF.Models.IModelElement> GetEnumerator()
+            {
+                return Enumerable.Empty<NMF.Models.IModelElement>().GetEnumerator();
+            }
+        }
+        
+        /// <summary>
+        /// The collection class to to represent the children of the DBAdapter class
+        /// </summary>
+        public class DBAdapterReferencedElementsCollection : ReferenceCollection, ICollectionExpression<NMF.Models.IModelElement>, ICollection<NMF.Models.IModelElement>
         {
             
             private DBAdapter _parent;
@@ -757,6 +1222,10 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                     {
                         count = (count + 1);
                     }
+                    if ((this._parent.Anchor != null))
+                    {
+                        count = (count + 1);
+                    }
                     return count;
                 }
             }
@@ -768,6 +1237,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                 this._parent.DataReaderChanged += this.PropagateValueChanges;
                 this._parent.DeclaringTypeChanged += this.PropagateValueChanges;
                 this._parent.OppositeChanged += this.PropagateValueChanges;
+                this._parent.AnchorChanged += this.PropagateValueChanges;
             }
             
             protected override void DetachCore()
@@ -777,13 +1247,14 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                 this._parent.DataReaderChanged -= this.PropagateValueChanges;
                 this._parent.DeclaringTypeChanged -= this.PropagateValueChanges;
                 this._parent.OppositeChanged -= this.PropagateValueChanges;
+                this._parent.AnchorChanged -= this.PropagateValueChanges;
             }
             
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
             /// <param name="item">The item to add</param>
-            public override void Add(IModelElement item)
+            public override void Add(NMF.Models.IModelElement item)
             {
                 if ((this._parent.Command == null))
                 {
@@ -814,7 +1285,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                 }
                 if ((this._parent.DeclaringType == null))
                 {
-                    IReferenceType declaringTypeCasted = item.As<IReferenceType>();
+                    NMF.Models.Meta.IReferenceType declaringTypeCasted = item.As<NMF.Models.Meta.IReferenceType>();
                     if ((declaringTypeCasted != null))
                     {
                         this._parent.DeclaringType = declaringTypeCasted;
@@ -823,10 +1294,19 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                 }
                 if ((this._parent.Opposite == null))
                 {
-                    IReference oppositeCasted = item.As<IReference>();
+                    NMF.Models.Meta.IReference oppositeCasted = item.As<NMF.Models.Meta.IReference>();
                     if ((oppositeCasted != null))
                     {
                         this._parent.Opposite = oppositeCasted;
+                        return;
+                    }
+                }
+                if ((this._parent.Anchor == null))
+                {
+                    NMF.Models.Meta.IClass anchorCasted = item.As<NMF.Models.Meta.IClass>();
+                    if ((anchorCasted != null))
+                    {
+                        this._parent.Anchor = anchorCasted;
                         return;
                     }
                 }
@@ -842,6 +1322,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                 this._parent.DataReader = null;
                 this._parent.DeclaringType = null;
                 this._parent.Opposite = null;
+                this._parent.Anchor = null;
             }
             
             /// <summary>
@@ -849,7 +1330,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             /// </summary>
             /// <returns>True, if it is contained, otherwise False</returns>
             /// <param name="item">The item that should be looked out for</param>
-            public override bool Contains(IModelElement item)
+            public override bool Contains(NMF.Models.IModelElement item)
             {
                 if ((item == this._parent.Command))
                 {
@@ -871,6 +1352,10 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                 {
                     return true;
                 }
+                if ((item == this._parent.Anchor))
+                {
+                    return true;
+                }
                 return false;
             }
             
@@ -879,7 +1364,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             /// </summary>
             /// <param name="array">The array in which the elements should be copied</param>
             /// <param name="arrayIndex">The starting index</param>
-            public override void CopyTo(IModelElement[] array, int arrayIndex)
+            public override void CopyTo(NMF.Models.IModelElement[] array, int arrayIndex)
             {
                 if ((this._parent.Command != null))
                 {
@@ -906,6 +1391,11 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                     array[arrayIndex] = this._parent.Opposite;
                     arrayIndex = (arrayIndex + 1);
                 }
+                if ((this._parent.Anchor != null))
+                {
+                    array[arrayIndex] = this._parent.Anchor;
+                    arrayIndex = (arrayIndex + 1);
+                }
             }
             
             /// <summary>
@@ -913,7 +1403,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             /// </summary>
             /// <returns>True, if the item was removed, otherwise False</returns>
             /// <param name="item">The item that should be removed</param>
-            public override bool Remove(IModelElement item)
+            public override bool Remove(NMF.Models.IModelElement item)
             {
                 if ((this._parent.Command == item))
                 {
@@ -940,6 +1430,11 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                     this._parent.Opposite = null;
                     return true;
                 }
+                if ((this._parent.Anchor == item))
+                {
+                    this._parent.Anchor = null;
+                    return true;
+                }
                 return false;
             }
             
@@ -947,9 +1442,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             /// Gets an enumerator that enumerates the collection
             /// </summary>
             /// <returns>A generic enumerator</returns>
-            public override IEnumerator<IModelElement> GetEnumerator()
+            public override IEnumerator<NMF.Models.IModelElement> GetEnumerator()
             {
-                return Enumerable.Empty<IModelElement>().Concat(this._parent.Command).Concat(this._parent.Connection).Concat(this._parent.DataReader).Concat(this._parent.DeclaringType).Concat(this._parent.Opposite).GetEnumerator();
+                return Enumerable.Empty<NMF.Models.IModelElement>().Concat(this._parent.Command).Concat(this._parent.Connection).Concat(this._parent.DataReader).Concat(this._parent.DeclaringType).Concat(this._parent.Opposite).Concat(this._parent.Anchor).GetEnumerator();
             }
         }
         
@@ -964,7 +1459,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
             public CommandProxy(IDBAdapter modelElement) : 
-                    base(modelElement)
+                    base(modelElement, "command")
             {
             }
             
@@ -982,24 +1477,6 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                     this.ModelElement.Command = value;
                 }
             }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.CommandChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.CommandChanged -= handler;
-            }
         }
         
         /// <summary>
@@ -1013,7 +1490,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
             public ConnectionProxy(IDBAdapter modelElement) : 
-                    base(modelElement)
+                    base(modelElement, "connection")
             {
             }
             
@@ -1031,24 +1508,6 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                     this.ModelElement.Connection = value;
                 }
             }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.ConnectionChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.ConnectionChanged -= handler;
-            }
         }
         
         /// <summary>
@@ -1062,7 +1521,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
             public DataReaderProxy(IDBAdapter modelElement) : 
-                    base(modelElement)
+                    base(modelElement, "dataReader")
             {
             }
             
@@ -1080,38 +1539,20 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                     this.ModelElement.DataReader = value;
                 }
             }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.DataReaderChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.DataReaderChanged -= handler;
-            }
         }
         
         /// <summary>
         /// Represents a proxy to represent an incremental access to the IsContainment property
         /// </summary>
-        private sealed class IsContainmentProxy : ModelPropertyChange<IReference, bool>
+        private sealed class IsContainmentProxy : ModelPropertyChange<NMF.Models.Meta.IReference, bool>
         {
             
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public IsContainmentProxy(IReference modelElement) : 
-                    base(modelElement)
+            public IsContainmentProxy(NMF.Models.Meta.IReference modelElement) : 
+                    base(modelElement, "IsContainment")
             {
             }
             
@@ -1129,45 +1570,27 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                     this.ModelElement.IsContainment = value;
                 }
             }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.IsContainmentChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.IsContainmentChanged -= handler;
-            }
         }
         
         /// <summary>
         /// Represents a proxy to represent an incremental access to the DeclaringType property
         /// </summary>
-        private sealed class DeclaringTypeProxy : ModelPropertyChange<IReference, IReferenceType>
+        private sealed class DeclaringTypeProxy : ModelPropertyChange<NMF.Models.Meta.IReference, NMF.Models.Meta.IReferenceType>
         {
             
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public DeclaringTypeProxy(IReference modelElement) : 
-                    base(modelElement)
+            public DeclaringTypeProxy(NMF.Models.Meta.IReference modelElement) : 
+                    base(modelElement, "DeclaringType")
             {
             }
             
             /// <summary>
             /// Gets or sets the value of this expression
             /// </summary>
-            public override IReferenceType Value
+            public override NMF.Models.Meta.IReferenceType Value
             {
                 get
                 {
@@ -1178,45 +1601,27 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                     this.ModelElement.DeclaringType = value;
                 }
             }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.DeclaringTypeChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.DeclaringTypeChanged -= handler;
-            }
         }
         
         /// <summary>
         /// Represents a proxy to represent an incremental access to the Opposite property
         /// </summary>
-        private sealed class OppositeProxy : ModelPropertyChange<IReference, IReference>
+        private sealed class OppositeProxy : ModelPropertyChange<NMF.Models.Meta.IReference, NMF.Models.Meta.IReference>
         {
             
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public OppositeProxy(IReference modelElement) : 
-                    base(modelElement)
+            public OppositeProxy(NMF.Models.Meta.IReference modelElement) : 
+                    base(modelElement, "Opposite")
             {
             }
             
             /// <summary>
             /// Gets or sets the value of this expression
             /// </summary>
-            public override IReference Value
+            public override NMF.Models.Meta.IReference Value
             {
                 get
                 {
@@ -1227,45 +1632,27 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                     this.ModelElement.Opposite = value;
                 }
             }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.OppositeChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.OppositeChanged -= handler;
-            }
         }
         
         /// <summary>
         /// Represents a proxy to represent an incremental access to the ReferenceType property
         /// </summary>
-        private sealed class ReferenceTypeProxy : ModelPropertyChange<IReference, IReferenceType>
+        private sealed class ReferenceTypeProxy : ModelPropertyChange<NMF.Models.Meta.IReference, NMF.Models.Meta.IReferenceType>
         {
             
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public ReferenceTypeProxy(IReference modelElement) : 
-                    base(modelElement)
+            public ReferenceTypeProxy(NMF.Models.Meta.IReference modelElement) : 
+                    base(modelElement, "ReferenceType")
             {
             }
             
             /// <summary>
             /// Gets or sets the value of this expression
             /// </summary>
-            public override IReferenceType Value
+            public override NMF.Models.Meta.IReferenceType Value
             {
                 get
                 {
@@ -1276,45 +1663,27 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                     this.ModelElement.ReferenceType = value;
                 }
             }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.ReferenceTypeChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.ReferenceTypeChanged -= handler;
-            }
         }
         
         /// <summary>
         /// Represents a proxy to represent an incremental access to the Refines property
         /// </summary>
-        private sealed class RefinesProxy : ModelPropertyChange<IReference, IReference>
+        private sealed class RefinesProxy : ModelPropertyChange<NMF.Models.Meta.IReference, NMF.Models.Meta.IReference>
         {
             
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public RefinesProxy(IReference modelElement) : 
-                    base(modelElement)
+            public RefinesProxy(NMF.Models.Meta.IReference modelElement) : 
+                    base(modelElement, "Refines")
             {
             }
             
             /// <summary>
             /// Gets or sets the value of this expression
             /// </summary>
-            public override IReference Value
+            public override NMF.Models.Meta.IReference Value
             {
                 get
                 {
@@ -1325,38 +1694,51 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                     this.ModelElement.Refines = value;
                 }
             }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.RefinesChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.RefinesChanged -= handler;
-            }
         }
         
         /// <summary>
-        /// Represents a proxy to represent an incremental access to the IsOrdered property
+        /// Represents a proxy to represent an incremental access to the Anchor property
         /// </summary>
-        private sealed class IsOrderedProxy : ModelPropertyChange<ITypedElement, bool>
+        private sealed class AnchorProxy : ModelPropertyChange<NMF.Models.Meta.IReference, NMF.Models.Meta.IClass>
         {
             
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public IsOrderedProxy(ITypedElement modelElement) : 
-                    base(modelElement)
+            public AnchorProxy(NMF.Models.Meta.IReference modelElement) : 
+                    base(modelElement, "Anchor")
+            {
+            }
+            
+            /// <summary>
+            /// Gets or sets the value of this expression
+            /// </summary>
+            public override NMF.Models.Meta.IClass Value
+            {
+                get
+                {
+                    return this.ModelElement.Anchor;
+                }
+                set
+                {
+                    this.ModelElement.Anchor = value;
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Represents a proxy to represent an incremental access to the IsOrdered property
+        /// </summary>
+        private sealed class IsOrderedProxy : ModelPropertyChange<NMF.Models.Meta.ITypedElement, bool>
+        {
+            
+            /// <summary>
+            /// Creates a new observable property access proxy
+            /// </summary>
+            /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
+            public IsOrderedProxy(NMF.Models.Meta.ITypedElement modelElement) : 
+                    base(modelElement, "IsOrdered")
             {
             }
             
@@ -1374,38 +1756,20 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                     this.ModelElement.IsOrdered = value;
                 }
             }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.IsOrderedChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.IsOrderedChanged -= handler;
-            }
         }
         
         /// <summary>
         /// Represents a proxy to represent an incremental access to the IsUnique property
         /// </summary>
-        private sealed class IsUniqueProxy : ModelPropertyChange<ITypedElement, bool>
+        private sealed class IsUniqueProxy : ModelPropertyChange<NMF.Models.Meta.ITypedElement, bool>
         {
             
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public IsUniqueProxy(ITypedElement modelElement) : 
-                    base(modelElement)
+            public IsUniqueProxy(NMF.Models.Meta.ITypedElement modelElement) : 
+                    base(modelElement, "IsUnique")
             {
             }
             
@@ -1423,38 +1787,20 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                     this.ModelElement.IsUnique = value;
                 }
             }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.IsUniqueChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.IsUniqueChanged -= handler;
-            }
         }
         
         /// <summary>
         /// Represents a proxy to represent an incremental access to the LowerBound property
         /// </summary>
-        private sealed class LowerBoundProxy : ModelPropertyChange<ITypedElement, int>
+        private sealed class LowerBoundProxy : ModelPropertyChange<NMF.Models.Meta.ITypedElement, int>
         {
             
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public LowerBoundProxy(ITypedElement modelElement) : 
-                    base(modelElement)
+            public LowerBoundProxy(NMF.Models.Meta.ITypedElement modelElement) : 
+                    base(modelElement, "LowerBound")
             {
             }
             
@@ -1472,38 +1818,20 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                     this.ModelElement.LowerBound = value;
                 }
             }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.LowerBoundChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.LowerBoundChanged -= handler;
-            }
         }
         
         /// <summary>
         /// Represents a proxy to represent an incremental access to the UpperBound property
         /// </summary>
-        private sealed class UpperBoundProxy : ModelPropertyChange<ITypedElement, int>
+        private sealed class UpperBoundProxy : ModelPropertyChange<NMF.Models.Meta.ITypedElement, int>
         {
             
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public UpperBoundProxy(ITypedElement modelElement) : 
-                    base(modelElement)
+            public UpperBoundProxy(NMF.Models.Meta.ITypedElement modelElement) : 
+                    base(modelElement, "UpperBound")
             {
             }
             
@@ -1521,45 +1849,27 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                     this.ModelElement.UpperBound = value;
                 }
             }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.UpperBoundChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.UpperBoundChanged -= handler;
-            }
         }
         
         /// <summary>
         /// Represents a proxy to represent an incremental access to the Type property
         /// </summary>
-        private sealed class TypeProxy : ModelPropertyChange<ITypedElement, IType>
+        private sealed class TypeProxy : ModelPropertyChange<NMF.Models.Meta.ITypedElement, NMF.Models.Meta.IType>
         {
             
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public TypeProxy(ITypedElement modelElement) : 
-                    base(modelElement)
+            public TypeProxy(NMF.Models.Meta.ITypedElement modelElement) : 
+                    base(modelElement, "Type")
             {
             }
             
             /// <summary>
             /// Gets or sets the value of this expression
             /// </summary>
-            public override IType Value
+            public override NMF.Models.Meta.IType Value
             {
                 get
                 {
@@ -1569,24 +1879,6 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
                 {
                     this.ModelElement.Type = value;
                 }
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.TypeChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.TypeChanged -= handler;
             }
         }
     }

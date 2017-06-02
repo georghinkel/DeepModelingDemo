@@ -16,12 +16,14 @@ using NMF.Models;
 using NMF.Models.Collections;
 using NMF.Models.Expressions;
 using NMF.Models.Meta;
+using NMF.Models.Repository;
 using NMF.Serialization;
 using NMF.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -35,7 +37,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
     /// </summary>
     [DefaultImplementationTypeAttribute(typeof(RequiredInterface))]
     [XmlDefaultImplementationTypeAttribute(typeof(RequiredInterface))]
-    public interface IRequiredInterface : IModelElement, IReference
+    public interface IRequiredInterface : NMF.Models.IModelElement, NMF.Models.Meta.IReference
     {
         
         /// <summary>
@@ -48,9 +50,14 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         }
         
         /// <summary>
+        /// Gets fired before the Interface property changes its value
+        /// </summary>
+        event System.EventHandler<ValueChangedEventArgs> InterfaceChanging;
+        
+        /// <summary>
         /// Gets fired when the Interface property changed its value
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> InterfaceChanged;
+        event System.EventHandler<ValueChangedEventArgs> InterfaceChanged;
     }
 }
 

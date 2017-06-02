@@ -17,12 +17,14 @@ using NMF.Models;
 using NMF.Models.Collections;
 using NMF.Models.Expressions;
 using NMF.Models.Meta;
+using NMF.Models.Repository;
 using NMF.Serialization;
 using NMF.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -36,7 +38,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
     /// </summary>
     [DefaultImplementationTypeAttribute(typeof(MediaStoreSystem))]
     [XmlDefaultImplementationTypeAttribute(typeof(MediaStoreSystem))]
-    public interface IMediaStoreSystem : IModelElement, ISystemArchitecture
+    public interface IMediaStoreSystem : NMF.Models.IModelElement, ISystemArchitecture
     {
         
         /// <summary>
@@ -49,9 +51,14 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         }
         
         /// <summary>
+        /// Gets fired before the Frontend property changes its value
+        /// </summary>
+        event System.EventHandler<ValueChangedEventArgs> FrontendChanging;
+        
+        /// <summary>
         /// Gets fired when the Frontend property changed its value
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> FrontendChanged;
+        event System.EventHandler<ValueChangedEventArgs> FrontendChanged;
     }
 }
 

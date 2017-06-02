@@ -25,9 +25,9 @@ namespace DeepADLCreator
         
         private static Namespace CreateCoreNamespace()
         {
-            var classClass = MetaRepository.Instance.ResolveClass(typeof(Class));
-            var namespaceClass = MetaRepository.Instance.ResolveClass(typeof(Namespace));
-            var referenceClass = MetaRepository.Instance.ResolveClass(typeof(Reference));
+            var classClass = MetaRepository.Instance.ResolveClass(typeof(Class)) as IClass;
+            var namespaceClass = MetaRepository.Instance.ResolveClass(typeof(Namespace)) as IClass;
+            var referenceClass = MetaRepository.Instance.ResolveClass(typeof(Reference)) as IClass;
             var stringType = MetaRepository.Instance.Resolve("http://nmf.codeplex.com/nmeta/#//String/") as IPrimitiveType;
 
             var core = new Namespace()
@@ -124,7 +124,7 @@ namespace DeepADLCreator
             interfaceDecl.ConstrainReference("Events");
             interfaceDecl.ConstrainReference("Operations");
             interfaceDecl.ConstrainReference("Identifier");
-            interfaceDecl.ConstrainAttribute("IsInterface", "True");
+            interfaceDecl.ConstrainAttribute("IdentifierScope", nameof(IdentifierScope.Local));
             interfaceDecl.ConstrainAttribute("IsAbstract", "False");
             interfaceDecl.ConstrainReference("BaseTypes", assemblyContext);
 
@@ -144,7 +144,7 @@ namespace DeepADLCreator
             delegateType.ConstrainReference("Events");
             delegateType.ConstrainReference("Operations");
             delegateType.ConstrainReference("Identifier");
-            delegateType.ConstrainAttribute("IsInterface", "True");
+            delegateType.ConstrainAttribute("IdentifierScope", nameof(IdentifierScope.Local));
             delegateType.ConstrainAttribute("IsAbstract", "False");
 
             core.Types.Add(delegateType);
@@ -162,7 +162,7 @@ namespace DeepADLCreator
             system.ConstrainReference("Operations");
             system.ConstrainReference("Identifier");
             system.ConstrainReference("InstanceOf");
-            system.ConstrainAttribute("IsInterface", "False");
+            system.ConstrainAttribute("IdentifierScope", nameof(IdentifierScope.Local));
             system.ConstrainAttribute("IsAbstract", "False");
             core.Types.Add(system);
 
@@ -193,7 +193,7 @@ namespace DeepADLCreator
             componentType.ConstrainReference("AttributeConstraints");
             componentType.ConstrainReference("Events");
             componentType.ConstrainReference("Identifier");
-            componentType.ConstrainAttribute("IsInterface", "False");
+            componentType.ConstrainAttribute("IdentifierScope", nameof(IdentifierScope.Local));
             componentType.ConstrainAttribute("IsAbstract", "False");
             componentType.ConstrainReference("Operations");
             componentType.ConstrainReference("InstanceOf");
@@ -250,6 +250,37 @@ namespace DeepADLCreator
                 Opposite = resourceContainerContainer
             });
 
+            var resourceLink = new Class()
+            {
+                IsAbstract = false,
+                Name = "ResourceLink"
+            };
+            core.Types.Add(resourceLink);
+            var resourceLinkContainer = new Reference()
+            {
+                Name = "Links",
+                ReferenceType = resourceLink,
+                IsContainment = true,
+                UpperBound = -1
+            };
+            resourceEnvironment.References.Add(resourceLinkContainer);
+            resourceLink.References.Add(new Reference()
+            {
+                Name = "Environment",
+                ReferenceType = resourceEnvironment,
+                IsContainment = false,
+                UpperBound = 1,
+                LowerBound = 1,
+                Opposite = resourceLinkContainer
+            });
+            resourceLink.References.Add(new Reference()
+            {
+                Name = "Connects",
+                ReferenceType = resourceContainer,
+                IsContainment = false,
+                UpperBound = -1
+            });
+
             assemblyContext.ConstrainReference("ReferenceType", resourceContainer);
 
             system.References.Add(new Reference()
@@ -283,15 +314,16 @@ namespace DeepADLCreator
             systemSpec.ConstrainReference("Events");
             systemSpec.ConstrainReference("Operations");
             systemSpec.ConstrainReference("Identifier");
-            systemSpec.ConstrainAttribute("IsInterface", "False");
+            systemSpec.ConstrainAttribute("IdentifierScope", nameof(IdentifierScope.Local));
             systemSpec.ConstrainAttribute("IsAbstract", "False");
             systemSpec.ConstrainReference("InstanceOf");
 
             var allocation = new Class()
             {
                 Name = "SystemAllocation",
-                IsAbstract = true
-            };
+                IsAbstract = true,
+                InstanceOf = system
+            };            
             core.Types.Add(allocation);
             allocation.References.Add(new Reference()
             {

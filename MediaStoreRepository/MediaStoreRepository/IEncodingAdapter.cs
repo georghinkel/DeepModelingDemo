@@ -17,12 +17,14 @@ using NMF.Models;
 using NMF.Models.Collections;
 using NMF.Models.Expressions;
 using NMF.Models.Meta;
+using NMF.Models.Repository;
 using NMF.Serialization;
 using NMF.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -36,7 +38,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
     /// </summary>
     [DefaultImplementationTypeAttribute(typeof(EncodingAdapter))]
     [XmlDefaultImplementationTypeAttribute(typeof(EncodingAdapter))]
-    public interface IEncodingAdapter : IModelElement, IAudioDBInterface, IAssemblyContext
+    public interface IEncodingAdapter : NMF.Models.IModelElement, IAudioDBInterface, IAssemblyContext
     {
         
         /// <summary>
@@ -58,14 +60,24 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         }
         
         /// <summary>
+        /// Gets fired before the Encoder property changes its value
+        /// </summary>
+        event System.EventHandler<ValueChangedEventArgs> EncoderChanging;
+        
+        /// <summary>
         /// Gets fired when the Encoder property changed its value
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> EncoderChanged;
+        event System.EventHandler<ValueChangedEventArgs> EncoderChanged;
+        
+        /// <summary>
+        /// Gets fired before the Database property changes its value
+        /// </summary>
+        event System.EventHandler<ValueChangedEventArgs> DatabaseChanging;
         
         /// <summary>
         /// Gets fired when the Database property changed its value
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> DatabaseChanged;
+        event System.EventHandler<ValueChangedEventArgs> DatabaseChanged;
     }
 }
 

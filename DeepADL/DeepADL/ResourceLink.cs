@@ -33,53 +33,61 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
     
     
     /// <summary>
-    /// The default implementation of the SystemAllocation class
+    /// The default implementation of the ResourceLink class
     /// </summary>
     [XmlNamespaceAttribute("http://github.com/georghinkel/DeepADL/1.0")]
     [XmlNamespacePrefixAttribute("core")]
-    [ModelRepresentationClassAttribute("http://github.com/georghinkel/DeepADL/1.0#//SystemAllocation")]
-    public abstract partial class SystemAllocation : NMF.Models.ModelElement, ISystemAllocation, NMF.Models.IModelElement
+    [ModelRepresentationClassAttribute("http://github.com/georghinkel/DeepADL/1.0#//ResourceLink")]
+    public partial class ResourceLink : NMF.Models.ModelElement, IResourceLink, NMF.Models.IModelElement
     {
         
         private static Lazy<NMF.Models.Meta.ITypedElement> _environmentReference = new Lazy<NMF.Models.Meta.ITypedElement>(RetrieveEnvironmentReference);
         
+        private static Lazy<NMF.Models.Meta.ITypedElement> _connectsReference = new Lazy<NMF.Models.Meta.ITypedElement>(RetrieveConnectsReference);
+        
         /// <summary>
-        /// The backing field for the Environment property
+        /// The backing field for the Connects property
         /// </summary>
-        private IResourceEnvironment _environment;
+        private ObservableAssociationList<IResourceContainer> _connects;
         
         private static NMF.Models.Meta.IClass _classInstance;
+        
+        public ResourceLink()
+        {
+            this._connects = new ObservableAssociationList<IResourceContainer>();
+            this._connects.CollectionChanging += this.ConnectsCollectionChanging;
+            this._connects.CollectionChanged += this.ConnectsCollectionChanged;
+        }
         
         /// <summary>
         /// The Environment property
         /// </summary>
+        [DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
         [XmlAttributeAttribute(true)]
+        [XmlOppositeAttribute("Links")]
         public IResourceEnvironment Environment
         {
             get
             {
-                return this._environment;
+                return ModelHelper.CastAs<IResourceEnvironment>(this.Parent);
             }
             set
             {
-                if ((this._environment != value))
-                {
-                    IResourceEnvironment old = this._environment;
-                    ValueChangedEventArgs e = new ValueChangedEventArgs(old, value);
-                    this.OnEnvironmentChanging(e);
-                    this.OnPropertyChanging("Environment", e, _environmentReference);
-                    this._environment = value;
-                    if ((old != null))
-                    {
-                        old.Deleted -= this.OnResetEnvironment;
-                    }
-                    if ((value != null))
-                    {
-                        value.Deleted += this.OnResetEnvironment;
-                    }
-                    this.OnEnvironmentChanged(e);
-                    this.OnPropertyChanged("Environment", e, _environmentReference);
-                }
+                this.Parent = value;
+            }
+        }
+        
+        /// <summary>
+        /// The Connects property
+        /// </summary>
+        [DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Content)]
+        [XmlAttributeAttribute(true)]
+        [ConstantAttribute()]
+        public ICollectionExpression<IResourceContainer> Connects
+        {
+            get
+            {
+                return this._connects;
             }
         }
         
@@ -90,7 +98,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         {
             get
             {
-                return base.ReferencedElements.Concat(new SystemAllocationReferencedElementsCollection(this));
+                return base.ReferencedElements.Concat(new ResourceLinkReferencedElementsCollection(this));
             }
         }
         
@@ -103,7 +111,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             {
                 if ((_classInstance == null))
                 {
-                    _classInstance = ((NMF.Models.Meta.IClass)(MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//SystemAllocation")));
+                    _classInstance = ((NMF.Models.Meta.IClass)(MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//ResourceLink")));
                 }
                 return _classInstance;
             }
@@ -119,19 +127,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// </summary>
         public event System.EventHandler<ValueChangedEventArgs> EnvironmentChanged;
         
-        /// <summary>
-        /// Gets the SystemArchitecture for this model element
-        /// </summary>
-        public abstract ISystemArchitecture GetSystemArchitecture();
-        
-        /// <summary>
-        /// Gets the referenced value for a AssemblyContexts of the enclosing SystemArchitecture.
-        /// </summary>
-        public abstract IResourceContainer GetAssemblyContextsValue(IAssemblyContext reference);
-        
         private static NMF.Models.Meta.ITypedElement RetrieveEnvironmentReference()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.SystemAllocation.ClassInstance)).Resolve("Environment")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.ResourceLink.ClassInstance)).Resolve("Environment")));
         }
         
         /// <summary>
@@ -148,6 +146,20 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         }
         
         /// <summary>
+        /// Gets called when the parent model element of the current model element is about to change
+        /// </summary>
+        /// <param name="oldParent">The old parent model element</param>
+        /// <param name="newParent">The new parent model element</param>
+        protected override void OnParentChanging(NMF.Models.IModelElement newParent, NMF.Models.IModelElement oldParent)
+        {
+            IResourceEnvironment oldEnvironment = ModelHelper.CastAs<IResourceEnvironment>(oldParent);
+            IResourceEnvironment newEnvironment = ModelHelper.CastAs<IResourceEnvironment>(newParent);
+            ValueChangedEventArgs e = new ValueChangedEventArgs(oldEnvironment, newEnvironment);
+            this.OnEnvironmentChanging(e);
+            this.OnPropertyChanging("Environment", e, _environmentReference);
+        }
+        
+        /// <summary>
         /// Raises the EnvironmentChanged event
         /// </summary>
         /// <param name="eventArgs">The event data</param>
@@ -161,13 +173,65 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         }
         
         /// <summary>
-        /// Handles the event that the Environment property must reset
+        /// Gets called when the parent model element of the current model element changes
         /// </summary>
-        /// <param name="sender">The object that sent this reset request</param>
-        /// <param name="eventArgs">The event data for the reset event</param>
-        private void OnResetEnvironment(object sender, System.EventArgs eventArgs)
+        /// <param name="oldParent">The old parent model element</param>
+        /// <param name="newParent">The new parent model element</param>
+        protected override void OnParentChanged(NMF.Models.IModelElement newParent, NMF.Models.IModelElement oldParent)
         {
-            this.Environment = null;
+            IResourceEnvironment oldEnvironment = ModelHelper.CastAs<IResourceEnvironment>(oldParent);
+            IResourceEnvironment newEnvironment = ModelHelper.CastAs<IResourceEnvironment>(newParent);
+            if ((oldEnvironment != null))
+            {
+                oldEnvironment.Links.Remove(this);
+            }
+            if ((newEnvironment != null))
+            {
+                newEnvironment.Links.Add(this);
+            }
+            ValueChangedEventArgs e = new ValueChangedEventArgs(oldEnvironment, newEnvironment);
+            this.OnEnvironmentChanged(e);
+            this.OnPropertyChanged("Environment", e, _environmentReference);
+            base.OnParentChanged(newParent, oldParent);
+        }
+        
+        private static NMF.Models.Meta.ITypedElement RetrieveConnectsReference()
+        {
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.ResourceLink.ClassInstance)).Resolve("Connects")));
+        }
+        
+        /// <summary>
+        /// Forwards CollectionChanging notifications for the Connects property to the parent model element
+        /// </summary>
+        /// <param name="sender">The collection that raised the change</param>
+        /// <param name="e">The original event data</param>
+        private void ConnectsCollectionChanging(object sender, NotifyCollectionChangingEventArgs e)
+        {
+            this.OnCollectionChanging("Connects", e, _connectsReference);
+        }
+        
+        /// <summary>
+        /// Forwards CollectionChanged notifications for the Connects property to the parent model element
+        /// </summary>
+        /// <param name="sender">The collection that raised the change</param>
+        /// <param name="e">The original event data</param>
+        private void ConnectsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            this.OnCollectionChanged("Connects", e, _connectsReference);
+        }
+        
+        /// <summary>
+        /// Gets the Model element collection for the given feature
+        /// </summary>
+        /// <returns>A non-generic list of elements</returns>
+        /// <param name="feature">The requested feature</param>
+        protected override System.Collections.IList GetCollectionForFeature(string feature)
+        {
+            if ((feature == "CONNECTS"))
+            {
+                return this._connects;
+            }
+            return base.GetCollectionForFeature(feature);
         }
         
         /// <summary>
@@ -220,23 +284,23 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         {
             if ((_classInstance == null))
             {
-                _classInstance = ((NMF.Models.Meta.IClass)(MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//SystemAllocation")));
+                _classInstance = ((NMF.Models.Meta.IClass)(MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//ResourceLink")));
             }
             return _classInstance;
         }
         
         /// <summary>
-        /// The collection class to to represent the children of the SystemAllocation class
+        /// The collection class to to represent the children of the ResourceLink class
         /// </summary>
-        public class SystemAllocationReferencedElementsCollection : ReferenceCollection, ICollectionExpression<NMF.Models.IModelElement>, ICollection<NMF.Models.IModelElement>
+        public class ResourceLinkReferencedElementsCollection : ReferenceCollection, ICollectionExpression<NMF.Models.IModelElement>, ICollection<NMF.Models.IModelElement>
         {
             
-            private SystemAllocation _parent;
+            private ResourceLink _parent;
             
             /// <summary>
             /// Creates a new instance
             /// </summary>
-            public SystemAllocationReferencedElementsCollection(SystemAllocation parent)
+            public ResourceLinkReferencedElementsCollection(ResourceLink parent)
             {
                 this._parent = parent;
             }
@@ -253,6 +317,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                     {
                         count = (count + 1);
                     }
+                    count = (count + this._parent.Connects.Count);
                     return count;
                 }
             }
@@ -260,11 +325,13 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             protected override void AttachCore()
             {
                 this._parent.EnvironmentChanged += this.PropagateValueChanges;
+                this._parent.Connects.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
             }
             
             protected override void DetachCore()
             {
                 this._parent.EnvironmentChanged -= this.PropagateValueChanges;
+                this._parent.Connects.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
             }
             
             /// <summary>
@@ -282,6 +349,11 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                         return;
                     }
                 }
+                IResourceContainer connectsCasted = item.As<IResourceContainer>();
+                if ((connectsCasted != null))
+                {
+                    this._parent.Connects.Add(connectsCasted);
+                }
             }
             
             /// <summary>
@@ -290,6 +362,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             public override void Clear()
             {
                 this._parent.Environment = null;
+                this._parent.Connects.Clear();
             }
             
             /// <summary>
@@ -300,6 +373,10 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             public override bool Contains(NMF.Models.IModelElement item)
             {
                 if ((item == this._parent.Environment))
+                {
+                    return true;
+                }
+                if (this._parent.Connects.Contains(item))
                 {
                     return true;
                 }
@@ -318,6 +395,21 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                     array[arrayIndex] = this._parent.Environment;
                     arrayIndex = (arrayIndex + 1);
                 }
+                IEnumerator<NMF.Models.IModelElement> connectsEnumerator = this._parent.Connects.GetEnumerator();
+                try
+                {
+                    for (
+                    ; connectsEnumerator.MoveNext(); 
+                    )
+                    {
+                        array[arrayIndex] = connectsEnumerator.Current;
+                        arrayIndex = (arrayIndex + 1);
+                    }
+                }
+                finally
+                {
+                    connectsEnumerator.Dispose();
+                }
             }
             
             /// <summary>
@@ -332,6 +424,12 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                     this._parent.Environment = null;
                     return true;
                 }
+                IResourceContainer resourceContainerItem = item.As<IResourceContainer>();
+                if (((resourceContainerItem != null) 
+                            && this._parent.Connects.Remove(resourceContainerItem)))
+                {
+                    return true;
+                }
                 return false;
             }
             
@@ -341,21 +439,21 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// <returns>A generic enumerator</returns>
             public override IEnumerator<NMF.Models.IModelElement> GetEnumerator()
             {
-                return Enumerable.Empty<NMF.Models.IModelElement>().Concat(this._parent.Environment).GetEnumerator();
+                return Enumerable.Empty<NMF.Models.IModelElement>().Concat(this._parent.Environment).Concat(this._parent.Connects).GetEnumerator();
             }
         }
         
         /// <summary>
         /// Represents a proxy to represent an incremental access to the Environment property
         /// </summary>
-        private sealed class EnvironmentProxy : ModelPropertyChange<ISystemAllocation, IResourceEnvironment>
+        private sealed class EnvironmentProxy : ModelPropertyChange<IResourceLink, IResourceEnvironment>
         {
             
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public EnvironmentProxy(ISystemAllocation modelElement) : 
+            public EnvironmentProxy(IResourceLink modelElement) : 
                     base(modelElement, "Environment")
             {
             }

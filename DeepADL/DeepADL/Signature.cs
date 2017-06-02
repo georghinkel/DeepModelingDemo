@@ -16,12 +16,14 @@ using NMF.Models;
 using NMF.Models.Collections;
 using NMF.Models.Expressions;
 using NMF.Models.Meta;
+using NMF.Models.Repository;
 using NMF.Serialization;
 using NMF.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -36,9 +38,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
     [XmlIdentifierAttribute("Name")]
     [XmlNamespaceAttribute("http://github.com/georghinkel/DeepADL/1.0")]
     [XmlNamespacePrefixAttribute("core")]
-    [ModelRepresentationClassAttribute("http://github.com/georghinkel/DeepADL/1.0#//Signature/")]
+    [ModelRepresentationClassAttribute("http://github.com/georghinkel/DeepADL/1.0#//Signature")]
     [DebuggerDisplayAttribute("Signature {Name}")]
-    public class Signature : ModelElement, ISignature, IModelElement
+    public partial class Signature : NMF.Models.ModelElement, ISignature, NMF.Models.IModelElement
     {
         
         /// <summary>
@@ -46,12 +48,16 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// </summary>
         private string _name;
         
+        private static Lazy<NMF.Models.Meta.ITypedElement> _nameAttribute = new Lazy<NMF.Models.Meta.ITypedElement>(RetrieveNameAttribute);
+        
+        private static NMF.Models.Meta.IClass _classInstance;
+        
         /// <summary>
         /// The Name property
         /// </summary>
         [IdAttribute()]
         [XmlAttributeAttribute(true)]
-        public virtual string Name
+        public string Name
         {
             get
             {
@@ -62,21 +68,28 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 if ((this._name != value))
                 {
                     string old = this._name;
+                    ValueChangedEventArgs e = new ValueChangedEventArgs(old, value);
+                    this.OnNameChanging(e);
+                    this.OnPropertyChanging("Name", e, _nameAttribute);
                     this._name = value;
-                    this.OnNameChanged(new ValueChangedEventArgs(old, value));
-                    this.OnPropertyChanged("Name");
+                    this.OnNameChanged(e);
+                    this.OnPropertyChanged("Name", e, _nameAttribute);
                 }
             }
         }
         
         /// <summary>
-        /// Gets the Class element that describes the structure of this type
+        /// Gets the Class model for this type
         /// </summary>
         public new static NMF.Models.Meta.IClass ClassInstance
         {
             get
             {
-                return NMF.Models.Repository.MetaRepository.Instance.ResolveClass("http://github.com/georghinkel/DeepADL/1.0#//Signature/");
+                if ((_classInstance == null))
+                {
+                    _classInstance = ((NMF.Models.Meta.IClass)(MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//Signature")));
+                }
+                return _classInstance;
             }
         }
         
@@ -92,9 +105,32 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         }
         
         /// <summary>
+        /// Gets fired before the Name property changes its value
+        /// </summary>
+        public event System.EventHandler<ValueChangedEventArgs> NameChanging;
+        
+        /// <summary>
         /// Gets fired when the Name property changed its value
         /// </summary>
-        public event EventHandler<ValueChangedEventArgs> NameChanged;
+        public event System.EventHandler<ValueChangedEventArgs> NameChanged;
+        
+        private static NMF.Models.Meta.ITypedElement RetrieveNameAttribute()
+        {
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.Signature.ClassInstance)).Resolve("Name")));
+        }
+        
+        /// <summary>
+        /// Raises the NameChanging event
+        /// </summary>
+        /// <param name="eventArgs">The event data</param>
+        protected virtual void OnNameChanging(ValueChangedEventArgs eventArgs)
+        {
+            System.EventHandler<ValueChangedEventArgs> handler = this.NameChanging;
+            if ((handler != null))
+            {
+                handler.Invoke(this, eventArgs);
+            }
+        }
         
         /// <summary>
         /// Raises the NameChanged event
@@ -102,7 +138,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <param name="eventArgs">The event data</param>
         protected virtual void OnNameChanged(ValueChangedEventArgs eventArgs)
         {
-            EventHandler<ValueChangedEventArgs> handler = this.NameChanged;
+            System.EventHandler<ValueChangedEventArgs> handler = this.NameChanged;
             if ((handler != null))
             {
                 handler.Invoke(this, eventArgs);
@@ -142,9 +178,13 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// Gets the Class for this model element
         /// </summary>
-        public override IClass GetClass()
+        public override NMF.Models.Meta.IClass GetClass()
         {
-            return ((IClass)(NMF.Models.Repository.MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//Signature/")));
+            if ((_classInstance == null))
+            {
+                _classInstance = ((NMF.Models.Meta.IClass)(MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//Signature")));
+            }
+            return _classInstance;
         }
         
         /// <summary>
@@ -153,6 +193,10 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <returns>The identifier string</returns>
         public override string ToIdentifierString()
         {
+            if ((this.Name == null))
+            {
+                return null;
+            }
             return this.Name.ToString();
         }
         
@@ -167,7 +211,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
             public NameProxy(ISignature modelElement) : 
-                    base(modelElement)
+                    base(modelElement, "Name")
             {
             }
             
@@ -184,24 +228,6 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 {
                     this.ModelElement.Name = value;
                 }
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.NameChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.NameChanged -= handler;
             }
         }
     }

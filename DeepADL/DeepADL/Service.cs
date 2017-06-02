@@ -16,12 +16,14 @@ using NMF.Models;
 using NMF.Models.Collections;
 using NMF.Models.Expressions;
 using NMF.Models.Meta;
+using NMF.Models.Repository;
 using NMF.Serialization;
 using NMF.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -36,9 +38,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
     [XmlIdentifierAttribute("Name")]
     [XmlNamespaceAttribute("http://github.com/georghinkel/DeepADL/1.0")]
     [XmlNamespacePrefixAttribute("core")]
-    [ModelRepresentationClassAttribute("http://github.com/georghinkel/DeepADL/1.0#//Service/")]
+    [ModelRepresentationClassAttribute("http://github.com/georghinkel/DeepADL/1.0#//Service")]
     [DebuggerDisplayAttribute("Service {Name}")]
-    public class Service : ModelElement, IService, IModelElement
+    public partial class Service : NMF.Models.ModelElement, IService, NMF.Models.IModelElement
     {
         
         /// <summary>
@@ -46,17 +48,23 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// </summary>
         private string _name;
         
+        private static Lazy<NMF.Models.Meta.ITypedElement> _nameAttribute = new Lazy<NMF.Models.Meta.ITypedElement>(RetrieveNameAttribute);
+        
+        private static Lazy<NMF.Models.Meta.ITypedElement> _implementsReference = new Lazy<NMF.Models.Meta.ITypedElement>(RetrieveImplementsReference);
+        
         /// <summary>
         /// The backing field for the Implements property
         /// </summary>
         private ISignature _implements;
+        
+        private static NMF.Models.Meta.IClass _classInstance;
         
         /// <summary>
         /// The Name property
         /// </summary>
         [IdAttribute()]
         [XmlAttributeAttribute(true)]
-        public virtual string Name
+        public string Name
         {
             get
             {
@@ -67,9 +75,12 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 if ((this._name != value))
                 {
                     string old = this._name;
+                    ValueChangedEventArgs e = new ValueChangedEventArgs(old, value);
+                    this.OnNameChanging(e);
+                    this.OnPropertyChanging("Name", e, _nameAttribute);
                     this._name = value;
-                    this.OnNameChanged(new ValueChangedEventArgs(old, value));
-                    this.OnPropertyChanged("Name");
+                    this.OnNameChanged(e);
+                    this.OnPropertyChanged("Name", e, _nameAttribute);
                 }
             }
         }
@@ -78,7 +89,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// The Implements property
         /// </summary>
         [XmlAttributeAttribute(true)]
-        public virtual ISignature Implements
+        public ISignature Implements
         {
             get
             {
@@ -89,6 +100,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 if ((this._implements != value))
                 {
                     ISignature old = this._implements;
+                    ValueChangedEventArgs e = new ValueChangedEventArgs(old, value);
+                    this.OnImplementsChanging(e);
+                    this.OnPropertyChanging("Implements", e, _implementsReference);
                     this._implements = value;
                     if ((old != null))
                     {
@@ -98,8 +112,8 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                     {
                         value.Deleted += this.OnResetImplements;
                     }
-                    this.OnPropertyChanged("Implements");
-                    this.OnImplementsChanged(new ValueChangedEventArgs(old, value));
+                    this.OnImplementsChanged(e);
+                    this.OnPropertyChanged("Implements", e, _implementsReference);
                 }
             }
         }
@@ -107,7 +121,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// Gets the referenced model elements of this model element
         /// </summary>
-        public override IEnumerableExpression<IModelElement> ReferencedElements
+        public override IEnumerableExpression<NMF.Models.IModelElement> ReferencedElements
         {
             get
             {
@@ -116,13 +130,17 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         }
         
         /// <summary>
-        /// Gets the Class element that describes the structure of this type
+        /// Gets the Class model for this type
         /// </summary>
         public new static NMF.Models.Meta.IClass ClassInstance
         {
             get
             {
-                return NMF.Models.Repository.MetaRepository.Instance.ResolveClass("http://github.com/georghinkel/DeepADL/1.0#//Service/");
+                if ((_classInstance == null))
+                {
+                    _classInstance = ((NMF.Models.Meta.IClass)(MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//Service")));
+                }
+                return _classInstance;
             }
         }
         
@@ -138,14 +156,42 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         }
         
         /// <summary>
+        /// Gets fired before the Name property changes its value
+        /// </summary>
+        public event System.EventHandler<ValueChangedEventArgs> NameChanging;
+        
+        /// <summary>
         /// Gets fired when the Name property changed its value
         /// </summary>
-        public event EventHandler<ValueChangedEventArgs> NameChanged;
+        public event System.EventHandler<ValueChangedEventArgs> NameChanged;
+        
+        /// <summary>
+        /// Gets fired before the Implements property changes its value
+        /// </summary>
+        public event System.EventHandler<ValueChangedEventArgs> ImplementsChanging;
         
         /// <summary>
         /// Gets fired when the Implements property changed its value
         /// </summary>
-        public event EventHandler<ValueChangedEventArgs> ImplementsChanged;
+        public event System.EventHandler<ValueChangedEventArgs> ImplementsChanged;
+        
+        private static NMF.Models.Meta.ITypedElement RetrieveNameAttribute()
+        {
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.Service.ClassInstance)).Resolve("Name")));
+        }
+        
+        /// <summary>
+        /// Raises the NameChanging event
+        /// </summary>
+        /// <param name="eventArgs">The event data</param>
+        protected virtual void OnNameChanging(ValueChangedEventArgs eventArgs)
+        {
+            System.EventHandler<ValueChangedEventArgs> handler = this.NameChanging;
+            if ((handler != null))
+            {
+                handler.Invoke(this, eventArgs);
+            }
+        }
         
         /// <summary>
         /// Raises the NameChanged event
@@ -153,7 +199,25 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <param name="eventArgs">The event data</param>
         protected virtual void OnNameChanged(ValueChangedEventArgs eventArgs)
         {
-            EventHandler<ValueChangedEventArgs> handler = this.NameChanged;
+            System.EventHandler<ValueChangedEventArgs> handler = this.NameChanged;
+            if ((handler != null))
+            {
+                handler.Invoke(this, eventArgs);
+            }
+        }
+        
+        private static NMF.Models.Meta.ITypedElement RetrieveImplementsReference()
+        {
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.Service.ClassInstance)).Resolve("Implements")));
+        }
+        
+        /// <summary>
+        /// Raises the ImplementsChanging event
+        /// </summary>
+        /// <param name="eventArgs">The event data</param>
+        protected virtual void OnImplementsChanging(ValueChangedEventArgs eventArgs)
+        {
+            System.EventHandler<ValueChangedEventArgs> handler = this.ImplementsChanging;
             if ((handler != null))
             {
                 handler.Invoke(this, eventArgs);
@@ -166,7 +230,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <param name="eventArgs">The event data</param>
         protected virtual void OnImplementsChanged(ValueChangedEventArgs eventArgs)
         {
-            EventHandler<ValueChangedEventArgs> handler = this.ImplementsChanged;
+            System.EventHandler<ValueChangedEventArgs> handler = this.ImplementsChanged;
             if ((handler != null))
             {
                 handler.Invoke(this, eventArgs);
@@ -178,7 +242,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// </summary>
         /// <param name="sender">The object that sent this reset request</param>
         /// <param name="eventArgs">The event data for the reset event</param>
-        private void OnResetImplements(object sender, EventArgs eventArgs)
+        private void OnResetImplements(object sender, System.EventArgs eventArgs)
         {
             this.Implements = null;
         }
@@ -225,7 +289,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <param name="attribute">The requested attribute in upper case</param>
         protected override NMF.Expressions.INotifyExpression<object> GetExpressionForAttribute(string attribute)
         {
-            if ((attribute == "IMPLEMENTS"))
+            if ((attribute == "Implements"))
             {
                 return new ImplementsProxy(this);
             }
@@ -239,7 +303,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <param name="reference">The requested reference in upper case</param>
         protected override NMF.Expressions.INotifyExpression<NMF.Models.IModelElement> GetExpressionForReference(string reference)
         {
-            if ((reference == "IMPLEMENTS"))
+            if ((reference == "Implements"))
             {
                 return new ImplementsProxy(this);
             }
@@ -249,9 +313,13 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// Gets the Class for this model element
         /// </summary>
-        public override IClass GetClass()
+        public override NMF.Models.Meta.IClass GetClass()
         {
-            return ((IClass)(NMF.Models.Repository.MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//Service/")));
+            if ((_classInstance == null))
+            {
+                _classInstance = ((NMF.Models.Meta.IClass)(MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//Service")));
+            }
+            return _classInstance;
         }
         
         /// <summary>
@@ -260,13 +328,17 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <returns>The identifier string</returns>
         public override string ToIdentifierString()
         {
+            if ((this.Name == null))
+            {
+                return null;
+            }
             return this.Name.ToString();
         }
         
         /// <summary>
         /// The collection class to to represent the children of the Service class
         /// </summary>
-        public class ServiceReferencedElementsCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
+        public class ServiceReferencedElementsCollection : ReferenceCollection, ICollectionExpression<NMF.Models.IModelElement>, ICollection<NMF.Models.IModelElement>
         {
             
             private Service _parent;
@@ -309,7 +381,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// Adds the given element to the collection
             /// </summary>
             /// <param name="item">The item to add</param>
-            public override void Add(IModelElement item)
+            public override void Add(NMF.Models.IModelElement item)
             {
                 if ((this._parent.Implements == null))
                 {
@@ -335,7 +407,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <returns>True, if it is contained, otherwise False</returns>
             /// <param name="item">The item that should be looked out for</param>
-            public override bool Contains(IModelElement item)
+            public override bool Contains(NMF.Models.IModelElement item)
             {
                 if ((item == this._parent.Implements))
                 {
@@ -349,7 +421,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <param name="array">The array in which the elements should be copied</param>
             /// <param name="arrayIndex">The starting index</param>
-            public override void CopyTo(IModelElement[] array, int arrayIndex)
+            public override void CopyTo(NMF.Models.IModelElement[] array, int arrayIndex)
             {
                 if ((this._parent.Implements != null))
                 {
@@ -363,7 +435,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <returns>True, if the item was removed, otherwise False</returns>
             /// <param name="item">The item that should be removed</param>
-            public override bool Remove(IModelElement item)
+            public override bool Remove(NMF.Models.IModelElement item)
             {
                 if ((this._parent.Implements == item))
                 {
@@ -377,9 +449,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// Gets an enumerator that enumerates the collection
             /// </summary>
             /// <returns>A generic enumerator</returns>
-            public override IEnumerator<IModelElement> GetEnumerator()
+            public override IEnumerator<NMF.Models.IModelElement> GetEnumerator()
             {
-                return Enumerable.Empty<IModelElement>().Concat(this._parent.Implements).GetEnumerator();
+                return Enumerable.Empty<NMF.Models.IModelElement>().Concat(this._parent.Implements).GetEnumerator();
             }
         }
         
@@ -394,7 +466,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
             public NameProxy(IService modelElement) : 
-                    base(modelElement)
+                    base(modelElement, "Name")
             {
             }
             
@@ -412,24 +484,6 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                     this.ModelElement.Name = value;
                 }
             }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.NameChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.NameChanged -= handler;
-            }
         }
         
         /// <summary>
@@ -443,7 +497,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
             public ImplementsProxy(IService modelElement) : 
-                    base(modelElement)
+                    base(modelElement, "Implements")
             {
             }
             
@@ -460,24 +514,6 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 {
                     this.ModelElement.Implements = value;
                 }
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.ImplementsChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.ImplementsChanged -= handler;
             }
         }
     }

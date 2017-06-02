@@ -16,12 +16,14 @@ using NMF.Models;
 using NMF.Models.Collections;
 using NMF.Models.Expressions;
 using NMF.Models.Meta;
+using NMF.Models.Repository;
 using NMF.Serialization;
 using NMF.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -35,13 +37,21 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
     /// </summary>
     [DefaultImplementationTypeAttribute(typeof(ResourceEnvironment))]
     [XmlDefaultImplementationTypeAttribute(typeof(ResourceEnvironment))]
-    public interface IResourceEnvironment : IModelElement
+    public interface IResourceEnvironment : NMF.Models.IModelElement
     {
         
         /// <summary>
         /// The Container property
         /// </summary>
         ICollectionExpression<IResourceContainer> Container
+        {
+            get;
+        }
+        
+        /// <summary>
+        /// The Links property
+        /// </summary>
+        ICollectionExpression<IResourceLink> Links
         {
             get;
         }

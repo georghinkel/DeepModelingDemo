@@ -17,12 +17,14 @@ using NMF.Models;
 using NMF.Models.Collections;
 using NMF.Models.Expressions;
 using NMF.Models.Meta;
+using NMF.Models.Repository;
 using NMF.Serialization;
 using NMF.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -36,7 +38,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
     /// </summary>
     [DefaultImplementationTypeAttribute(typeof(DBAdapter))]
     [XmlDefaultImplementationTypeAttribute(typeof(DBAdapter))]
-    public interface IDBAdapter : IModelElement, IAudioDBInterface, IUserDBInterface, IAssemblyContext
+    public interface IDBAdapter : NMF.Models.IModelElement, IAudioDBInterface, IUserDBInterface, IAssemblyContext
     {
         
         /// <summary>
@@ -67,19 +69,34 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         }
         
         /// <summary>
+        /// Gets fired before the Command property changes its value
+        /// </summary>
+        event System.EventHandler<ValueChangedEventArgs> CommandChanging;
+        
+        /// <summary>
         /// Gets fired when the Command property changed its value
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> CommandChanged;
+        event System.EventHandler<ValueChangedEventArgs> CommandChanged;
+        
+        /// <summary>
+        /// Gets fired before the Connection property changes its value
+        /// </summary>
+        event System.EventHandler<ValueChangedEventArgs> ConnectionChanging;
         
         /// <summary>
         /// Gets fired when the Connection property changed its value
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> ConnectionChanged;
+        event System.EventHandler<ValueChangedEventArgs> ConnectionChanged;
+        
+        /// <summary>
+        /// Gets fired before the DataReader property changes its value
+        /// </summary>
+        event System.EventHandler<ValueChangedEventArgs> DataReaderChanging;
         
         /// <summary>
         /// Gets fired when the DataReader property changed its value
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> DataReaderChanged;
+        event System.EventHandler<ValueChangedEventArgs> DataReaderChanged;
     }
 }
 

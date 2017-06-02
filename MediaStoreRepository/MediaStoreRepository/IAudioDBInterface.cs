@@ -17,12 +17,14 @@ using NMF.Models;
 using NMF.Models.Collections;
 using NMF.Models.Expressions;
 using NMF.Models.Meta;
+using NMF.Models.Repository;
 using NMF.Serialization;
 using NMF.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -36,7 +38,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
     /// </summary>
     [DefaultImplementationTypeAttribute(typeof(AudioDBInterface))]
     [XmlDefaultImplementationTypeAttribute(typeof(AudioDBInterface))]
-    public interface IAudioDBInterface : IModelElement, IAssemblyContext
+    public interface IAudioDBInterface : NMF.Models.IModelElement, IAssemblyContext
     {
     }
 }

@@ -16,12 +16,14 @@ using NMF.Models;
 using NMF.Models.Collections;
 using NMF.Models.Expressions;
 using NMF.Models.Meta;
+using NMF.Models.Repository;
 using NMF.Serialization;
 using NMF.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -36,9 +38,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
     [XmlIdentifierAttribute("Name")]
     [XmlNamespaceAttribute("http://github.com/georghinkel/DeepADL/1.0")]
     [XmlNamespacePrefixAttribute("core")]
-    [ModelRepresentationClassAttribute("http://github.com/georghinkel/DeepADL/1.0#//ResourceContainer/")]
+    [ModelRepresentationClassAttribute("http://github.com/georghinkel/DeepADL/1.0#//ResourceContainer")]
     [DebuggerDisplayAttribute("ResourceContainer {Name}")]
-    public class ResourceContainer : ModelElement, IResourceContainer, IModelElement
+    public partial class ResourceContainer : NMF.Models.ModelElement, IResourceContainer, NMF.Models.IModelElement
     {
         
         /// <summary>
@@ -46,12 +48,18 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// </summary>
         private string _name;
         
+        private static Lazy<NMF.Models.Meta.ITypedElement> _nameAttribute = new Lazy<NMF.Models.Meta.ITypedElement>(RetrieveNameAttribute);
+        
+        private static Lazy<NMF.Models.Meta.ITypedElement> _environmentReference = new Lazy<NMF.Models.Meta.ITypedElement>(RetrieveEnvironmentReference);
+        
+        private static NMF.Models.Meta.IClass _classInstance;
+        
         /// <summary>
         /// The Name property
         /// </summary>
         [IdAttribute()]
         [XmlAttributeAttribute(true)]
-        public virtual string Name
+        public string Name
         {
             get
             {
@@ -62,9 +70,12 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 if ((this._name != value))
                 {
                     string old = this._name;
+                    ValueChangedEventArgs e = new ValueChangedEventArgs(old, value);
+                    this.OnNameChanging(e);
+                    this.OnPropertyChanging("Name", e, _nameAttribute);
                     this._name = value;
-                    this.OnNameChanged(new ValueChangedEventArgs(old, value));
-                    this.OnPropertyChanged("Name");
+                    this.OnNameChanged(e);
+                    this.OnPropertyChanged("Name", e, _nameAttribute);
                 }
             }
         }
@@ -75,7 +86,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         [DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
         [XmlAttributeAttribute(true)]
         [XmlOppositeAttribute("Container")]
-        public virtual IResourceEnvironment Environment
+        public IResourceEnvironment Environment
         {
             get
             {
@@ -90,7 +101,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// Gets the referenced model elements of this model element
         /// </summary>
-        public override IEnumerableExpression<IModelElement> ReferencedElements
+        public override IEnumerableExpression<NMF.Models.IModelElement> ReferencedElements
         {
             get
             {
@@ -99,13 +110,17 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         }
         
         /// <summary>
-        /// Gets the Class element that describes the structure of this type
+        /// Gets the Class model for this type
         /// </summary>
         public new static NMF.Models.Meta.IClass ClassInstance
         {
             get
             {
-                return NMF.Models.Repository.MetaRepository.Instance.ResolveClass("http://github.com/georghinkel/DeepADL/1.0#//ResourceContainer/");
+                if ((_classInstance == null))
+                {
+                    _classInstance = ((NMF.Models.Meta.IClass)(MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//ResourceContainer")));
+                }
+                return _classInstance;
             }
         }
         
@@ -121,14 +136,42 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         }
         
         /// <summary>
+        /// Gets fired before the Name property changes its value
+        /// </summary>
+        public event System.EventHandler<ValueChangedEventArgs> NameChanging;
+        
+        /// <summary>
         /// Gets fired when the Name property changed its value
         /// </summary>
-        public event EventHandler<ValueChangedEventArgs> NameChanged;
+        public event System.EventHandler<ValueChangedEventArgs> NameChanged;
+        
+        /// <summary>
+        /// Gets fired before the Environment property changes its value
+        /// </summary>
+        public event System.EventHandler<ValueChangedEventArgs> EnvironmentChanging;
         
         /// <summary>
         /// Gets fired when the Environment property changed its value
         /// </summary>
-        public event EventHandler<ValueChangedEventArgs> EnvironmentChanged;
+        public event System.EventHandler<ValueChangedEventArgs> EnvironmentChanged;
+        
+        private static NMF.Models.Meta.ITypedElement RetrieveNameAttribute()
+        {
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.ResourceContainer.ClassInstance)).Resolve("Name")));
+        }
+        
+        /// <summary>
+        /// Raises the NameChanging event
+        /// </summary>
+        /// <param name="eventArgs">The event data</param>
+        protected virtual void OnNameChanging(ValueChangedEventArgs eventArgs)
+        {
+            System.EventHandler<ValueChangedEventArgs> handler = this.NameChanging;
+            if ((handler != null))
+            {
+                handler.Invoke(this, eventArgs);
+            }
+        }
         
         /// <summary>
         /// Raises the NameChanged event
@@ -136,11 +179,43 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <param name="eventArgs">The event data</param>
         protected virtual void OnNameChanged(ValueChangedEventArgs eventArgs)
         {
-            EventHandler<ValueChangedEventArgs> handler = this.NameChanged;
+            System.EventHandler<ValueChangedEventArgs> handler = this.NameChanged;
             if ((handler != null))
             {
                 handler.Invoke(this, eventArgs);
             }
+        }
+        
+        private static NMF.Models.Meta.ITypedElement RetrieveEnvironmentReference()
+        {
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.ResourceContainer.ClassInstance)).Resolve("Environment")));
+        }
+        
+        /// <summary>
+        /// Raises the EnvironmentChanging event
+        /// </summary>
+        /// <param name="eventArgs">The event data</param>
+        protected virtual void OnEnvironmentChanging(ValueChangedEventArgs eventArgs)
+        {
+            System.EventHandler<ValueChangedEventArgs> handler = this.EnvironmentChanging;
+            if ((handler != null))
+            {
+                handler.Invoke(this, eventArgs);
+            }
+        }
+        
+        /// <summary>
+        /// Gets called when the parent model element of the current model element is about to change
+        /// </summary>
+        /// <param name="oldParent">The old parent model element</param>
+        /// <param name="newParent">The new parent model element</param>
+        protected override void OnParentChanging(NMF.Models.IModelElement newParent, NMF.Models.IModelElement oldParent)
+        {
+            IResourceEnvironment oldEnvironment = ModelHelper.CastAs<IResourceEnvironment>(oldParent);
+            IResourceEnvironment newEnvironment = ModelHelper.CastAs<IResourceEnvironment>(newParent);
+            ValueChangedEventArgs e = new ValueChangedEventArgs(oldEnvironment, newEnvironment);
+            this.OnEnvironmentChanging(e);
+            this.OnPropertyChanging("Environment", e, _environmentReference);
         }
         
         /// <summary>
@@ -149,7 +224,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <param name="eventArgs">The event data</param>
         protected virtual void OnEnvironmentChanged(ValueChangedEventArgs eventArgs)
         {
-            EventHandler<ValueChangedEventArgs> handler = this.EnvironmentChanged;
+            System.EventHandler<ValueChangedEventArgs> handler = this.EnvironmentChanged;
             if ((handler != null))
             {
                 handler.Invoke(this, eventArgs);
@@ -161,7 +236,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// </summary>
         /// <param name="oldParent">The old parent model element</param>
         /// <param name="newParent">The new parent model element</param>
-        protected override void OnParentChanged(IModelElement newParent, IModelElement oldParent)
+        protected override void OnParentChanged(NMF.Models.IModelElement newParent, NMF.Models.IModelElement oldParent)
         {
             IResourceEnvironment oldEnvironment = ModelHelper.CastAs<IResourceEnvironment>(oldParent);
             IResourceEnvironment newEnvironment = ModelHelper.CastAs<IResourceEnvironment>(newParent);
@@ -173,8 +248,10 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             {
                 newEnvironment.Container.Add(this);
             }
-            this.OnPropertyChanged("Environment");
-            this.OnEnvironmentChanged(new ValueChangedEventArgs(oldEnvironment, newEnvironment));
+            ValueChangedEventArgs e = new ValueChangedEventArgs(oldEnvironment, newEnvironment);
+            this.OnEnvironmentChanged(e);
+            this.OnPropertyChanged("Environment", e, _environmentReference);
+            base.OnParentChanged(newParent, oldParent);
         }
         
         /// <summary>
@@ -219,7 +296,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <param name="attribute">The requested attribute in upper case</param>
         protected override NMF.Expressions.INotifyExpression<object> GetExpressionForAttribute(string attribute)
         {
-            if ((attribute == "ENVIRONMENT"))
+            if ((attribute == "Environment"))
             {
                 return new EnvironmentProxy(this);
             }
@@ -233,7 +310,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <param name="reference">The requested reference in upper case</param>
         protected override NMF.Expressions.INotifyExpression<NMF.Models.IModelElement> GetExpressionForReference(string reference)
         {
-            if ((reference == "ENVIRONMENT"))
+            if ((reference == "Environment"))
             {
                 return new EnvironmentProxy(this);
             }
@@ -243,9 +320,13 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// Gets the Class for this model element
         /// </summary>
-        public override IClass GetClass()
+        public override NMF.Models.Meta.IClass GetClass()
         {
-            return ((IClass)(NMF.Models.Repository.MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//ResourceContainer/")));
+            if ((_classInstance == null))
+            {
+                _classInstance = ((NMF.Models.Meta.IClass)(MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//ResourceContainer")));
+            }
+            return _classInstance;
         }
         
         /// <summary>
@@ -254,13 +335,17 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <returns>The identifier string</returns>
         public override string ToIdentifierString()
         {
+            if ((this.Name == null))
+            {
+                return null;
+            }
             return this.Name.ToString();
         }
         
         /// <summary>
         /// The collection class to to represent the children of the ResourceContainer class
         /// </summary>
-        public class ResourceContainerReferencedElementsCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
+        public class ResourceContainerReferencedElementsCollection : ReferenceCollection, ICollectionExpression<NMF.Models.IModelElement>, ICollection<NMF.Models.IModelElement>
         {
             
             private ResourceContainer _parent;
@@ -303,7 +388,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// Adds the given element to the collection
             /// </summary>
             /// <param name="item">The item to add</param>
-            public override void Add(IModelElement item)
+            public override void Add(NMF.Models.IModelElement item)
             {
                 if ((this._parent.Environment == null))
                 {
@@ -329,7 +414,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <returns>True, if it is contained, otherwise False</returns>
             /// <param name="item">The item that should be looked out for</param>
-            public override bool Contains(IModelElement item)
+            public override bool Contains(NMF.Models.IModelElement item)
             {
                 if ((item == this._parent.Environment))
                 {
@@ -343,7 +428,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <param name="array">The array in which the elements should be copied</param>
             /// <param name="arrayIndex">The starting index</param>
-            public override void CopyTo(IModelElement[] array, int arrayIndex)
+            public override void CopyTo(NMF.Models.IModelElement[] array, int arrayIndex)
             {
                 if ((this._parent.Environment != null))
                 {
@@ -357,7 +442,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <returns>True, if the item was removed, otherwise False</returns>
             /// <param name="item">The item that should be removed</param>
-            public override bool Remove(IModelElement item)
+            public override bool Remove(NMF.Models.IModelElement item)
             {
                 if ((this._parent.Environment == item))
                 {
@@ -371,9 +456,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// Gets an enumerator that enumerates the collection
             /// </summary>
             /// <returns>A generic enumerator</returns>
-            public override IEnumerator<IModelElement> GetEnumerator()
+            public override IEnumerator<NMF.Models.IModelElement> GetEnumerator()
             {
-                return Enumerable.Empty<IModelElement>().Concat(this._parent.Environment).GetEnumerator();
+                return Enumerable.Empty<NMF.Models.IModelElement>().Concat(this._parent.Environment).GetEnumerator();
             }
         }
         
@@ -388,7 +473,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
             public NameProxy(IResourceContainer modelElement) : 
-                    base(modelElement)
+                    base(modelElement, "Name")
             {
             }
             
@@ -406,24 +491,6 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                     this.ModelElement.Name = value;
                 }
             }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.NameChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.NameChanged -= handler;
-            }
         }
         
         /// <summary>
@@ -437,7 +504,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
             public EnvironmentProxy(IResourceContainer modelElement) : 
-                    base(modelElement)
+                    base(modelElement, "Environment")
             {
             }
             
@@ -454,24 +521,6 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 {
                     this.ModelElement.Environment = value;
                 }
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.EnvironmentChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.EnvironmentChanged -= handler;
             }
         }
     }

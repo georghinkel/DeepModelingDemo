@@ -16,12 +16,14 @@ using NMF.Models;
 using NMF.Models.Collections;
 using NMF.Models.Expressions;
 using NMF.Models.Meta;
+using NMF.Models.Repository;
 using NMF.Serialization;
 using NMF.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -33,13 +35,13 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
     /// <summary>
     /// The collection class to implement the refined BaseTypes reference for the SystemSpecification class
     /// </summary>
-    public class SystemSpecificationBaseTypesCollection : ICollectionExpression<IClass>, ICollection<IClass>, INotifyCollection<IClass>
+    public class SystemSpecificationBaseTypesCollection : ICollectionExpression<NMF.Models.Meta.IClass>, ICollection<NMF.Models.Meta.IClass>
     {
         
         private ISystemSpecification _parent;
         
-        private static IClass[] _standardValues = new IClass[] {
-                ((IClass)(NMF.Models.Repository.MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//SystemArchitecture/")))};
+        private static NMF.Models.Meta.IClass[] _standardValues = new NMF.Models.Meta.IClass[] {
+                ((NMF.Models.Meta.IClass)(NMF.Models.Repository.MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//SystemArchitecture")))};
         
         /// <summary>
         /// Creates a new instance
@@ -86,7 +88,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// Gets fired when the contents of this collection changes
         /// </summary>
-        public event System.Collections.Specialized.NotifyCollectionChangedEventHandler CollectionChanged;
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
         
         /// <summary>
         /// Fires the CollectionChanged event
@@ -104,7 +106,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// Adds the given element to the collection
         /// </summary>
         /// <param name="item">The item to add</param>
-        public virtual void Add(IClass item)
+        public virtual void Add(NMF.Models.Meta.IClass item)
         {
         }
         
@@ -120,7 +122,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// </summary>
         /// <returns>True, if it is contained, otherwise False</returns>
         /// <param name="item">The item that should be looked out for</param>
-        public virtual bool Contains(IClass item)
+        public virtual bool Contains(NMF.Models.Meta.IClass item)
         {
             if (SystemSpecificationBaseTypesCollection._standardValues.Contains(item))
             {
@@ -134,7 +136,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// </summary>
         /// <param name="array">The array in which the elements should be copied</param>
         /// <param name="arrayIndex">The starting index</param>
-        public virtual void CopyTo(IClass[] array, int arrayIndex)
+        public virtual void CopyTo(NMF.Models.Meta.IClass[] array, int arrayIndex)
         {
             SystemSpecificationBaseTypesCollection._standardValues.CopyTo(array, arrayIndex);
             arrayIndex = (arrayIndex + 1);
@@ -145,7 +147,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// </summary>
         /// <returns>True, if the item was removed, otherwise False</returns>
         /// <param name="item">The item that should be removed</param>
-        public virtual bool Remove(IClass item)
+        public virtual bool Remove(NMF.Models.Meta.IClass item)
         {
             return false;
         }
@@ -154,9 +156,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// Gets an enumerator that enumerates the collection
         /// </summary>
         /// <returns>A generic enumerator</returns>
-        public virtual IEnumerator<IClass> GetEnumerator()
+        public virtual IEnumerator<NMF.Models.Meta.IClass> GetEnumerator()
         {
-            return SystemSpecificationBaseTypesCollection._standardValues.Cast<IClass>().GetEnumerator();
+            return SystemSpecificationBaseTypesCollection._standardValues.Cast<NMF.Models.Meta.IClass>().GetEnumerator();
         }
         
         IEnumerator IEnumerable.GetEnumerator()
@@ -167,25 +169,25 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// Gets an observable version of this collection
         /// </summary>
-        INotifyCollection<IClass> ICollectionExpression<IClass>.AsNotifiable()
+        INotifyCollection<NMF.Models.Meta.IClass> ICollectionExpression<NMF.Models.Meta.IClass>.AsNotifiable()
         {
-            return this;
+            return this.WithUpdates();
         }
         
         /// <summary>
         /// Gets an observable version of this collection
         /// </summary>
-        INotifyEnumerable<IClass> IEnumerableExpression<IClass>.AsNotifiable()
+        INotifyEnumerable<NMF.Models.Meta.IClass> IEnumerableExpression<NMF.Models.Meta.IClass>.AsNotifiable()
         {
-            return this;
+            return this.WithUpdates();
         }
         
         /// <summary>
         /// Gets an observable version of this collection
         /// </summary>
-        INotifyEnumerable NMF.Expressions.IEnumerableExpression.AsNotifiable()
+        INotifyEnumerable IEnumerableExpression.AsNotifiable()
         {
-            return this;
+            return this.WithUpdates();
         }
         
         /// <summary>

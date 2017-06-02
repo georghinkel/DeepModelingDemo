@@ -32,10 +32,10 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
 {
     
     
-    public class RepositoryInterfacesCollection : ObservableOppositeList<IRepository, IInterface>
+    public class ResourceEnvironmentLinksCollection : ObservableOppositeList<IResourceEnvironment, IResourceLink>
     {
         
-        public RepositoryInterfacesCollection(IRepository parent) : 
+        public ResourceEnvironmentLinksCollection(IResourceEnvironment parent) : 
                 base(parent)
         {
         }
@@ -44,23 +44,23 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         {
             if ((e.NewValue != this.Parent))
             {
-                this.Remove(((IInterface)(sender)));
+                this.Remove(((IResourceLink)(sender)));
             }
         }
         
-        protected override void SetOpposite(IInterface item, IRepository parent)
+        protected override void SetOpposite(IResourceLink item, IResourceEnvironment parent)
         {
             if ((parent != null))
             {
                 item.ParentChanged += this.OnItemParentChanged;
-                item.Repository = parent;
+                item.Environment = parent;
             }
             else
             {
                 item.ParentChanged -= this.OnItemParentChanged;
-                if ((item.Repository == this.Parent))
+                if ((item.Environment == this.Parent))
                 {
-                    item.Repository = parent;
+                    item.Environment = parent;
                 }
             }
         }

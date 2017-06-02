@@ -16,12 +16,14 @@ using NMF.Models;
 using NMF.Models.Collections;
 using NMF.Models.Expressions;
 using NMF.Models.Meta;
+using NMF.Models.Repository;
 using NMF.Serialization;
 using NMF.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -35,20 +37,24 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
     /// </summary>
     [XmlNamespaceAttribute("http://github.com/georghinkel/DeepADL/1.0")]
     [XmlNamespacePrefixAttribute("core")]
-    [ModelRepresentationClassAttribute("http://github.com/georghinkel/DeepADL/1.0#//DelegationConnector/")]
-    public abstract class DelegationConnector : ModelElement, IDelegationConnector, IModelElement
+    [ModelRepresentationClassAttribute("http://github.com/georghinkel/DeepADL/1.0#//DelegationConnector")]
+    public abstract partial class DelegationConnector : NMF.Models.ModelElement, IDelegationConnector, NMF.Models.IModelElement
     {
+        
+        private static Lazy<NMF.Models.Meta.ITypedElement> _portReference = new Lazy<NMF.Models.Meta.ITypedElement>(RetrievePortReference);
         
         /// <summary>
         /// The backing field for the Port property
         /// </summary>
         private IRequiredInterface _port;
         
+        private static NMF.Models.Meta.IClass _classInstance;
+        
         /// <summary>
         /// The Port property
         /// </summary>
         [XmlAttributeAttribute(true)]
-        public virtual IRequiredInterface Port
+        public IRequiredInterface Port
         {
             get
             {
@@ -59,6 +65,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 if ((this._port != value))
                 {
                     IRequiredInterface old = this._port;
+                    ValueChangedEventArgs e = new ValueChangedEventArgs(old, value);
+                    this.OnPortChanging(e);
+                    this.OnPropertyChanging("Port", e, _portReference);
                     this._port = value;
                     if ((old != null))
                     {
@@ -68,8 +77,8 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                     {
                         value.Deleted += this.OnResetPort;
                     }
-                    this.OnPropertyChanged("Port");
-                    this.OnPortChanged(new ValueChangedEventArgs(old, value));
+                    this.OnPortChanged(e);
+                    this.OnPropertyChanged("Port", e, _portReference);
                 }
             }
         }
@@ -77,7 +86,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// Gets the referenced model elements of this model element
         /// </summary>
-        public override IEnumerableExpression<IModelElement> ReferencedElements
+        public override IEnumerableExpression<NMF.Models.IModelElement> ReferencedElements
         {
             get
             {
@@ -86,25 +95,52 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         }
         
         /// <summary>
-        /// Gets the Class element that describes the structure of this type
+        /// Gets the Class model for this type
         /// </summary>
         public new static NMF.Models.Meta.IClass ClassInstance
         {
             get
             {
-                return NMF.Models.Repository.MetaRepository.Instance.ResolveClass("http://github.com/georghinkel/DeepADL/1.0#//DelegationConnector/");
+                if ((_classInstance == null))
+                {
+                    _classInstance = ((NMF.Models.Meta.IClass)(MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//DelegationConnector")));
+                }
+                return _classInstance;
             }
         }
         
         /// <summary>
+        /// Gets fired before the Port property changes its value
+        /// </summary>
+        public event System.EventHandler<ValueChangedEventArgs> PortChanging;
+        
+        /// <summary>
         /// Gets fired when the Port property changed its value
         /// </summary>
-        public event EventHandler<ValueChangedEventArgs> PortChanged;
+        public event System.EventHandler<ValueChangedEventArgs> PortChanged;
         
         /// <summary>
         /// Gets the Delegate for this model element
         /// </summary>
         public abstract IDelegate GetDelegate();
+        
+        private static NMF.Models.Meta.ITypedElement RetrievePortReference()
+        {
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.DelegationConnector.ClassInstance)).Resolve("Port")));
+        }
+        
+        /// <summary>
+        /// Raises the PortChanging event
+        /// </summary>
+        /// <param name="eventArgs">The event data</param>
+        protected virtual void OnPortChanging(ValueChangedEventArgs eventArgs)
+        {
+            System.EventHandler<ValueChangedEventArgs> handler = this.PortChanging;
+            if ((handler != null))
+            {
+                handler.Invoke(this, eventArgs);
+            }
+        }
         
         /// <summary>
         /// Raises the PortChanged event
@@ -112,7 +148,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <param name="eventArgs">The event data</param>
         protected virtual void OnPortChanged(ValueChangedEventArgs eventArgs)
         {
-            EventHandler<ValueChangedEventArgs> handler = this.PortChanged;
+            System.EventHandler<ValueChangedEventArgs> handler = this.PortChanged;
             if ((handler != null))
             {
                 handler.Invoke(this, eventArgs);
@@ -124,7 +160,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// </summary>
         /// <param name="sender">The object that sent this reset request</param>
         /// <param name="eventArgs">The event data for the reset event</param>
-        private void OnResetPort(object sender, EventArgs eventArgs)
+        private void OnResetPort(object sender, System.EventArgs eventArgs)
         {
             this.Port = null;
         }
@@ -151,7 +187,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <param name="attribute">The requested attribute in upper case</param>
         protected override NMF.Expressions.INotifyExpression<object> GetExpressionForAttribute(string attribute)
         {
-            if ((attribute == "PORT"))
+            if ((attribute == "Port"))
             {
                 return new PortProxy(this);
             }
@@ -165,7 +201,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <param name="reference">The requested reference in upper case</param>
         protected override NMF.Expressions.INotifyExpression<NMF.Models.IModelElement> GetExpressionForReference(string reference)
         {
-            if ((reference == "PORT"))
+            if ((reference == "Port"))
             {
                 return new PortProxy(this);
             }
@@ -175,15 +211,19 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// Gets the Class for this model element
         /// </summary>
-        public override IClass GetClass()
+        public override NMF.Models.Meta.IClass GetClass()
         {
-            return ((IClass)(NMF.Models.Repository.MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//DelegationConnector/")));
+            if ((_classInstance == null))
+            {
+                _classInstance = ((NMF.Models.Meta.IClass)(MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//DelegationConnector")));
+            }
+            return _classInstance;
         }
         
         /// <summary>
         /// The collection class to to represent the children of the DelegationConnector class
         /// </summary>
-        public class DelegationConnectorReferencedElementsCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
+        public class DelegationConnectorReferencedElementsCollection : ReferenceCollection, ICollectionExpression<NMF.Models.IModelElement>, ICollection<NMF.Models.IModelElement>
         {
             
             private DelegationConnector _parent;
@@ -226,7 +266,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// Adds the given element to the collection
             /// </summary>
             /// <param name="item">The item to add</param>
-            public override void Add(IModelElement item)
+            public override void Add(NMF.Models.IModelElement item)
             {
                 if ((this._parent.Port == null))
                 {
@@ -252,7 +292,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <returns>True, if it is contained, otherwise False</returns>
             /// <param name="item">The item that should be looked out for</param>
-            public override bool Contains(IModelElement item)
+            public override bool Contains(NMF.Models.IModelElement item)
             {
                 if ((item == this._parent.Port))
                 {
@@ -266,7 +306,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <param name="array">The array in which the elements should be copied</param>
             /// <param name="arrayIndex">The starting index</param>
-            public override void CopyTo(IModelElement[] array, int arrayIndex)
+            public override void CopyTo(NMF.Models.IModelElement[] array, int arrayIndex)
             {
                 if ((this._parent.Port != null))
                 {
@@ -280,7 +320,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <returns>True, if the item was removed, otherwise False</returns>
             /// <param name="item">The item that should be removed</param>
-            public override bool Remove(IModelElement item)
+            public override bool Remove(NMF.Models.IModelElement item)
             {
                 if ((this._parent.Port == item))
                 {
@@ -294,9 +334,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// Gets an enumerator that enumerates the collection
             /// </summary>
             /// <returns>A generic enumerator</returns>
-            public override IEnumerator<IModelElement> GetEnumerator()
+            public override IEnumerator<NMF.Models.IModelElement> GetEnumerator()
             {
-                return Enumerable.Empty<IModelElement>().Concat(this._parent.Port).GetEnumerator();
+                return Enumerable.Empty<NMF.Models.IModelElement>().Concat(this._parent.Port).GetEnumerator();
             }
         }
         
@@ -311,7 +351,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
             public PortProxy(IDelegationConnector modelElement) : 
-                    base(modelElement)
+                    base(modelElement, "Port")
             {
             }
             
@@ -328,24 +368,6 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 {
                     this.ModelElement.Port = value;
                 }
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.PortChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.PortChanged -= handler;
             }
         }
     }

@@ -16,12 +16,14 @@ using NMF.Models;
 using NMF.Models.Collections;
 using NMF.Models.Expressions;
 using NMF.Models.Meta;
+using NMF.Models.Repository;
 using NMF.Serialization;
 using NMF.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -33,7 +35,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
     /// <summary>
     /// The collection class to implement the refined References reference for the SystemSpecification class
     /// </summary>
-    public class SystemSpecificationReferencesCollection : ICollectionExpression<IReference>, ICollection<IReference>, INotifyCollection<IReference>
+    public class SystemSpecificationReferencesCollection : ICollectionExpression<NMF.Models.Meta.IReference>, ICollection<NMF.Models.Meta.IReference>
     {
         
         private ISystemSpecification _parent;
@@ -85,7 +87,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// Gets fired when the contents of this collection changes
         /// </summary>
-        public event System.Collections.Specialized.NotifyCollectionChangedEventHandler CollectionChanged;
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
         
         /// <summary>
         /// Fires the CollectionChanged event
@@ -108,7 +110,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// Adds the given element to the collection
         /// </summary>
         /// <param name="item">The item to add</param>
-        public virtual void Add(IReference item)
+        public virtual void Add(NMF.Models.Meta.IReference item)
         {
             IRequiredInterface publicInterfacesCasted = item.As<IRequiredInterface>();
             if ((publicInterfacesCasted != null))
@@ -130,7 +132,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// </summary>
         /// <returns>True, if it is contained, otherwise False</returns>
         /// <param name="item">The item that should be looked out for</param>
-        public virtual bool Contains(IReference item)
+        public virtual bool Contains(NMF.Models.Meta.IReference item)
         {
             if (this._parent.PublicInterfaces.Contains(item))
             {
@@ -144,9 +146,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// </summary>
         /// <param name="array">The array in which the elements should be copied</param>
         /// <param name="arrayIndex">The starting index</param>
-        public virtual void CopyTo(IReference[] array, int arrayIndex)
+        public virtual void CopyTo(NMF.Models.Meta.IReference[] array, int arrayIndex)
         {
-            IEnumerator<IReference> publicInterfacesEnumerator = this._parent.PublicInterfaces.GetEnumerator();
+            IEnumerator<NMF.Models.Meta.IReference> publicInterfacesEnumerator = this._parent.PublicInterfaces.GetEnumerator();
             try
             {
                 for (
@@ -168,7 +170,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// </summary>
         /// <returns>True, if the item was removed, otherwise False</returns>
         /// <param name="item">The item that should be removed</param>
-        public virtual bool Remove(IReference item)
+        public virtual bool Remove(NMF.Models.Meta.IReference item)
         {
             IRequiredInterface requiredInterfaceItem = item.As<IRequiredInterface>();
             if (((requiredInterfaceItem != null) 
@@ -183,9 +185,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// Gets an enumerator that enumerates the collection
         /// </summary>
         /// <returns>A generic enumerator</returns>
-        public virtual IEnumerator<IReference> GetEnumerator()
+        public virtual IEnumerator<NMF.Models.Meta.IReference> GetEnumerator()
         {
-            return Enumerable.Empty<IReference>().Concat(this._parent.PublicInterfaces).GetEnumerator();
+            return Enumerable.Empty<NMF.Models.Meta.IReference>().Concat(this._parent.PublicInterfaces).GetEnumerator();
         }
         
         IEnumerator IEnumerable.GetEnumerator()
@@ -196,25 +198,25 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// Gets an observable version of this collection
         /// </summary>
-        INotifyCollection<IReference> ICollectionExpression<IReference>.AsNotifiable()
+        INotifyCollection<NMF.Models.Meta.IReference> ICollectionExpression<NMF.Models.Meta.IReference>.AsNotifiable()
         {
-            return this;
+            return this.WithUpdates();
         }
         
         /// <summary>
         /// Gets an observable version of this collection
         /// </summary>
-        INotifyEnumerable<IReference> IEnumerableExpression<IReference>.AsNotifiable()
+        INotifyEnumerable<NMF.Models.Meta.IReference> IEnumerableExpression<NMF.Models.Meta.IReference>.AsNotifiable()
         {
-            return this;
+            return this.WithUpdates();
         }
         
         /// <summary>
         /// Gets an observable version of this collection
         /// </summary>
-        INotifyEnumerable NMF.Expressions.IEnumerableExpression.AsNotifiable()
+        INotifyEnumerable IEnumerableExpression.AsNotifiable()
         {
-            return this;
+            return this.WithUpdates();
         }
         
         /// <summary>

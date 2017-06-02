@@ -32,38 +32,40 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
 {
     
     
-    public class RepositoryInterfacesCollection : ObservableOppositeList<IRepository, IInterface>
+    /// <summary>
+    /// The public interface for ResourceLink
+    /// </summary>
+    [DefaultImplementationTypeAttribute(typeof(ResourceLink))]
+    [XmlDefaultImplementationTypeAttribute(typeof(ResourceLink))]
+    public interface IResourceLink : NMF.Models.IModelElement
     {
         
-        public RepositoryInterfacesCollection(IRepository parent) : 
-                base(parent)
+        /// <summary>
+        /// The Environment property
+        /// </summary>
+        IResourceEnvironment Environment
         {
+            get;
+            set;
         }
         
-        private void OnItemParentChanged(object sender, ValueChangedEventArgs e)
+        /// <summary>
+        /// The Connects property
+        /// </summary>
+        ICollectionExpression<IResourceContainer> Connects
         {
-            if ((e.NewValue != this.Parent))
-            {
-                this.Remove(((IInterface)(sender)));
-            }
+            get;
         }
         
-        protected override void SetOpposite(IInterface item, IRepository parent)
-        {
-            if ((parent != null))
-            {
-                item.ParentChanged += this.OnItemParentChanged;
-                item.Repository = parent;
-            }
-            else
-            {
-                item.ParentChanged -= this.OnItemParentChanged;
-                if ((item.Repository == this.Parent))
-                {
-                    item.Repository = parent;
-                }
-            }
-        }
+        /// <summary>
+        /// Gets fired before the Environment property changes its value
+        /// </summary>
+        event System.EventHandler<ValueChangedEventArgs> EnvironmentChanging;
+        
+        /// <summary>
+        /// Gets fired when the Environment property changed its value
+        /// </summary>
+        event System.EventHandler<ValueChangedEventArgs> EnvironmentChanged;
     }
 }
 

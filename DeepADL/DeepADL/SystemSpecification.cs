@@ -16,12 +16,14 @@ using NMF.Models;
 using NMF.Models.Collections;
 using NMF.Models.Expressions;
 using NMF.Models.Meta;
+using NMF.Models.Repository;
 using NMF.Serialization;
 using NMF.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -35,15 +37,21 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
     /// </summary>
     [XmlNamespaceAttribute("http://github.com/georghinkel/DeepADL/1.0")]
     [XmlNamespacePrefixAttribute("core")]
-    [ModelRepresentationClassAttribute("http://github.com/georghinkel/DeepADL/1.0#//SystemSpecification/")]
+    [ModelRepresentationClassAttribute("http://github.com/georghinkel/DeepADL/1.0#//SystemSpecification")]
     [DebuggerDisplayAttribute("SystemSpecification {Name}")]
-    public class SystemSpecification : MetaElement, ISystemSpecification, IModelElement
+    public partial class SystemSpecification : NMF.Models.Meta.MetaElement, ISystemSpecification, NMF.Models.IModelElement
     {
+        
+        private static Lazy<NMF.Models.Meta.ITypedElement> _publicInterfacesReference = new Lazy<NMF.Models.Meta.ITypedElement>(RetrievePublicInterfacesReference);
         
         /// <summary>
         /// The backing field for the PublicInterfaces property
         /// </summary>
         private ObservableCompositionList<IRequiredInterface> _publicInterfaces;
+        
+        private static Lazy<NMF.Models.Meta.ITypedElement> _repositoryReference = new Lazy<NMF.Models.Meta.ITypedElement>(RetrieveRepositoryReference);
+        
+        private static NMF.Models.Meta.IClass _classInstance;
         
         event EventHandler<ValueChangedEventArgs> IType.NamespaceChanged
         {
@@ -58,7 +66,29 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 _this_SystemSpecification.RepositoryChanged -= value;
             }
         }
+        event EventHandler<ValueChangedEventArgs> IType.NamespaceChanging
+        {
+            add
+            {
+                ISystemSpecification _this_SystemSpecification = this;
+                _this_SystemSpecification.RepositoryChanging += value;
+            }
+            remove
+            {
+                ISystemSpecification _this_SystemSpecification = this;
+                _this_SystemSpecification.RepositoryChanging -= value;
+            }
+        }
         event EventHandler<ValueChangedEventArgs> IClass.IdentifierChanged
+        {
+            add
+            {
+            }
+            remove
+            {
+            }
+        }
+        event EventHandler<ValueChangedEventArgs> IClass.IdentifierChanging
         {
             add
             {
@@ -76,7 +106,25 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             {
             }
         }
-        event EventHandler<ValueChangedEventArgs> IClass.IsInterfaceChanged
+        event EventHandler<ValueChangedEventArgs> IClass.InstanceOfChanging
+        {
+            add
+            {
+            }
+            remove
+            {
+            }
+        }
+        event EventHandler<ValueChangedEventArgs> IClass.IdentifierScopeChanged
+        {
+            add
+            {
+            }
+            remove
+            {
+            }
+        }
+        event EventHandler<ValueChangedEventArgs> IClass.IdentifierScopeChanging
         {
             add
             {
@@ -94,10 +142,20 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             {
             }
         }
+        event EventHandler<ValueChangedEventArgs> IClass.IsAbstractChanging
+        {
+            add
+            {
+            }
+            remove
+            {
+            }
+        }
         
         public SystemSpecification()
         {
             this._publicInterfaces = new ObservableCompositionList<IRequiredInterface>(this);
+            this._publicInterfaces.CollectionChanging += this.PublicInterfacesCollectionChanging;
             this._publicInterfaces.CollectionChanged += this.PublicInterfacesCollectionChanged;
         }
         
@@ -108,7 +166,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         [XmlAttributeAttribute(false)]
         [ContainmentAttribute()]
         [ConstantAttribute()]
-        public virtual ICollectionExpression<IRequiredInterface> PublicInterfaces
+        public ICollectionExpression<IRequiredInterface> PublicInterfaces
         {
             get
             {
@@ -122,7 +180,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         [DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
         [XmlAttributeAttribute(true)]
         [XmlOppositeAttribute("SystemSpecifications")]
-        public virtual IRepository Repository
+        public IRepository Repository
         {
             get
             {
@@ -134,7 +192,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        ICollectionExpression<IReference> IReferenceType.References
+        ICollectionExpression<NMF.Models.Meta.IReference> NMF.Models.Meta.IReferenceType.References
         {
             get
             {
@@ -142,7 +200,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        INamespace IType.Namespace
+        NMF.Models.Meta.INamespace NMF.Models.Meta.IType.Namespace
         {
             get
             {
@@ -174,7 +232,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        ICollectionExpression<IClass> IClass.BaseTypes
+        ICollectionExpression<NMF.Models.Meta.IClass> NMF.Models.Meta.IClass.BaseTypes
         {
             get
             {
@@ -182,62 +240,47 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        ICollectionExpression<IReferenceConstraint> IClass.ReferenceConstraints
+        ICollectionExpression<NMF.Models.Meta.IReferenceConstraint> NMF.Models.Meta.IClass.ReferenceConstraints
         {
             get
             {
-                return EmptyList<IReferenceConstraint>.Instance;
+                return EmptyList<NMF.Models.Meta.IReferenceConstraint>.Instance;
             }
         }
         
-        ICollectionExpression<IAttribute> IStructuredType.Attributes
+        ICollectionExpression<NMF.Models.Meta.IAttribute> NMF.Models.Meta.IStructuredType.Attributes
         {
             get
             {
-                return EmptyList<IAttribute>.Instance;
+                return EmptyList<NMF.Models.Meta.IAttribute>.Instance;
             }
         }
         
-        ICollectionExpression<IAttributeConstraint> IClass.AttributeConstraints
+        ICollectionExpression<NMF.Models.Meta.IAttributeConstraint> NMF.Models.Meta.IClass.AttributeConstraints
         {
             get
             {
-                return EmptyList<IAttributeConstraint>.Instance;
+                return EmptyList<NMF.Models.Meta.IAttributeConstraint>.Instance;
             }
         }
         
-        ICollectionExpression<IEvent> IReferenceType.Events
+        ICollectionExpression<NMF.Models.Meta.IEvent> NMF.Models.Meta.IReferenceType.Events
         {
             get
             {
-                return EmptyList<IEvent>.Instance;
+                return EmptyList<NMF.Models.Meta.IEvent>.Instance;
             }
         }
         
-        ICollectionExpression<IOperation> IStructuredType.Operations
+        ICollectionExpression<NMF.Models.Meta.IOperation> NMF.Models.Meta.IStructuredType.Operations
         {
             get
             {
-                return EmptyList<IOperation>.Instance;
+                return EmptyList<NMF.Models.Meta.IOperation>.Instance;
             }
         }
         
-        IAttribute IClass.Identifier
-        {
-            get
-            {
-                return null;
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    throw new System.NotSupportedException();
-                }
-            }
-        }
-        
-        IClass IClass.InstanceOf
+        NMF.Models.Meta.IAttribute NMF.Models.Meta.IClass.Identifier
         {
             get
             {
@@ -252,22 +295,37 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        bool IClass.IsInterface
+        NMF.Models.Meta.IClass NMF.Models.Meta.IClass.InstanceOf
         {
             get
             {
-                return false;
+                return null;
             }
             set
             {
-                if ((value != false))
+                if ((value != null))
                 {
                     throw new System.NotSupportedException();
                 }
             }
         }
         
-        bool IClass.IsAbstract
+        NMF.Models.Meta.IdentifierScope NMF.Models.Meta.IClass.IdentifierScope
+        {
+            get
+            {
+                return NMF.Models.Meta.IdentifierScope.Local;
+            }
+            set
+            {
+                if ((value != NMF.Models.Meta.IdentifierScope.Local))
+                {
+                    throw new System.NotSupportedException();
+                }
+            }
+        }
+        
+        bool NMF.Models.Meta.IClass.IsAbstract
         {
             get
             {
@@ -285,7 +343,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// Gets the child model elements of this model element
         /// </summary>
-        public override IEnumerableExpression<IModelElement> Children
+        public override IEnumerableExpression<NMF.Models.IModelElement> Children
         {
             get
             {
@@ -296,7 +354,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// Gets the referenced model elements of this model element
         /// </summary>
-        public override IEnumerableExpression<IModelElement> ReferencedElements
+        public override IEnumerableExpression<NMF.Models.IModelElement> ReferencedElements
         {
             get
             {
@@ -305,29 +363,85 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         }
         
         /// <summary>
-        /// Gets the Class element that describes the structure of this type
+        /// Gets the Class model for this type
         /// </summary>
         public new static NMF.Models.Meta.IClass ClassInstance
         {
             get
             {
-                return NMF.Models.Repository.MetaRepository.Instance.ResolveClass("http://github.com/georghinkel/DeepADL/1.0#//SystemSpecification/");
+                if ((_classInstance == null))
+                {
+                    _classInstance = ((NMF.Models.Meta.IClass)(MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//SystemSpecification")));
+                }
+                return _classInstance;
             }
         }
         
         /// <summary>
-        /// Gets fired when the Repository property changed its value
+        /// Gets fired before the Repository property changes its value
         /// </summary>
-        public event EventHandler<ValueChangedEventArgs> RepositoryChanged;
+        public event System.EventHandler<ValueChangedEventArgs> RepositoryChanging;
         
         /// <summary>
-        /// Forwards change notifications for the PublicInterfaces property to the parent model element
+        /// Gets fired when the Repository property changed its value
+        /// </summary>
+        public event System.EventHandler<ValueChangedEventArgs> RepositoryChanged;
+        
+        private static NMF.Models.Meta.ITypedElement RetrievePublicInterfacesReference()
+        {
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.SystemSpecification.ClassInstance)).Resolve("PublicInterfaces")));
+        }
+        
+        /// <summary>
+        /// Forwards CollectionChanging notifications for the PublicInterfaces property to the parent model element
         /// </summary>
         /// <param name="sender">The collection that raised the change</param>
         /// <param name="e">The original event data</param>
-        private void PublicInterfacesCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void PublicInterfacesCollectionChanging(object sender, NotifyCollectionChangingEventArgs e)
         {
-            this.OnCollectionChanged("PublicInterfaces", e);
+            this.OnCollectionChanging("PublicInterfaces", e, _publicInterfacesReference);
+        }
+        
+        /// <summary>
+        /// Forwards CollectionChanged notifications for the PublicInterfaces property to the parent model element
+        /// </summary>
+        /// <param name="sender">The collection that raised the change</param>
+        /// <param name="e">The original event data</param>
+        private void PublicInterfacesCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            this.OnCollectionChanged("PublicInterfaces", e, _publicInterfacesReference);
+        }
+        
+        private static NMF.Models.Meta.ITypedElement RetrieveRepositoryReference()
+        {
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.SystemSpecification.ClassInstance)).Resolve("Repository")));
+        }
+        
+        /// <summary>
+        /// Raises the RepositoryChanging event
+        /// </summary>
+        /// <param name="eventArgs">The event data</param>
+        protected virtual void OnRepositoryChanging(ValueChangedEventArgs eventArgs)
+        {
+            System.EventHandler<ValueChangedEventArgs> handler = this.RepositoryChanging;
+            if ((handler != null))
+            {
+                handler.Invoke(this, eventArgs);
+            }
+        }
+        
+        /// <summary>
+        /// Gets called when the parent model element of the current model element is about to change
+        /// </summary>
+        /// <param name="oldParent">The old parent model element</param>
+        /// <param name="newParent">The new parent model element</param>
+        protected override void OnParentChanging(NMF.Models.IModelElement newParent, NMF.Models.IModelElement oldParent)
+        {
+            IRepository oldRepository = ModelHelper.CastAs<IRepository>(oldParent);
+            IRepository newRepository = ModelHelper.CastAs<IRepository>(newParent);
+            ValueChangedEventArgs e = new ValueChangedEventArgs(oldRepository, newRepository);
+            this.OnRepositoryChanging(e);
+            this.OnPropertyChanging("Repository", e, _repositoryReference);
         }
         
         /// <summary>
@@ -336,7 +450,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <param name="eventArgs">The event data</param>
         protected virtual void OnRepositoryChanged(ValueChangedEventArgs eventArgs)
         {
-            EventHandler<ValueChangedEventArgs> handler = this.RepositoryChanged;
+            System.EventHandler<ValueChangedEventArgs> handler = this.RepositoryChanged;
             if ((handler != null))
             {
                 handler.Invoke(this, eventArgs);
@@ -348,7 +462,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// </summary>
         /// <param name="oldParent">The old parent model element</param>
         /// <param name="newParent">The new parent model element</param>
-        protected override void OnParentChanged(IModelElement newParent, IModelElement oldParent)
+        protected override void OnParentChanged(NMF.Models.IModelElement newParent, NMF.Models.IModelElement oldParent)
         {
             IRepository oldRepository = ModelHelper.CastAs<IRepository>(oldParent);
             IRepository newRepository = ModelHelper.CastAs<IRepository>(newParent);
@@ -360,8 +474,10 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             {
                 newRepository.SystemSpecifications.Add(this);
             }
-            this.OnPropertyChanged("Repository");
-            this.OnRepositoryChanged(new ValueChangedEventArgs(oldRepository, newRepository));
+            ValueChangedEventArgs e = new ValueChangedEventArgs(oldRepository, newRepository);
+            this.OnRepositoryChanged(e);
+            this.OnPropertyChanged("Repository", e, _repositoryReference);
+            base.OnParentChanged(newParent, oldParent);
         }
         
         /// <summary>
@@ -400,7 +516,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <param name="attribute">The requested attribute in upper case</param>
         protected override NMF.Expressions.INotifyExpression<object> GetExpressionForAttribute(string attribute)
         {
-            if ((attribute == "REPOSITORY"))
+            if ((attribute == "Repository"))
             {
                 return new RepositoryProxy(this);
             }
@@ -414,7 +530,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <param name="reference">The requested reference in upper case</param>
         protected override NMF.Expressions.INotifyExpression<NMF.Models.IModelElement> GetExpressionForReference(string reference)
         {
-            if ((reference == "REPOSITORY"))
+            if ((reference == "Repository"))
             {
                 return new RepositoryProxy(this);
             }
@@ -422,17 +538,35 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         }
         
         /// <summary>
+        /// Gets the property name for the given container
+        /// </summary>
+        /// <returns>The name of the respective container reference</returns>
+        /// <param name="container">The container object</param>
+        protected override string GetCompositionName(object container)
+        {
+            if ((container == this._publicInterfaces))
+            {
+                return "PublicInterfaces";
+            }
+            return base.GetCompositionName(container);
+        }
+        
+        /// <summary>
         /// Gets the Class for this model element
         /// </summary>
-        public override IClass GetClass()
+        public override NMF.Models.Meta.IClass GetClass()
         {
-            return ((IClass)(NMF.Models.Repository.MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//SystemSpecification/")));
+            if ((_classInstance == null))
+            {
+                _classInstance = ((NMF.Models.Meta.IClass)(MetaRepository.Instance.Resolve("http://github.com/georghinkel/DeepADL/1.0#//SystemSpecification")));
+            }
+            return _classInstance;
         }
         
         /// <summary>
         /// The collection class to to represent the children of the SystemSpecification class
         /// </summary>
-        public class SystemSpecificationChildrenCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
+        public class SystemSpecificationChildrenCollection : ReferenceCollection, ICollectionExpression<NMF.Models.IModelElement>, ICollection<NMF.Models.IModelElement>
         {
             
             private SystemSpecification _parent;
@@ -472,7 +606,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// Adds the given element to the collection
             /// </summary>
             /// <param name="item">The item to add</param>
-            public override void Add(IModelElement item)
+            public override void Add(NMF.Models.IModelElement item)
             {
                 IRequiredInterface publicInterfacesCasted = item.As<IRequiredInterface>();
                 if ((publicInterfacesCasted != null))
@@ -494,7 +628,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <returns>True, if it is contained, otherwise False</returns>
             /// <param name="item">The item that should be looked out for</param>
-            public override bool Contains(IModelElement item)
+            public override bool Contains(NMF.Models.IModelElement item)
             {
                 if (this._parent.PublicInterfaces.Contains(item))
                 {
@@ -508,9 +642,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <param name="array">The array in which the elements should be copied</param>
             /// <param name="arrayIndex">The starting index</param>
-            public override void CopyTo(IModelElement[] array, int arrayIndex)
+            public override void CopyTo(NMF.Models.IModelElement[] array, int arrayIndex)
             {
-                IEnumerator<IModelElement> publicInterfacesEnumerator = this._parent.PublicInterfaces.GetEnumerator();
+                IEnumerator<NMF.Models.IModelElement> publicInterfacesEnumerator = this._parent.PublicInterfaces.GetEnumerator();
                 try
                 {
                     for (
@@ -532,7 +666,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <returns>True, if the item was removed, otherwise False</returns>
             /// <param name="item">The item that should be removed</param>
-            public override bool Remove(IModelElement item)
+            public override bool Remove(NMF.Models.IModelElement item)
             {
                 IRequiredInterface requiredInterfaceItem = item.As<IRequiredInterface>();
                 if (((requiredInterfaceItem != null) 
@@ -547,16 +681,16 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// Gets an enumerator that enumerates the collection
             /// </summary>
             /// <returns>A generic enumerator</returns>
-            public override IEnumerator<IModelElement> GetEnumerator()
+            public override IEnumerator<NMF.Models.IModelElement> GetEnumerator()
             {
-                return Enumerable.Empty<IModelElement>().Concat(this._parent.PublicInterfaces).GetEnumerator();
+                return Enumerable.Empty<NMF.Models.IModelElement>().Concat(this._parent.PublicInterfaces).GetEnumerator();
             }
         }
         
         /// <summary>
         /// The collection class to to represent the children of the SystemSpecification class
         /// </summary>
-        public class SystemSpecificationReferencedElementsCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
+        public class SystemSpecificationReferencedElementsCollection : ReferenceCollection, ICollectionExpression<NMF.Models.IModelElement>, ICollection<NMF.Models.IModelElement>
         {
             
             private SystemSpecification _parent;
@@ -602,7 +736,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// Adds the given element to the collection
             /// </summary>
             /// <param name="item">The item to add</param>
-            public override void Add(IModelElement item)
+            public override void Add(NMF.Models.IModelElement item)
             {
                 IRequiredInterface publicInterfacesCasted = item.As<IRequiredInterface>();
                 if ((publicInterfacesCasted != null))
@@ -634,7 +768,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <returns>True, if it is contained, otherwise False</returns>
             /// <param name="item">The item that should be looked out for</param>
-            public override bool Contains(IModelElement item)
+            public override bool Contains(NMF.Models.IModelElement item)
             {
                 if (this._parent.PublicInterfaces.Contains(item))
                 {
@@ -652,9 +786,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <param name="array">The array in which the elements should be copied</param>
             /// <param name="arrayIndex">The starting index</param>
-            public override void CopyTo(IModelElement[] array, int arrayIndex)
+            public override void CopyTo(NMF.Models.IModelElement[] array, int arrayIndex)
             {
-                IEnumerator<IModelElement> publicInterfacesEnumerator = this._parent.PublicInterfaces.GetEnumerator();
+                IEnumerator<NMF.Models.IModelElement> publicInterfacesEnumerator = this._parent.PublicInterfaces.GetEnumerator();
                 try
                 {
                     for (
@@ -681,7 +815,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <returns>True, if the item was removed, otherwise False</returns>
             /// <param name="item">The item that should be removed</param>
-            public override bool Remove(IModelElement item)
+            public override bool Remove(NMF.Models.IModelElement item)
             {
                 IRequiredInterface requiredInterfaceItem = item.As<IRequiredInterface>();
                 if (((requiredInterfaceItem != null) 
@@ -701,9 +835,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// Gets an enumerator that enumerates the collection
             /// </summary>
             /// <returns>A generic enumerator</returns>
-            public override IEnumerator<IModelElement> GetEnumerator()
+            public override IEnumerator<NMF.Models.IModelElement> GetEnumerator()
             {
-                return Enumerable.Empty<IModelElement>().Concat(this._parent.PublicInterfaces).Concat(this._parent.Repository).GetEnumerator();
+                return Enumerable.Empty<NMF.Models.IModelElement>().Concat(this._parent.PublicInterfaces).Concat(this._parent.Repository).GetEnumerator();
             }
         }
         
@@ -718,7 +852,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
             public RepositoryProxy(ISystemSpecification modelElement) : 
-                    base(modelElement)
+                    base(modelElement, "Repository")
             {
             }
             
@@ -736,87 +870,20 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                     this.ModelElement.Repository = value;
                 }
             }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.RepositoryChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.RepositoryChanged -= handler;
-            }
-        }
-        
-        /// <summary>
-        /// Represents a proxy to represent an incremental access to the IsInterface property
-        /// </summary>
-        private sealed class IsInterfaceProxy : ModelPropertyChange<IClass, bool>
-        {
-            
-            /// <summary>
-            /// Creates a new observable property access proxy
-            /// </summary>
-            /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public IsInterfaceProxy(IClass modelElement) : 
-                    base(modelElement)
-            {
-            }
-            
-            /// <summary>
-            /// Gets or sets the value of this expression
-            /// </summary>
-            public override bool Value
-            {
-                get
-                {
-                    return this.ModelElement.IsInterface;
-                }
-                set
-                {
-                    this.ModelElement.IsInterface = value;
-                }
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.IsInterfaceChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.IsInterfaceChanged -= handler;
-            }
         }
         
         /// <summary>
         /// Represents a proxy to represent an incremental access to the IsAbstract property
         /// </summary>
-        private sealed class IsAbstractProxy : ModelPropertyChange<IClass, bool>
+        private sealed class IsAbstractProxy : ModelPropertyChange<NMF.Models.Meta.IClass, bool>
         {
             
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public IsAbstractProxy(IClass modelElement) : 
-                    base(modelElement)
+            public IsAbstractProxy(NMF.Models.Meta.IClass modelElement) : 
+                    base(modelElement, "IsAbstract")
             {
             }
             
@@ -834,45 +901,58 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                     this.ModelElement.IsAbstract = value;
                 }
             }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.IsAbstractChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.IsAbstractChanged -= handler;
-            }
         }
         
         /// <summary>
-        /// Represents a proxy to represent an incremental access to the InstanceOf property
+        /// Represents a proxy to represent an incremental access to the IdentifierScope property
         /// </summary>
-        private sealed class InstanceOfProxy : ModelPropertyChange<IClass, IClass>
+        private sealed class IdentifierScopeProxy : ModelPropertyChange<NMF.Models.Meta.IClass, NMF.Models.Meta.IdentifierScope>
         {
             
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public InstanceOfProxy(IClass modelElement) : 
-                    base(modelElement)
+            public IdentifierScopeProxy(NMF.Models.Meta.IClass modelElement) : 
+                    base(modelElement, "IdentifierScope")
             {
             }
             
             /// <summary>
             /// Gets or sets the value of this expression
             /// </summary>
-            public override IClass Value
+            public override NMF.Models.Meta.IdentifierScope Value
+            {
+                get
+                {
+                    return this.ModelElement.IdentifierScope;
+                }
+                set
+                {
+                    this.ModelElement.IdentifierScope = value;
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Represents a proxy to represent an incremental access to the InstanceOf property
+        /// </summary>
+        private sealed class InstanceOfProxy : ModelPropertyChange<NMF.Models.Meta.IClass, NMF.Models.Meta.IClass>
+        {
+            
+            /// <summary>
+            /// Creates a new observable property access proxy
+            /// </summary>
+            /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
+            public InstanceOfProxy(NMF.Models.Meta.IClass modelElement) : 
+                    base(modelElement, "InstanceOf")
+            {
+            }
+            
+            /// <summary>
+            /// Gets or sets the value of this expression
+            /// </summary>
+            public override NMF.Models.Meta.IClass Value
             {
                 get
                 {
@@ -883,45 +963,27 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                     this.ModelElement.InstanceOf = value;
                 }
             }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.InstanceOfChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.InstanceOfChanged -= handler;
-            }
         }
         
         /// <summary>
         /// Represents a proxy to represent an incremental access to the Identifier property
         /// </summary>
-        private sealed class IdentifierProxy : ModelPropertyChange<IClass, IAttribute>
+        private sealed class IdentifierProxy : ModelPropertyChange<NMF.Models.Meta.IClass, NMF.Models.Meta.IAttribute>
         {
             
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public IdentifierProxy(IClass modelElement) : 
-                    base(modelElement)
+            public IdentifierProxy(NMF.Models.Meta.IClass modelElement) : 
+                    base(modelElement, "Identifier")
             {
             }
             
             /// <summary>
             /// Gets or sets the value of this expression
             /// </summary>
-            public override IAttribute Value
+            public override NMF.Models.Meta.IAttribute Value
             {
                 get
                 {
@@ -932,45 +994,27 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                     this.ModelElement.Identifier = value;
                 }
             }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.IdentifierChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.IdentifierChanged -= handler;
-            }
         }
         
         /// <summary>
         /// Represents a proxy to represent an incremental access to the Namespace property
         /// </summary>
-        private sealed class NamespaceProxy : ModelPropertyChange<IType, INamespace>
+        private sealed class NamespaceProxy : ModelPropertyChange<NMF.Models.Meta.IType, NMF.Models.Meta.INamespace>
         {
             
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public NamespaceProxy(IType modelElement) : 
-                    base(modelElement)
+            public NamespaceProxy(NMF.Models.Meta.IType modelElement) : 
+                    base(modelElement, "Namespace")
             {
             }
             
             /// <summary>
             /// Gets or sets the value of this expression
             /// </summary>
-            public override INamespace Value
+            public override NMF.Models.Meta.INamespace Value
             {
                 get
                 {
@@ -980,24 +1024,6 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 {
                     this.ModelElement.Namespace = value;
                 }
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be subscribed to the property change event</param>
-            protected override void RegisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.NamespaceChanged += handler;
-            }
-            
-            /// <summary>
-            /// Registers an event handler to subscribe specifically on the changed event for this property
-            /// </summary>
-            /// <param name="handler">The handler that should be unsubscribed from the property change event</param>
-            protected override void UnregisterChangeEventHandler(System.EventHandler<NMF.Expressions.ValueChangedEventArgs> handler)
-            {
-                this.ModelElement.NamespaceChanged -= handler;
             }
         }
     }

@@ -34,15 +34,17 @@ namespace MediaStoreAssemblyCreator
             var appServer = new ResourceContainer() { Name = "Application Server" };
             var computeEnvironment = new ResourceEnvironment();
             computeEnvironment.Container.Add(appServer);
-            var deployment = new MediaStore();
-            deployment.Environment = computeEnvironment;
-            deployment.WebForm = appServer;
-            deployment.AudioStore = appServer;
-            deployment.UserManagement = appServer;
-            deployment.OggEncoder = appServer;
-            deployment.EncodingAdapter = appServer;
-            deployment.DBAdapter = appServer;
-            deployment.MySqlClient = appServer;
+            var deployment = new MediaStore()
+            {
+                Environment = computeEnvironment,
+                WebForm = appServer,
+                AudioStore = appServer,
+                UserManagement = appServer,
+                OggEncoder = appServer,
+                EncodingAdapter = appServer,
+                DBAdapter = appServer,
+                MySqlClient = appServer
+            };
             return deployment;
         }
     }

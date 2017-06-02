@@ -17,6 +17,7 @@ using NMF.Models;
 using NMF.Models.Collections;
 using NMF.Models.Expressions;
 using NMF.Models.Meta;
+using NMF.Models.Repository;
 using NMF.Serialization;
 using NMF.Utilities;
 using System;
@@ -36,7 +37,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
     /// </summary>
     [DefaultImplementationTypeAttribute(typeof(MediaStore))]
     [XmlDefaultImplementationTypeAttribute(typeof(MediaStore))]
-    public interface IMediaStore : IModelElement, ISystemAllocation
+    public interface IMediaStore : NMF.Models.IModelElement, ISystemAllocation
     {
         
         /// <summary>
@@ -103,39 +104,74 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         }
         
         /// <summary>
+        /// Gets fired before the WebForm property changes its value
+        /// </summary>
+        event System.EventHandler<ValueChangedEventArgs> WebFormChanging;
+        
+        /// <summary>
         /// Gets fired when the WebForm property changed its value
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> WebFormChanged;
+        event System.EventHandler<ValueChangedEventArgs> WebFormChanged;
+        
+        /// <summary>
+        /// Gets fired before the AudioStore property changes its value
+        /// </summary>
+        event System.EventHandler<ValueChangedEventArgs> AudioStoreChanging;
         
         /// <summary>
         /// Gets fired when the AudioStore property changed its value
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> AudioStoreChanged;
+        event System.EventHandler<ValueChangedEventArgs> AudioStoreChanged;
+        
+        /// <summary>
+        /// Gets fired before the UserManagement property changes its value
+        /// </summary>
+        event System.EventHandler<ValueChangedEventArgs> UserManagementChanging;
         
         /// <summary>
         /// Gets fired when the UserManagement property changed its value
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> UserManagementChanged;
+        event System.EventHandler<ValueChangedEventArgs> UserManagementChanged;
+        
+        /// <summary>
+        /// Gets fired before the EncodingAdapter property changes its value
+        /// </summary>
+        event System.EventHandler<ValueChangedEventArgs> EncodingAdapterChanging;
         
         /// <summary>
         /// Gets fired when the EncodingAdapter property changed its value
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> EncodingAdapterChanged;
+        event System.EventHandler<ValueChangedEventArgs> EncodingAdapterChanged;
+        
+        /// <summary>
+        /// Gets fired before the OggEncoder property changes its value
+        /// </summary>
+        event System.EventHandler<ValueChangedEventArgs> OggEncoderChanging;
         
         /// <summary>
         /// Gets fired when the OggEncoder property changed its value
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> OggEncoderChanged;
+        event System.EventHandler<ValueChangedEventArgs> OggEncoderChanged;
+        
+        /// <summary>
+        /// Gets fired before the DBAdapter property changes its value
+        /// </summary>
+        event System.EventHandler<ValueChangedEventArgs> DBAdapterChanging;
         
         /// <summary>
         /// Gets fired when the DBAdapter property changed its value
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> DBAdapterChanged;
+        event System.EventHandler<ValueChangedEventArgs> DBAdapterChanged;
+        
+        /// <summary>
+        /// Gets fired before the MySqlClient property changes its value
+        /// </summary>
+        event System.EventHandler<ValueChangedEventArgs> MySqlClientChanging;
         
         /// <summary>
         /// Gets fired when the MySqlClient property changed its value
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> MySqlClientChanged;
+        event System.EventHandler<ValueChangedEventArgs> MySqlClientChanged;
     }
 }
 

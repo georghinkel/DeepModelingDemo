@@ -1,120 +1,125 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <nmeta:Namespace xmi:version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Uri="http://github.com/georghinkel/DeepADL/1.0" Prefix="core" Name="DeepADL" xmlns:xmi="http://www.omg.org/XMI" xmlns:nmeta="http://nmf.codeplex.com/nmeta/">
-  <Types xsi:type="nmeta:Class" BaseTypes="http://nmf.codeplex.com/nmeta/#//Class/" Name="ComponentType">
-    <AttributeConstraints Values="False" Constrains="http://nmf.codeplex.com/nmeta/#//Class/IsInterface/" xmi:id="$0" />
-    <AttributeConstraints Values="False" Constrains="http://nmf.codeplex.com/nmeta/#//Class/IsAbstract/" xmi:id="$1" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/ReferenceConstraints/" xmi:id="$2" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//StructuredType/Attributes/" xmi:id="$3" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/AttributeConstraints/" xmi:id="$4" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//ReferenceType/Events/" xmi:id="$5" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/Identifier/" xmi:id="$6" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//StructuredType/Operations/" xmi:id="$7" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/InstanceOf/" xmi:id="$8" />
-    <ReferenceConstraints References="//AssemblyContext/" Constrains="http://nmf.codeplex.com/nmeta/#//Class/BaseTypes/" xmi:id="$9" />
-    <References IsContainment="True" ReferenceType="//RequiredInterface/" Refines="http://nmf.codeplex.com/nmeta/#//ReferenceType/References/" UpperBound="-1" Name="RequiredInterfaces" />
-    <References ReferenceType="//Interface/" Refines="http://nmf.codeplex.com/nmeta/#//Class/BaseTypes/" UpperBound="-1" Name="ProvidedInterfaces" />
-    <References IsContainment="True" ReferenceType="//Service/" UpperBound="-1" Name="Services" />
-    <References Opposite="//Repository/ComponentTypes/" ReferenceType="//Repository/" Refines="http://nmf.codeplex.com/nmeta/#//Type/Namespace/" LowerBound="1" Name="Repository" />
+  <Types xsi:type="nmeta:Class" BaseTypes="http://nmf.codeplex.com/nmeta/#//Class" Name="ComponentType">
+    <AttributeConstraints Values="Local" Constrains="http://nmf.codeplex.com/nmeta/#//Class/IdentifierScope" xmi:id="$2" />
+    <AttributeConstraints Values="False" Constrains="http://nmf.codeplex.com/nmeta/#//Class/IsAbstract" xmi:id="$3" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/ReferenceConstraints" xmi:id="$4" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//StructuredType/Attributes" xmi:id="$5" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/AttributeConstraints" xmi:id="$6" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//ReferenceType/Events" xmi:id="$7" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/Identifier" xmi:id="$8" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//StructuredType/Operations" xmi:id="$9" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/InstanceOf" xmi:id="$10" />
+    <ReferenceConstraints References="#//AssemblyContext" Constrains="http://nmf.codeplex.com/nmeta/#//Class/BaseTypes" xmi:id="$11" />
+    <References IsContainment="True" ReferenceType="#//RequiredInterface" Refines="http://nmf.codeplex.com/nmeta/#//ReferenceType/References" UpperBound="-1" Name="RequiredInterfaces" />
+    <References ReferenceType="#//Interface" Refines="http://nmf.codeplex.com/nmeta/#//Class/BaseTypes" UpperBound="-1" Name="ProvidedInterfaces" />
+    <References IsContainment="True" ReferenceType="#//Service" UpperBound="-1" Name="Services" />
+    <References Opposite="#//Repository/ComponentTypes" ReferenceType="#//Repository" Refines="http://nmf.codeplex.com/nmeta/#//Type/Namespace" LowerBound="1" Name="Repository" />
   </Types>
-  <Types xsi:type="nmeta:Class" BaseTypes="http://nmf.codeplex.com/nmeta/#//Reference/" Name="RequiredInterface">
-    <AttributeConstraints Values="1" Constrains="http://nmf.codeplex.com/nmeta/#//TypedElement/LowerBound/" xmi:id="$10" />
-    <AttributeConstraints Values="1" Constrains="http://nmf.codeplex.com/nmeta/#//TypedElement/UpperBound/" xmi:id="$11" />
-    <AttributeConstraints Values="False" Constrains="http://nmf.codeplex.com/nmeta/#//Reference/IsContainment/" xmi:id="$12" />
-    <AttributeConstraints Values="False" Constrains="http://nmf.codeplex.com/nmeta/#//TypedElement/IsOrdered/" xmi:id="$13" />
-    <AttributeConstraints Values="False" Constrains="http://nmf.codeplex.com/nmeta/#//TypedElement/IsUnique/" xmi:id="$14" />
-    <References ReferenceType="//Interface/" Refines="http://nmf.codeplex.com/nmeta/#//Reference/ReferenceType/" Name="Interface" />
+  <Types xsi:type="nmeta:Class" BaseTypes="http://nmf.codeplex.com/nmeta/#//Reference" Name="RequiredInterface">
+    <AttributeConstraints Values="1" Constrains="http://nmf.codeplex.com/nmeta/#//TypedElement/LowerBound" xmi:id="$17" />
+    <AttributeConstraints Values="1" Constrains="http://nmf.codeplex.com/nmeta/#//TypedElement/UpperBound" xmi:id="$18" />
+    <AttributeConstraints Values="False" Constrains="http://nmf.codeplex.com/nmeta/#//Reference/IsContainment" xmi:id="$19" />
+    <AttributeConstraints Values="False" Constrains="http://nmf.codeplex.com/nmeta/#//TypedElement/IsOrdered" xmi:id="$20" />
+    <AttributeConstraints Values="False" Constrains="http://nmf.codeplex.com/nmeta/#//TypedElement/IsUnique" xmi:id="$21" />
+    <References ReferenceType="#//Interface" Refines="http://nmf.codeplex.com/nmeta/#//Reference/ReferenceType" Name="Interface" />
   </Types>
-  <Types xsi:type="nmeta:Class" Identifier="//Signature/Name/" Name="Signature">
-    <Attributes Type="http://nmf.codeplex.com/nmeta/#//String/" Name="Name" />
+  <Types xsi:type="nmeta:Class" Identifier="#//Signature/Name" Name="Signature">
+    <Attributes Type="http://nmf.codeplex.com/nmeta/#//String" Name="Name" />
   </Types>
-  <Types xsi:type="nmeta:Class" Identifier="//Service/Name/" Name="Service">
-    <References ReferenceType="//Signature/" Name="Implements" />
-    <Attributes Type="http://nmf.codeplex.com/nmeta/#//String/" Name="Name" />
+  <Types xsi:type="nmeta:Class" Identifier="#//Service/Name" Name="Service">
+    <References ReferenceType="#//Signature" Name="Implements" />
+    <Attributes Type="http://nmf.codeplex.com/nmeta/#//String" Name="Name" />
   </Types>
-  <Types xsi:type="nmeta:Class" BaseTypes="http://nmf.codeplex.com/nmeta/#//Class/" Name="Interface">
-    <AttributeConstraints Values="True" Constrains="http://nmf.codeplex.com/nmeta/#//Class/IsInterface/" xmi:id="$15" />
-    <AttributeConstraints Values="False" Constrains="http://nmf.codeplex.com/nmeta/#//Class/IsAbstract/" xmi:id="$16" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//ReferenceType/References/" xmi:id="$17" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/ReferenceConstraints/" xmi:id="$18" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//StructuredType/Attributes/" xmi:id="$19" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/AttributeConstraints/" xmi:id="$20" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/InstanceOf/" xmi:id="$21" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//ReferenceType/Events/" xmi:id="$22" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//StructuredType/Operations/" xmi:id="$23" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/Identifier/" xmi:id="$24" />
-    <ReferenceConstraints References="//AssemblyContext/" Constrains="http://nmf.codeplex.com/nmeta/#//Class/BaseTypes/" xmi:id="$25" />
-    <References IsContainment="True" ReferenceType="//Signature/" UpperBound="-1" Name="Signatures" />
-    <References Opposite="//Repository/Interfaces/" ReferenceType="//Repository/" Refines="http://nmf.codeplex.com/nmeta/#//Type/Namespace/" LowerBound="1" Name="Repository" />
+  <Types xsi:type="nmeta:Class" BaseTypes="http://nmf.codeplex.com/nmeta/#//Class" Name="Interface">
+    <AttributeConstraints Values="Local" Constrains="http://nmf.codeplex.com/nmeta/#//Class/IdentifierScope" xmi:id="$29" />
+    <AttributeConstraints Values="False" Constrains="http://nmf.codeplex.com/nmeta/#//Class/IsAbstract" xmi:id="$30" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//ReferenceType/References" xmi:id="$31" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/ReferenceConstraints" xmi:id="$32" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//StructuredType/Attributes" xmi:id="$33" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/AttributeConstraints" xmi:id="$34" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/InstanceOf" xmi:id="$35" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//ReferenceType/Events" xmi:id="$36" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//StructuredType/Operations" xmi:id="$37" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/Identifier" xmi:id="$38" />
+    <ReferenceConstraints References="#//AssemblyContext" Constrains="http://nmf.codeplex.com/nmeta/#//Class/BaseTypes" xmi:id="$39" />
+    <References IsContainment="True" ReferenceType="#//Signature" UpperBound="-1" Name="Signatures" />
+    <References Opposite="#//Repository/Interfaces" ReferenceType="#//Repository" Refines="http://nmf.codeplex.com/nmeta/#//Type/Namespace" LowerBound="1" Name="Repository" />
   </Types>
-  <Types xsi:type="nmeta:Class" IsAbstract="True" BaseTypes="http://nmf.codeplex.com/nmeta/#//Reference/" InstanceOf="//ComponentType/" Name="AssemblyContext">
-    <AttributeConstraints Values="1" Constrains="http://nmf.codeplex.com/nmeta/#//TypedElement/LowerBound/" xmi:id="$26" />
-    <AttributeConstraints Values="1" Constrains="http://nmf.codeplex.com/nmeta/#//TypedElement/UpperBound/" xmi:id="$27" />
-    <AttributeConstraints Values="True" Constrains="http://nmf.codeplex.com/nmeta/#//Reference/IsContainment/" xmi:id="$28" />
-    <AttributeConstraints Values="False" Constrains="http://nmf.codeplex.com/nmeta/#//TypedElement/IsOrdered/" xmi:id="$29" />
-    <AttributeConstraints Values="False" Constrains="http://nmf.codeplex.com/nmeta/#//TypedElement/IsUnique/" xmi:id="$30" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Reference/Refines/" xmi:id="$31" />
-    <ReferenceConstraints References="//ResourceContainer/" Constrains="http://nmf.codeplex.com/nmeta/#//Reference/ReferenceType/" xmi:id="$32" />
+  <Types xsi:type="nmeta:Class" IsAbstract="True" BaseTypes="http://nmf.codeplex.com/nmeta/#//Reference" InstanceOf="#//ComponentType" Name="AssemblyContext">
+    <AttributeConstraints Values="1" Constrains="http://nmf.codeplex.com/nmeta/#//TypedElement/LowerBound" xmi:id="$43" />
+    <AttributeConstraints Values="1" Constrains="http://nmf.codeplex.com/nmeta/#//TypedElement/UpperBound" xmi:id="$44" />
+    <AttributeConstraints Values="True" Constrains="http://nmf.codeplex.com/nmeta/#//Reference/IsContainment" xmi:id="$45" />
+    <AttributeConstraints Values="False" Constrains="http://nmf.codeplex.com/nmeta/#//TypedElement/IsOrdered" xmi:id="$46" />
+    <AttributeConstraints Values="False" Constrains="http://nmf.codeplex.com/nmeta/#//TypedElement/IsUnique" xmi:id="$47" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Reference/Refines" xmi:id="$48" />
+    <ReferenceConstraints References="#//ResourceContainer" Constrains="http://nmf.codeplex.com/nmeta/#//Reference/ReferenceType" xmi:id="$49" />
   </Types>
-  <Types xsi:type="nmeta:Class" BaseTypes="http://nmf.codeplex.com/nmeta/#//Class/" Name="Delegate">
-    <AttributeConstraints Values="True" Constrains="http://nmf.codeplex.com/nmeta/#//Class/IsInterface/" xmi:id="$33" />
-    <AttributeConstraints Values="False" Constrains="http://nmf.codeplex.com/nmeta/#//Class/IsAbstract/" xmi:id="$34" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//ReferenceType/References/" xmi:id="$35" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/ReferenceConstraints/" xmi:id="$36" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//StructuredType/Attributes/" xmi:id="$37" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/AttributeConstraints/" xmi:id="$38" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/InstanceOf/" xmi:id="$39" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//ReferenceType/Events/" xmi:id="$40" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//StructuredType/Operations/" xmi:id="$41" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/Identifier/" xmi:id="$42" />
-    <ReferenceConstraints References="//DelegationConnector/" Constrains="http://nmf.codeplex.com/nmeta/#//Class/BaseTypes/" xmi:id="$43" />
-    <References Opposite="//Repository/Delegates/" ReferenceType="//Repository/" Refines="http://nmf.codeplex.com/nmeta/#//Type/Namespace/" LowerBound="1" Name="Repository" />
-    <References ReferenceType="//Interface/" Refines="http://nmf.codeplex.com/nmeta/#//Class/BaseTypes/" LowerBound="1" Name="Type" />
+  <Types xsi:type="nmeta:Class" BaseTypes="http://nmf.codeplex.com/nmeta/#//Class" Name="Delegate">
+    <AttributeConstraints Values="Local" Constrains="http://nmf.codeplex.com/nmeta/#//Class/IdentifierScope" xmi:id="$51" />
+    <AttributeConstraints Values="False" Constrains="http://nmf.codeplex.com/nmeta/#//Class/IsAbstract" xmi:id="$52" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//ReferenceType/References" xmi:id="$53" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/ReferenceConstraints" xmi:id="$54" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//StructuredType/Attributes" xmi:id="$55" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/AttributeConstraints" xmi:id="$56" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/InstanceOf" xmi:id="$57" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//ReferenceType/Events" xmi:id="$58" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//StructuredType/Operations" xmi:id="$59" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/Identifier" xmi:id="$60" />
+    <ReferenceConstraints References="#//DelegationConnector" Constrains="http://nmf.codeplex.com/nmeta/#//Class/BaseTypes" xmi:id="$61" />
+    <References Opposite="#//Repository/Delegates" ReferenceType="#//Repository" Refines="http://nmf.codeplex.com/nmeta/#//Type/Namespace" LowerBound="1" Name="Repository" />
+    <References ReferenceType="#//Interface" Refines="http://nmf.codeplex.com/nmeta/#//Class/BaseTypes" LowerBound="1" Name="Type" />
   </Types>
-  <Types xsi:type="nmeta:Class" BaseTypes="http://nmf.codeplex.com/nmeta/#//Class/" Name="SystemArchitecture">
-    <AttributeConstraints Values="False" Constrains="http://nmf.codeplex.com/nmeta/#//Class/IsInterface/" xmi:id="$44" />
-    <AttributeConstraints Values="False" Constrains="http://nmf.codeplex.com/nmeta/#//Class/IsAbstract/" xmi:id="$45" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/ReferenceConstraints/" xmi:id="$46" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//StructuredType/Attributes/" xmi:id="$47" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/AttributeConstraints/" xmi:id="$48" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//ReferenceType/Events/" xmi:id="$49" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//StructuredType/Operations/" xmi:id="$50" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/Identifier/" xmi:id="$51" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/InstanceOf/" xmi:id="$52" />
-    <ReferenceConstraints References="//SystemAllocation/" Constrains="http://nmf.codeplex.com/nmeta/#//Class/BaseTypes/" xmi:id="$53" />
-    <References IsContainment="True" ReferenceType="//AssemblyContext/" Refines="http://nmf.codeplex.com/nmeta/#//ReferenceType/References/" UpperBound="-1" Name="AssemblyContexts" />
+  <Types xsi:type="nmeta:Class" BaseTypes="http://nmf.codeplex.com/nmeta/#//Class" Name="SystemArchitecture">
+    <AttributeConstraints Values="Local" Constrains="http://nmf.codeplex.com/nmeta/#//Class/IdentifierScope" xmi:id="$65" />
+    <AttributeConstraints Values="False" Constrains="http://nmf.codeplex.com/nmeta/#//Class/IsAbstract" xmi:id="$66" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/ReferenceConstraints" xmi:id="$67" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//StructuredType/Attributes" xmi:id="$68" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/AttributeConstraints" xmi:id="$69" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//ReferenceType/Events" xmi:id="$70" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//StructuredType/Operations" xmi:id="$71" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/Identifier" xmi:id="$72" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/InstanceOf" xmi:id="$73" />
+    <ReferenceConstraints References="#//SystemAllocation" Constrains="http://nmf.codeplex.com/nmeta/#//Class/BaseTypes" xmi:id="$74" />
+    <References IsContainment="True" ReferenceType="#//AssemblyContext" Refines="http://nmf.codeplex.com/nmeta/#//ReferenceType/References" UpperBound="-1" Name="AssemblyContexts" />
   </Types>
-  <Types xsi:type="nmeta:Class" Identifier="//ResourceContainer/Name/" Name="ResourceContainer">
-    <References Opposite="//ResourceEnvironment/Container/" ReferenceType="//ResourceEnvironment/" LowerBound="1" Name="Environment" />
-    <Attributes Type="http://nmf.codeplex.com/nmeta/#//String/" Name="Name" />
+  <Types xsi:type="nmeta:Class" Identifier="#//ResourceContainer/Name" Name="ResourceContainer">
+    <References Opposite="#//ResourceEnvironment/Container" ReferenceType="#//ResourceEnvironment" LowerBound="1" Name="Environment" />
+    <Attributes Type="http://nmf.codeplex.com/nmeta/#//String" Name="Name" />
   </Types>
   <Types xsi:type="nmeta:Class" Name="ResourceEnvironment">
-    <References IsContainment="True" Opposite="//ResourceContainer/Environment/" ReferenceType="//ResourceContainer/" UpperBound="-1" Name="Container" />
+    <References IsContainment="True" Opposite="#//ResourceContainer/Environment" ReferenceType="#//ResourceContainer" UpperBound="-1" Name="Container" />
+    <References IsContainment="True" Opposite="#//ResourceLink/Environment" ReferenceType="#//ResourceLink" UpperBound="-1" Name="Links" />
   </Types>
-  <Types xsi:type="nmeta:Class" BaseTypes="http://nmf.codeplex.com/nmeta/#//Class/" Name="SystemSpecification">
-    <AttributeConstraints Values="False" Constrains="http://nmf.codeplex.com/nmeta/#//Class/IsInterface/" xmi:id="$54" />
-    <AttributeConstraints Values="False" Constrains="http://nmf.codeplex.com/nmeta/#//Class/IsAbstract/" xmi:id="$55" />
-    <ReferenceConstraints References="//SystemArchitecture/" Constrains="http://nmf.codeplex.com/nmeta/#//Class/BaseTypes/" xmi:id="$56" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/ReferenceConstraints/" xmi:id="$57" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//StructuredType/Attributes/" xmi:id="$58" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/AttributeConstraints/" xmi:id="$59" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//ReferenceType/Events/" xmi:id="$60" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//StructuredType/Operations/" xmi:id="$61" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/Identifier/" xmi:id="$62" />
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/InstanceOf/" xmi:id="$63" />
-    <References IsContainment="True" ReferenceType="//RequiredInterface/" Refines="http://nmf.codeplex.com/nmeta/#//ReferenceType/References/" UpperBound="-1" Name="PublicInterfaces" />
-    <References Opposite="//Repository/SystemSpecifications/" ReferenceType="//Repository/" Refines="http://nmf.codeplex.com/nmeta/#//Type/Namespace/" LowerBound="1" Name="Repository" />
+  <Types xsi:type="nmeta:Class" Name="ResourceLink">
+    <References Opposite="#//ResourceEnvironment/Links" ReferenceType="#//ResourceEnvironment" LowerBound="1" Name="Environment" />
+    <References ReferenceType="#//ResourceContainer" UpperBound="-1" Name="Connects" />
   </Types>
-  <Types xsi:type="nmeta:Class" IsAbstract="True" Name="SystemAllocation">
-    <References ReferenceType="//ResourceEnvironment/" Name="Environment" />
+  <Types xsi:type="nmeta:Class" BaseTypes="http://nmf.codeplex.com/nmeta/#//Class" Name="SystemSpecification">
+    <AttributeConstraints Values="Local" Constrains="http://nmf.codeplex.com/nmeta/#//Class/IdentifierScope" xmi:id="$86" />
+    <AttributeConstraints Values="False" Constrains="http://nmf.codeplex.com/nmeta/#//Class/IsAbstract" xmi:id="$87" />
+    <ReferenceConstraints References="#//SystemArchitecture" Constrains="http://nmf.codeplex.com/nmeta/#//Class/BaseTypes" xmi:id="$88" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/ReferenceConstraints" xmi:id="$89" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//StructuredType/Attributes" xmi:id="$90" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/AttributeConstraints" xmi:id="$91" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//ReferenceType/Events" xmi:id="$92" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//StructuredType/Operations" xmi:id="$93" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/Identifier" xmi:id="$94" />
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Class/InstanceOf" xmi:id="$95" />
+    <References IsContainment="True" ReferenceType="#//RequiredInterface" Refines="http://nmf.codeplex.com/nmeta/#//ReferenceType/References" UpperBound="-1" Name="PublicInterfaces" />
+    <References Opposite="#//Repository/SystemSpecifications" ReferenceType="#//Repository" Refines="http://nmf.codeplex.com/nmeta/#//Type/Namespace" LowerBound="1" Name="Repository" />
   </Types>
-  <Types xsi:type="nmeta:Class" BaseTypes="http://nmf.codeplex.com/nmeta/#//Namespace/" Name="Repository">
-    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Namespace/ChildNamespaces/" xmi:id="$64" />
-    <References IsContainment="True" Opposite="//ComponentType/Repository/" ReferenceType="//ComponentType/" Refines="http://nmf.codeplex.com/nmeta/#//Namespace/Types/" UpperBound="-1" Name="ComponentTypes" />
-    <References IsContainment="True" Opposite="//Interface/Repository/" ReferenceType="//Interface/" Refines="http://nmf.codeplex.com/nmeta/#//Namespace/Types/" UpperBound="-1" Name="Interfaces" />
-    <References IsContainment="True" Opposite="//SystemSpecification/Repository/" ReferenceType="//SystemSpecification/" Refines="http://nmf.codeplex.com/nmeta/#//Namespace/Types/" UpperBound="-1" Name="SystemSpecifications" />
-    <References IsContainment="True" Opposite="//Delegate/Repository/" ReferenceType="//Delegate/" Refines="http://nmf.codeplex.com/nmeta/#//Namespace/Types/" UpperBound="-1" Name="Delegates" />
+  <Types xsi:type="nmeta:Class" IsAbstract="True" InstanceOf="#//SystemArchitecture" Name="SystemAllocation">
+    <References ReferenceType="#//ResourceEnvironment" Name="Environment" />
   </Types>
-  <Types xsi:type="nmeta:Class" IsAbstract="True" InstanceOf="//Delegate/" Name="DelegationConnector">
-    <References ReferenceType="//RequiredInterface/" LowerBound="1" Name="Port" />
+  <Types xsi:type="nmeta:Class" BaseTypes="http://nmf.codeplex.com/nmeta/#//Namespace" Name="Repository">
+    <ReferenceConstraints Constrains="http://nmf.codeplex.com/nmeta/#//Namespace/ChildNamespaces" xmi:id="$101" />
+    <References IsContainment="True" Opposite="#//ComponentType/Repository" ReferenceType="#//ComponentType" Refines="http://nmf.codeplex.com/nmeta/#//Namespace/Types" UpperBound="-1" Name="ComponentTypes" />
+    <References IsContainment="True" Opposite="#//Interface/Repository" ReferenceType="#//Interface" Refines="http://nmf.codeplex.com/nmeta/#//Namespace/Types" UpperBound="-1" Name="Interfaces" />
+    <References IsContainment="True" Opposite="#//SystemSpecification/Repository" ReferenceType="#//SystemSpecification" Refines="http://nmf.codeplex.com/nmeta/#//Namespace/Types" UpperBound="-1" Name="SystemSpecifications" />
+    <References IsContainment="True" Opposite="#//Delegate/Repository" ReferenceType="#//Delegate" Refines="http://nmf.codeplex.com/nmeta/#//Namespace/Types" UpperBound="-1" Name="Delegates" />
+  </Types>
+  <Types xsi:type="nmeta:Class" IsAbstract="True" InstanceOf="#//Delegate" Name="DelegationConnector">
+    <References ReferenceType="#//RequiredInterface" LowerBound="1" Name="Port" />
   </Types>
 </nmeta:Namespace>

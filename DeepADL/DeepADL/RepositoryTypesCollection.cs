@@ -16,12 +16,14 @@ using NMF.Models;
 using NMF.Models.Collections;
 using NMF.Models.Expressions;
 using NMF.Models.Meta;
+using NMF.Models.Repository;
 using NMF.Serialization;
 using NMF.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -33,7 +35,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
     /// <summary>
     /// The collection class to implement the refined Types reference for the Repository class
     /// </summary>
-    public class RepositoryTypesCollection : ICollectionExpression<IType>, ICollection<IType>, INotifyCollection<IType>
+    public class RepositoryTypesCollection : ICollectionExpression<NMF.Models.Meta.IType>, ICollection<NMF.Models.Meta.IType>
     {
         
         private IRepository _parent;
@@ -91,7 +93,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// Gets fired when the contents of this collection changes
         /// </summary>
-        public event System.Collections.Specialized.NotifyCollectionChangedEventHandler CollectionChanged;
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
         
         /// <summary>
         /// Fires the CollectionChanged event
@@ -114,7 +116,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// Adds the given element to the collection
         /// </summary>
         /// <param name="item">The item to add</param>
-        public virtual void Add(IType item)
+        public virtual void Add(NMF.Models.Meta.IType item)
         {
             IComponentType componentTypesCasted = item.As<IComponentType>();
             if ((componentTypesCasted != null))
@@ -154,7 +156,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// </summary>
         /// <returns>True, if it is contained, otherwise False</returns>
         /// <param name="item">The item that should be looked out for</param>
-        public virtual bool Contains(IType item)
+        public virtual bool Contains(NMF.Models.Meta.IType item)
         {
             if (this._parent.ComponentTypes.Contains(item))
             {
@@ -180,9 +182,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// </summary>
         /// <param name="array">The array in which the elements should be copied</param>
         /// <param name="arrayIndex">The starting index</param>
-        public virtual void CopyTo(IType[] array, int arrayIndex)
+        public virtual void CopyTo(NMF.Models.Meta.IType[] array, int arrayIndex)
         {
-            IEnumerator<IType> componentTypesEnumerator = this._parent.ComponentTypes.GetEnumerator();
+            IEnumerator<NMF.Models.Meta.IType> componentTypesEnumerator = this._parent.ComponentTypes.GetEnumerator();
             try
             {
                 for (
@@ -197,7 +199,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             {
                 componentTypesEnumerator.Dispose();
             }
-            IEnumerator<IType> interfacesEnumerator = this._parent.Interfaces.GetEnumerator();
+            IEnumerator<NMF.Models.Meta.IType> interfacesEnumerator = this._parent.Interfaces.GetEnumerator();
             try
             {
                 for (
@@ -212,7 +214,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             {
                 interfacesEnumerator.Dispose();
             }
-            IEnumerator<IType> systemSpecificationsEnumerator = this._parent.SystemSpecifications.GetEnumerator();
+            IEnumerator<NMF.Models.Meta.IType> systemSpecificationsEnumerator = this._parent.SystemSpecifications.GetEnumerator();
             try
             {
                 for (
@@ -227,7 +229,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             {
                 systemSpecificationsEnumerator.Dispose();
             }
-            IEnumerator<IType> delegatesEnumerator = this._parent.Delegates.GetEnumerator();
+            IEnumerator<NMF.Models.Meta.IType> delegatesEnumerator = this._parent.Delegates.GetEnumerator();
             try
             {
                 for (
@@ -249,7 +251,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// </summary>
         /// <returns>True, if the item was removed, otherwise False</returns>
         /// <param name="item">The item that should be removed</param>
-        public virtual bool Remove(IType item)
+        public virtual bool Remove(NMF.Models.Meta.IType item)
         {
             IComponentType componentTypeItem = item.As<IComponentType>();
             if (((componentTypeItem != null) 
@@ -282,9 +284,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// Gets an enumerator that enumerates the collection
         /// </summary>
         /// <returns>A generic enumerator</returns>
-        public virtual IEnumerator<IType> GetEnumerator()
+        public virtual IEnumerator<NMF.Models.Meta.IType> GetEnumerator()
         {
-            return Enumerable.Empty<IType>().Concat(this._parent.ComponentTypes).Concat(this._parent.Interfaces).Concat(this._parent.SystemSpecifications).Concat(this._parent.Delegates).GetEnumerator();
+            return Enumerable.Empty<NMF.Models.Meta.IType>().Concat(this._parent.ComponentTypes).Concat(this._parent.Interfaces).Concat(this._parent.SystemSpecifications).Concat(this._parent.Delegates).GetEnumerator();
         }
         
         IEnumerator IEnumerable.GetEnumerator()
@@ -295,25 +297,25 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// Gets an observable version of this collection
         /// </summary>
-        INotifyCollection<IType> ICollectionExpression<IType>.AsNotifiable()
+        INotifyCollection<NMF.Models.Meta.IType> ICollectionExpression<NMF.Models.Meta.IType>.AsNotifiable()
         {
-            return this;
+            return this.WithUpdates();
         }
         
         /// <summary>
         /// Gets an observable version of this collection
         /// </summary>
-        INotifyEnumerable<IType> IEnumerableExpression<IType>.AsNotifiable()
+        INotifyEnumerable<NMF.Models.Meta.IType> IEnumerableExpression<NMF.Models.Meta.IType>.AsNotifiable()
         {
-            return this;
+            return this.WithUpdates();
         }
         
         /// <summary>
         /// Gets an observable version of this collection
         /// </summary>
-        INotifyEnumerable NMF.Expressions.IEnumerableExpression.AsNotifiable()
+        INotifyEnumerable IEnumerableExpression.AsNotifiable()
         {
-            return this;
+            return this.WithUpdates();
         }
         
         /// <summary>

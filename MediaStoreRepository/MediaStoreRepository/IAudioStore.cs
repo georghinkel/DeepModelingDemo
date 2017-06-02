@@ -17,12 +17,14 @@ using NMF.Models;
 using NMF.Models.Collections;
 using NMF.Models.Expressions;
 using NMF.Models.Meta;
+using NMF.Models.Repository;
 using NMF.Serialization;
 using NMF.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -36,7 +38,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
     /// </summary>
     [DefaultImplementationTypeAttribute(typeof(AudioStore))]
     [XmlDefaultImplementationTypeAttribute(typeof(AudioStore))]
-    public interface IAudioStore : IModelElement, IAudioStoreInterface, IAssemblyContext
+    public interface IAudioStore : NMF.Models.IModelElement, IAudioStoreInterface, IAssemblyContext
     {
         
         /// <summary>
@@ -58,14 +60,24 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         }
         
         /// <summary>
+        /// Gets fired before the AudioDB property changes its value
+        /// </summary>
+        event System.EventHandler<ValueChangedEventArgs> AudioDBChanging;
+        
+        /// <summary>
         /// Gets fired when the AudioDB property changed its value
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> AudioDBChanged;
+        event System.EventHandler<ValueChangedEventArgs> AudioDBChanged;
+        
+        /// <summary>
+        /// Gets fired before the UserManagement property changes its value
+        /// </summary>
+        event System.EventHandler<ValueChangedEventArgs> UserManagementChanging;
         
         /// <summary>
         /// Gets fired when the UserManagement property changed its value
         /// </summary>
-        event EventHandler<ValueChangedEventArgs> UserManagementChanged;
+        event System.EventHandler<ValueChangedEventArgs> UserManagementChanged;
     }
 }
 
