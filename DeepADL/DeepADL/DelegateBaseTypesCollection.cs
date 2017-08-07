@@ -219,7 +219,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// Gets an observable version of this collection
         /// </summary>
-        INotifyCollection<NMF.Models.Meta.IClass> ICollectionExpression<NMF.Models.Meta.IClass>.AsNotifiable()
+        public virtual INotifyCollection<NMF.Models.Meta.IClass> AsNotifiable()
         {
             return this.WithUpdates();
         }

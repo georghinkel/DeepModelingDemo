@@ -138,7 +138,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         
         private static NMF.Models.Meta.ITypedElement RetrieveContainerReference()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.ResourceEnvironment.ClassInstance)).Resolve("Container")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(ResourceEnvironment.ClassInstance)).Resolve("Container")));
         }
         
         /// <summary>
@@ -163,7 +163,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         
         private static NMF.Models.Meta.ITypedElement RetrieveLinksReference()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.ResourceEnvironment.ClassInstance)).Resolve("Links")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(ResourceEnvironment.ClassInstance)).Resolve("Links")));
         }
         
         /// <summary>

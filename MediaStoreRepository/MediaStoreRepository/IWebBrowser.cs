@@ -24,7 +24,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -44,6 +43,8 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// <summary>
         /// The backend property
         /// </summary>
+        [XmlElementNameAttribute("backend")]
+        [XmlAttributeAttribute(true)]
         IHTTP Backend
         {
             get;

@@ -1,10 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<mediaStore:MediaStore xmi:version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Environment="$0" xmlns:xmi="http://www.omg.org/XMI" xmlns:mediaStore="http://github.com/georghinkel/mediaStore/Assembly">
-  <WebForm Name="Application Server" />
-  <AudioStore Name="Application Server" />
-  <UserManagement Name="Application Server" />
-  <EncodingAdapter Name="Application Server" />
-  <OggEncoder Name="Application Server" />
-  <DBAdapter Name="Application Server" />
+<mediaStore:MediaStore xmi:version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" WebForm="Application Server" AudioStore="Application Server" UserManagement="Application Server" EncodingAdapter="Application Server" OggEncoder="Application Server" DBAdapter="Application Server" MySqlClient="Application Server" Environment="$0" xmlns:xmi="http://www.omg.org/XMI" xmlns:mediaStore="http://github.com/georghinkel/mediaStore/Assembly" />BAdapter Name="Application Server" />
   <MySqlClient Name="Application Server" />
 </mediaStore:MediaStore>

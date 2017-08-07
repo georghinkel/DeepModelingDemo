@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<nmeta:Namespace xmi:version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Uri="http://github.com/georghinkel/mediaStore/AssemblyX4" Prefix="mediaStoreX4" Name="AssemblyX4" xmlns:xmi="http://www.omg.org/XMI" xmlns:nmeta="http://nmf.codeplex.com/nmeta/">
+  <Types xmlns:repo="http://github.com/georghinkel/mediaStore/Repository" xsi:type="repo:MediaStoreSystem" Frontend="#//MediaStoreX4/WebForm4" Name="MediaStoreX4">
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX4/AudioStore1" Name="WebForm1" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX4/EncodingAdapter1" userManagement="#//MediaStoreX4/UserManagement1" Name="AudioStore1" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX4/DBAdapter1" Name="UserManagement1" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX4/OggEncoder1" database="#//MediaStoreX4/DBAdapter1" Name="EncodingAdapter1" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder1" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX4/MySqlClient1" connection="#//MediaStoreX4/MySqlClient1" dataReader="#//MediaStoreX4/MySqlClient1" Name="DBAdapter1" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient1" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX4/AudioStore2" Name="WebForm2" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX4/EncodingAdapter2" userManagement="#//MediaStoreX4/UserManagement2" Name="AudioStore2" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX4/DBAdapter2" Name="UserManagement2" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX4/OggEncoder2" database="#//MediaStoreX4/DBAdapter2" Name="EncodingAdapter2" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder2" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX4/MySqlClient2" connection="#//MediaStoreX4/MySqlClient2" dataReader="#//MediaStoreX4/MySqlClient2" Name="DBAdapter2" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient2" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX4/AudioStore3" Name="WebForm3" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX4/EncodingAdapter3" userManagement="#//MediaStoreX4/UserManagement3" Name="AudioStore3" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX4/DBAdapter3" Name="UserManagement3" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX4/OggEncoder3" database="#//MediaStoreX4/DBAdapter3" Name="EncodingAdapter3" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder3" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX4/MySqlClient3" connection="#//MediaStoreX4/MySqlClient3" dataReader="#//MediaStoreX4/MySqlClient3" Name="DBAdapter3" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient3" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX4/AudioStore4" Name="WebForm4" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX4/EncodingAdapter4" userManagement="#//MediaStoreX4/UserManagement4" Name="AudioStore4" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX4/DBAdapter4" Name="UserManagement4" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX4/OggEncoder4" database="#//MediaStoreX4/DBAdapter4" Name="EncodingAdapter4" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder4" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX4/MySqlClient4" connection="#//MediaStoreX4/MySqlClient4" dataReader="#//MediaStoreX4/MySqlClient4" Name="DBAdapter4" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient4" />
+  </Types>
+</nmeta:Namespace>

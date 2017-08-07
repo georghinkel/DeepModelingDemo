@@ -71,26 +71,26 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         {
             add
             {
-                IComponentType _this_ComponentType = this;
-                _this_ComponentType.RepositoryChanged += value;
+                IComponentType _this_IComponentType = this;
+                _this_IComponentType.RepositoryChanged += value;
             }
             remove
             {
-                IComponentType _this_ComponentType = this;
-                _this_ComponentType.RepositoryChanged -= value;
+                IComponentType _this_IComponentType = this;
+                _this_IComponentType.RepositoryChanged -= value;
             }
         }
         event EventHandler<ValueChangedEventArgs> IType.NamespaceChanging
         {
             add
             {
-                IComponentType _this_ComponentType = this;
-                _this_ComponentType.RepositoryChanging += value;
+                IComponentType _this_IComponentType = this;
+                _this_IComponentType.RepositoryChanging += value;
             }
             remove
             {
-                IComponentType _this_ComponentType = this;
-                _this_ComponentType.RepositoryChanging -= value;
+                IComponentType _this_IComponentType = this;
+                _this_IComponentType.RepositoryChanging -= value;
             }
         }
         event EventHandler<ValueChangedEventArgs> IClass.IdentifierChanged
@@ -241,7 +241,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        ICollectionExpression<NMF.Models.Meta.IReference> NMF.Models.Meta.IReferenceType.References
+        ICollectionExpression<NMF.Models.Meta.IReference> IReferenceType.References
         {
             get
             {
@@ -249,7 +249,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        ICollectionExpression<NMF.Models.Meta.IClass> NMF.Models.Meta.IClass.BaseTypes
+        ICollectionExpression<NMF.Models.Meta.IClass> IClass.BaseTypes
         {
             get
             {
@@ -257,7 +257,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        NMF.Models.Meta.INamespace NMF.Models.Meta.IType.Namespace
+        NMF.Models.Meta.INamespace IType.Namespace
         {
             get
             {
@@ -289,7 +289,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        ICollectionExpression<NMF.Models.Meta.IReferenceConstraint> NMF.Models.Meta.IClass.ReferenceConstraints
+        ICollectionExpression<NMF.Models.Meta.IReferenceConstraint> IClass.ReferenceConstraints
         {
             get
             {
@@ -297,7 +297,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        ICollectionExpression<NMF.Models.Meta.IAttribute> NMF.Models.Meta.IStructuredType.Attributes
+        ICollectionExpression<NMF.Models.Meta.IAttribute> IStructuredType.Attributes
         {
             get
             {
@@ -305,7 +305,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        ICollectionExpression<NMF.Models.Meta.IAttributeConstraint> NMF.Models.Meta.IClass.AttributeConstraints
+        ICollectionExpression<NMF.Models.Meta.IAttributeConstraint> IClass.AttributeConstraints
         {
             get
             {
@@ -313,7 +313,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        ICollectionExpression<NMF.Models.Meta.IEvent> NMF.Models.Meta.IReferenceType.Events
+        ICollectionExpression<NMF.Models.Meta.IEvent> IReferenceType.Events
         {
             get
             {
@@ -321,7 +321,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        NMF.Models.Meta.IAttribute NMF.Models.Meta.IClass.Identifier
+        NMF.Models.Meta.IAttribute IClass.Identifier
         {
             get
             {
@@ -336,7 +336,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        ICollectionExpression<NMF.Models.Meta.IOperation> NMF.Models.Meta.IStructuredType.Operations
+        ICollectionExpression<NMF.Models.Meta.IOperation> IStructuredType.Operations
         {
             get
             {
@@ -344,7 +344,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        NMF.Models.Meta.IClass NMF.Models.Meta.IClass.InstanceOf
+        NMF.Models.Meta.IClass IClass.InstanceOf
         {
             get
             {
@@ -359,7 +359,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        NMF.Models.Meta.IdentifierScope NMF.Models.Meta.IClass.IdentifierScope
+        NMF.Models.Meta.IdentifierScope IClass.IdentifierScope
         {
             get
             {
@@ -374,7 +374,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        bool NMF.Models.Meta.IClass.IsAbstract
+        bool IClass.IsAbstract
         {
             get
             {
@@ -438,7 +438,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         
         private static NMF.Models.Meta.ITypedElement RetrieveRequiredInterfacesReference()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.ComponentType.ClassInstance)).Resolve("RequiredInterfaces")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(ComponentType.ClassInstance)).Resolve("RequiredInterfaces")));
         }
         
         /// <summary>
@@ -463,7 +463,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         
         private static NMF.Models.Meta.ITypedElement RetrieveProvidedInterfacesReference()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.ComponentType.ClassInstance)).Resolve("ProvidedInterfaces")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(ComponentType.ClassInstance)).Resolve("ProvidedInterfaces")));
         }
         
         /// <summary>
@@ -488,7 +488,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         
         private static NMF.Models.Meta.ITypedElement RetrieveServicesReference()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.ComponentType.ClassInstance)).Resolve("Services")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(ComponentType.ClassInstance)).Resolve("Services")));
         }
         
         /// <summary>
@@ -513,7 +513,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         
         private static NMF.Models.Meta.ITypedElement RetrieveRepositoryReference()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.ComponentType.ClassInstance)).Resolve("Repository")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(ComponentType.ClassInstance)).Resolve("Repository")));
         }
         
         /// <summary>
@@ -580,6 +580,21 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         }
         
         /// <summary>
+        /// Resolves the given URI to a child model element
+        /// </summary>
+        /// <returns>The model element or null if it could not be found</returns>
+        /// <param name="reference">The requested reference name</param>
+        /// <param name="index">The index of this reference</param>
+        protected override NMF.Models.IModelElement GetModelElementForReference(string reference, int index)
+        {
+            if ((reference == "REPOSITORY"))
+            {
+                return this.Repository;
+            }
+            return base.GetModelElementForReference(reference, index);
+        }
+        
+        /// <summary>
         /// Gets the Model element collection for the given feature
         /// </summary>
         /// <returns>A non-generic list of elements</returns>
@@ -617,27 +632,13 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         }
         
         /// <summary>
-        /// Gets the property expression for the given attribute
-        /// </summary>
-        /// <returns>An incremental property expression</returns>
-        /// <param name="attribute">The requested attribute in upper case</param>
-        protected override NMF.Expressions.INotifyExpression<object> GetExpressionForAttribute(string attribute)
-        {
-            if ((attribute == "Repository"))
-            {
-                return new RepositoryProxy(this);
-            }
-            return base.GetExpressionForAttribute(attribute);
-        }
-        
-        /// <summary>
         /// Gets the property expression for the given reference
         /// </summary>
         /// <returns>An incremental property expression</returns>
         /// <param name="reference">The requested reference in upper case</param>
         protected override NMF.Expressions.INotifyExpression<NMF.Models.IModelElement> GetExpressionForReference(string reference)
         {
-            if ((reference == "Repository"))
+            if ((reference == "REPOSITORY"))
             {
                 return new RepositoryProxy(this);
             }
@@ -1086,6 +1087,37 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         }
         
         /// <summary>
+        /// Represents a proxy to represent an incremental access to the Namespace property
+        /// </summary>
+        private sealed class NamespaceProxy : ModelPropertyChange<NMF.Models.Meta.IType, NMF.Models.Meta.INamespace>
+        {
+            
+            /// <summary>
+            /// Creates a new observable property access proxy
+            /// </summary>
+            /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
+            public NamespaceProxy(NMF.Models.Meta.IType modelElement) : 
+                    base(modelElement, "Namespace")
+            {
+            }
+            
+            /// <summary>
+            /// Gets or sets the value of this expression
+            /// </summary>
+            public override NMF.Models.Meta.INamespace Value
+            {
+                get
+                {
+                    return this.ModelElement.Namespace;
+                }
+                set
+                {
+                    this.ModelElement.Namespace = value;
+                }
+            }
+        }
+        
+        /// <summary>
         /// Represents a proxy to represent an incremental access to the IsAbstract property
         /// </summary>
         private sealed class IsAbstractProxy : ModelPropertyChange<NMF.Models.Meta.IClass, bool>
@@ -1205,37 +1237,6 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 set
                 {
                     this.ModelElement.Identifier = value;
-                }
-            }
-        }
-        
-        /// <summary>
-        /// Represents a proxy to represent an incremental access to the Namespace property
-        /// </summary>
-        private sealed class NamespaceProxy : ModelPropertyChange<NMF.Models.Meta.IType, NMF.Models.Meta.INamespace>
-        {
-            
-            /// <summary>
-            /// Creates a new observable property access proxy
-            /// </summary>
-            /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public NamespaceProxy(NMF.Models.Meta.IType modelElement) : 
-                    base(modelElement, "Namespace")
-            {
-            }
-            
-            /// <summary>
-            /// Gets or sets the value of this expression
-            /// </summary>
-            public override NMF.Models.Meta.INamespace Value
-            {
-                get
-                {
-                    return this.ModelElement.Namespace;
-                }
-                set
-                {
-                    this.ModelElement.Namespace = value;
                 }
             }
         }

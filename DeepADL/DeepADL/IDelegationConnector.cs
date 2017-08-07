@@ -43,6 +43,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// The Port property
         /// </summary>
+        [XmlAttributeAttribute(true)]
         IRequiredInterface Port
         {
             get;

@@ -43,6 +43,10 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// The PublicInterfaces property
         /// </summary>
+        [DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Content)]
+        [XmlAttributeAttribute(false)]
+        [ContainmentAttribute()]
+        [ConstantAttribute()]
         ICollectionExpression<IRequiredInterface> PublicInterfaces
         {
             get;
@@ -51,6 +55,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// The Repository property
         /// </summary>
+        [DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
+        [XmlAttributeAttribute(true)]
+        [XmlOppositeAttribute("SystemSpecifications")]
         IRepository Repository
         {
             get;

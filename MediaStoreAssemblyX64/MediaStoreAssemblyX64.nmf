@@ -1,0 +1,453 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<nmeta:Namespace xmi:version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Uri="http://github.com/georghinkel/mediaStore/AssemblyX64" Prefix="mediaStoreX64" Name="AssemblyX64" xmlns:xmi="http://www.omg.org/XMI" xmlns:nmeta="http://nmf.codeplex.com/nmeta/">
+  <Types xmlns:repo="http://github.com/georghinkel/mediaStore/Repository" xsi:type="repo:MediaStoreSystem" Frontend="#//MediaStoreX64/WebForm64" Name="MediaStoreX64">
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore1" Name="WebForm1" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter1" userManagement="#//MediaStoreX64/UserManagement1" Name="AudioStore1" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter1" Name="UserManagement1" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder1" database="#//MediaStoreX64/DBAdapter1" Name="EncodingAdapter1" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder1" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient1" connection="#//MediaStoreX64/MySqlClient1" dataReader="#//MediaStoreX64/MySqlClient1" Name="DBAdapter1" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient1" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore2" Name="WebForm2" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter2" userManagement="#//MediaStoreX64/UserManagement2" Name="AudioStore2" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter2" Name="UserManagement2" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder2" database="#//MediaStoreX64/DBAdapter2" Name="EncodingAdapter2" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder2" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient2" connection="#//MediaStoreX64/MySqlClient2" dataReader="#//MediaStoreX64/MySqlClient2" Name="DBAdapter2" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient2" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore3" Name="WebForm3" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter3" userManagement="#//MediaStoreX64/UserManagement3" Name="AudioStore3" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter3" Name="UserManagement3" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder3" database="#//MediaStoreX64/DBAdapter3" Name="EncodingAdapter3" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder3" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient3" connection="#//MediaStoreX64/MySqlClient3" dataReader="#//MediaStoreX64/MySqlClient3" Name="DBAdapter3" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient3" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore4" Name="WebForm4" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter4" userManagement="#//MediaStoreX64/UserManagement4" Name="AudioStore4" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter4" Name="UserManagement4" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder4" database="#//MediaStoreX64/DBAdapter4" Name="EncodingAdapter4" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder4" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient4" connection="#//MediaStoreX64/MySqlClient4" dataReader="#//MediaStoreX64/MySqlClient4" Name="DBAdapter4" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient4" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore5" Name="WebForm5" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter5" userManagement="#//MediaStoreX64/UserManagement5" Name="AudioStore5" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter5" Name="UserManagement5" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder5" database="#//MediaStoreX64/DBAdapter5" Name="EncodingAdapter5" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder5" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient5" connection="#//MediaStoreX64/MySqlClient5" dataReader="#//MediaStoreX64/MySqlClient5" Name="DBAdapter5" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient5" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore6" Name="WebForm6" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter6" userManagement="#//MediaStoreX64/UserManagement6" Name="AudioStore6" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter6" Name="UserManagement6" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder6" database="#//MediaStoreX64/DBAdapter6" Name="EncodingAdapter6" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder6" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient6" connection="#//MediaStoreX64/MySqlClient6" dataReader="#//MediaStoreX64/MySqlClient6" Name="DBAdapter6" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient6" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore7" Name="WebForm7" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter7" userManagement="#//MediaStoreX64/UserManagement7" Name="AudioStore7" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter7" Name="UserManagement7" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder7" database="#//MediaStoreX64/DBAdapter7" Name="EncodingAdapter7" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder7" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient7" connection="#//MediaStoreX64/MySqlClient7" dataReader="#//MediaStoreX64/MySqlClient7" Name="DBAdapter7" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient7" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore8" Name="WebForm8" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter8" userManagement="#//MediaStoreX64/UserManagement8" Name="AudioStore8" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter8" Name="UserManagement8" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder8" database="#//MediaStoreX64/DBAdapter8" Name="EncodingAdapter8" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder8" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient8" connection="#//MediaStoreX64/MySqlClient8" dataReader="#//MediaStoreX64/MySqlClient8" Name="DBAdapter8" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient8" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore9" Name="WebForm9" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter9" userManagement="#//MediaStoreX64/UserManagement9" Name="AudioStore9" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter9" Name="UserManagement9" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder9" database="#//MediaStoreX64/DBAdapter9" Name="EncodingAdapter9" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder9" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient9" connection="#//MediaStoreX64/MySqlClient9" dataReader="#//MediaStoreX64/MySqlClient9" Name="DBAdapter9" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient9" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore10" Name="WebForm10" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter10" userManagement="#//MediaStoreX64/UserManagement10" Name="AudioStore10" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter10" Name="UserManagement10" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder10" database="#//MediaStoreX64/DBAdapter10" Name="EncodingAdapter10" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder10" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient10" connection="#//MediaStoreX64/MySqlClient10" dataReader="#//MediaStoreX64/MySqlClient10" Name="DBAdapter10" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient10" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore11" Name="WebForm11" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter11" userManagement="#//MediaStoreX64/UserManagement11" Name="AudioStore11" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter11" Name="UserManagement11" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder11" database="#//MediaStoreX64/DBAdapter11" Name="EncodingAdapter11" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder11" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient11" connection="#//MediaStoreX64/MySqlClient11" dataReader="#//MediaStoreX64/MySqlClient11" Name="DBAdapter11" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient11" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore12" Name="WebForm12" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter12" userManagement="#//MediaStoreX64/UserManagement12" Name="AudioStore12" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter12" Name="UserManagement12" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder12" database="#//MediaStoreX64/DBAdapter12" Name="EncodingAdapter12" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder12" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient12" connection="#//MediaStoreX64/MySqlClient12" dataReader="#//MediaStoreX64/MySqlClient12" Name="DBAdapter12" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient12" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore13" Name="WebForm13" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter13" userManagement="#//MediaStoreX64/UserManagement13" Name="AudioStore13" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter13" Name="UserManagement13" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder13" database="#//MediaStoreX64/DBAdapter13" Name="EncodingAdapter13" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder13" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient13" connection="#//MediaStoreX64/MySqlClient13" dataReader="#//MediaStoreX64/MySqlClient13" Name="DBAdapter13" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient13" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore14" Name="WebForm14" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter14" userManagement="#//MediaStoreX64/UserManagement14" Name="AudioStore14" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter14" Name="UserManagement14" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder14" database="#//MediaStoreX64/DBAdapter14" Name="EncodingAdapter14" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder14" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient14" connection="#//MediaStoreX64/MySqlClient14" dataReader="#//MediaStoreX64/MySqlClient14" Name="DBAdapter14" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient14" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore15" Name="WebForm15" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter15" userManagement="#//MediaStoreX64/UserManagement15" Name="AudioStore15" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter15" Name="UserManagement15" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder15" database="#//MediaStoreX64/DBAdapter15" Name="EncodingAdapter15" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder15" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient15" connection="#//MediaStoreX64/MySqlClient15" dataReader="#//MediaStoreX64/MySqlClient15" Name="DBAdapter15" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient15" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore16" Name="WebForm16" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter16" userManagement="#//MediaStoreX64/UserManagement16" Name="AudioStore16" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter16" Name="UserManagement16" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder16" database="#//MediaStoreX64/DBAdapter16" Name="EncodingAdapter16" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder16" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient16" connection="#//MediaStoreX64/MySqlClient16" dataReader="#//MediaStoreX64/MySqlClient16" Name="DBAdapter16" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient16" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore17" Name="WebForm17" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter17" userManagement="#//MediaStoreX64/UserManagement17" Name="AudioStore17" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter17" Name="UserManagement17" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder17" database="#//MediaStoreX64/DBAdapter17" Name="EncodingAdapter17" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder17" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient17" connection="#//MediaStoreX64/MySqlClient17" dataReader="#//MediaStoreX64/MySqlClient17" Name="DBAdapter17" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient17" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore18" Name="WebForm18" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter18" userManagement="#//MediaStoreX64/UserManagement18" Name="AudioStore18" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter18" Name="UserManagement18" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder18" database="#//MediaStoreX64/DBAdapter18" Name="EncodingAdapter18" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder18" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient18" connection="#//MediaStoreX64/MySqlClient18" dataReader="#//MediaStoreX64/MySqlClient18" Name="DBAdapter18" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient18" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore19" Name="WebForm19" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter19" userManagement="#//MediaStoreX64/UserManagement19" Name="AudioStore19" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter19" Name="UserManagement19" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder19" database="#//MediaStoreX64/DBAdapter19" Name="EncodingAdapter19" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder19" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient19" connection="#//MediaStoreX64/MySqlClient19" dataReader="#//MediaStoreX64/MySqlClient19" Name="DBAdapter19" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient19" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore20" Name="WebForm20" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter20" userManagement="#//MediaStoreX64/UserManagement20" Name="AudioStore20" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter20" Name="UserManagement20" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder20" database="#//MediaStoreX64/DBAdapter20" Name="EncodingAdapter20" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder20" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient20" connection="#//MediaStoreX64/MySqlClient20" dataReader="#//MediaStoreX64/MySqlClient20" Name="DBAdapter20" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient20" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore21" Name="WebForm21" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter21" userManagement="#//MediaStoreX64/UserManagement21" Name="AudioStore21" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter21" Name="UserManagement21" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder21" database="#//MediaStoreX64/DBAdapter21" Name="EncodingAdapter21" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder21" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient21" connection="#//MediaStoreX64/MySqlClient21" dataReader="#//MediaStoreX64/MySqlClient21" Name="DBAdapter21" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient21" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore22" Name="WebForm22" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter22" userManagement="#//MediaStoreX64/UserManagement22" Name="AudioStore22" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter22" Name="UserManagement22" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder22" database="#//MediaStoreX64/DBAdapter22" Name="EncodingAdapter22" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder22" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient22" connection="#//MediaStoreX64/MySqlClient22" dataReader="#//MediaStoreX64/MySqlClient22" Name="DBAdapter22" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient22" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore23" Name="WebForm23" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter23" userManagement="#//MediaStoreX64/UserManagement23" Name="AudioStore23" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter23" Name="UserManagement23" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder23" database="#//MediaStoreX64/DBAdapter23" Name="EncodingAdapter23" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder23" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient23" connection="#//MediaStoreX64/MySqlClient23" dataReader="#//MediaStoreX64/MySqlClient23" Name="DBAdapter23" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient23" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore24" Name="WebForm24" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter24" userManagement="#//MediaStoreX64/UserManagement24" Name="AudioStore24" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter24" Name="UserManagement24" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder24" database="#//MediaStoreX64/DBAdapter24" Name="EncodingAdapter24" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder24" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient24" connection="#//MediaStoreX64/MySqlClient24" dataReader="#//MediaStoreX64/MySqlClient24" Name="DBAdapter24" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient24" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore25" Name="WebForm25" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter25" userManagement="#//MediaStoreX64/UserManagement25" Name="AudioStore25" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter25" Name="UserManagement25" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder25" database="#//MediaStoreX64/DBAdapter25" Name="EncodingAdapter25" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder25" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient25" connection="#//MediaStoreX64/MySqlClient25" dataReader="#//MediaStoreX64/MySqlClient25" Name="DBAdapter25" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient25" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore26" Name="WebForm26" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter26" userManagement="#//MediaStoreX64/UserManagement26" Name="AudioStore26" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter26" Name="UserManagement26" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder26" database="#//MediaStoreX64/DBAdapter26" Name="EncodingAdapter26" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder26" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient26" connection="#//MediaStoreX64/MySqlClient26" dataReader="#//MediaStoreX64/MySqlClient26" Name="DBAdapter26" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient26" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore27" Name="WebForm27" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter27" userManagement="#//MediaStoreX64/UserManagement27" Name="AudioStore27" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter27" Name="UserManagement27" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder27" database="#//MediaStoreX64/DBAdapter27" Name="EncodingAdapter27" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder27" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient27" connection="#//MediaStoreX64/MySqlClient27" dataReader="#//MediaStoreX64/MySqlClient27" Name="DBAdapter27" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient27" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore28" Name="WebForm28" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter28" userManagement="#//MediaStoreX64/UserManagement28" Name="AudioStore28" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter28" Name="UserManagement28" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder28" database="#//MediaStoreX64/DBAdapter28" Name="EncodingAdapter28" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder28" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient28" connection="#//MediaStoreX64/MySqlClient28" dataReader="#//MediaStoreX64/MySqlClient28" Name="DBAdapter28" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient28" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore29" Name="WebForm29" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter29" userManagement="#//MediaStoreX64/UserManagement29" Name="AudioStore29" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter29" Name="UserManagement29" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder29" database="#//MediaStoreX64/DBAdapter29" Name="EncodingAdapter29" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder29" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient29" connection="#//MediaStoreX64/MySqlClient29" dataReader="#//MediaStoreX64/MySqlClient29" Name="DBAdapter29" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient29" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore30" Name="WebForm30" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter30" userManagement="#//MediaStoreX64/UserManagement30" Name="AudioStore30" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter30" Name="UserManagement30" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder30" database="#//MediaStoreX64/DBAdapter30" Name="EncodingAdapter30" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder30" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient30" connection="#//MediaStoreX64/MySqlClient30" dataReader="#//MediaStoreX64/MySqlClient30" Name="DBAdapter30" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient30" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore31" Name="WebForm31" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter31" userManagement="#//MediaStoreX64/UserManagement31" Name="AudioStore31" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter31" Name="UserManagement31" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder31" database="#//MediaStoreX64/DBAdapter31" Name="EncodingAdapter31" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder31" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient31" connection="#//MediaStoreX64/MySqlClient31" dataReader="#//MediaStoreX64/MySqlClient31" Name="DBAdapter31" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient31" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore32" Name="WebForm32" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter32" userManagement="#//MediaStoreX64/UserManagement32" Name="AudioStore32" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter32" Name="UserManagement32" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder32" database="#//MediaStoreX64/DBAdapter32" Name="EncodingAdapter32" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder32" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient32" connection="#//MediaStoreX64/MySqlClient32" dataReader="#//MediaStoreX64/MySqlClient32" Name="DBAdapter32" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient32" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore33" Name="WebForm33" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter33" userManagement="#//MediaStoreX64/UserManagement33" Name="AudioStore33" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter33" Name="UserManagement33" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder33" database="#//MediaStoreX64/DBAdapter33" Name="EncodingAdapter33" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder33" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient33" connection="#//MediaStoreX64/MySqlClient33" dataReader="#//MediaStoreX64/MySqlClient33" Name="DBAdapter33" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient33" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore34" Name="WebForm34" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter34" userManagement="#//MediaStoreX64/UserManagement34" Name="AudioStore34" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter34" Name="UserManagement34" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder34" database="#//MediaStoreX64/DBAdapter34" Name="EncodingAdapter34" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder34" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient34" connection="#//MediaStoreX64/MySqlClient34" dataReader="#//MediaStoreX64/MySqlClient34" Name="DBAdapter34" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient34" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore35" Name="WebForm35" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter35" userManagement="#//MediaStoreX64/UserManagement35" Name="AudioStore35" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter35" Name="UserManagement35" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder35" database="#//MediaStoreX64/DBAdapter35" Name="EncodingAdapter35" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder35" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient35" connection="#//MediaStoreX64/MySqlClient35" dataReader="#//MediaStoreX64/MySqlClient35" Name="DBAdapter35" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient35" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore36" Name="WebForm36" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter36" userManagement="#//MediaStoreX64/UserManagement36" Name="AudioStore36" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter36" Name="UserManagement36" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder36" database="#//MediaStoreX64/DBAdapter36" Name="EncodingAdapter36" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder36" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient36" connection="#//MediaStoreX64/MySqlClient36" dataReader="#//MediaStoreX64/MySqlClient36" Name="DBAdapter36" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient36" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore37" Name="WebForm37" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter37" userManagement="#//MediaStoreX64/UserManagement37" Name="AudioStore37" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter37" Name="UserManagement37" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder37" database="#//MediaStoreX64/DBAdapter37" Name="EncodingAdapter37" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder37" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient37" connection="#//MediaStoreX64/MySqlClient37" dataReader="#//MediaStoreX64/MySqlClient37" Name="DBAdapter37" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient37" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore38" Name="WebForm38" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter38" userManagement="#//MediaStoreX64/UserManagement38" Name="AudioStore38" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter38" Name="UserManagement38" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder38" database="#//MediaStoreX64/DBAdapter38" Name="EncodingAdapter38" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder38" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient38" connection="#//MediaStoreX64/MySqlClient38" dataReader="#//MediaStoreX64/MySqlClient38" Name="DBAdapter38" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient38" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore39" Name="WebForm39" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter39" userManagement="#//MediaStoreX64/UserManagement39" Name="AudioStore39" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter39" Name="UserManagement39" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder39" database="#//MediaStoreX64/DBAdapter39" Name="EncodingAdapter39" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder39" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient39" connection="#//MediaStoreX64/MySqlClient39" dataReader="#//MediaStoreX64/MySqlClient39" Name="DBAdapter39" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient39" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore40" Name="WebForm40" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter40" userManagement="#//MediaStoreX64/UserManagement40" Name="AudioStore40" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter40" Name="UserManagement40" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder40" database="#//MediaStoreX64/DBAdapter40" Name="EncodingAdapter40" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder40" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient40" connection="#//MediaStoreX64/MySqlClient40" dataReader="#//MediaStoreX64/MySqlClient40" Name="DBAdapter40" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient40" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore41" Name="WebForm41" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter41" userManagement="#//MediaStoreX64/UserManagement41" Name="AudioStore41" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter41" Name="UserManagement41" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder41" database="#//MediaStoreX64/DBAdapter41" Name="EncodingAdapter41" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder41" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient41" connection="#//MediaStoreX64/MySqlClient41" dataReader="#//MediaStoreX64/MySqlClient41" Name="DBAdapter41" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient41" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore42" Name="WebForm42" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter42" userManagement="#//MediaStoreX64/UserManagement42" Name="AudioStore42" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter42" Name="UserManagement42" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder42" database="#//MediaStoreX64/DBAdapter42" Name="EncodingAdapter42" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder42" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient42" connection="#//MediaStoreX64/MySqlClient42" dataReader="#//MediaStoreX64/MySqlClient42" Name="DBAdapter42" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient42" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore43" Name="WebForm43" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter43" userManagement="#//MediaStoreX64/UserManagement43" Name="AudioStore43" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter43" Name="UserManagement43" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder43" database="#//MediaStoreX64/DBAdapter43" Name="EncodingAdapter43" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder43" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient43" connection="#//MediaStoreX64/MySqlClient43" dataReader="#//MediaStoreX64/MySqlClient43" Name="DBAdapter43" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient43" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore44" Name="WebForm44" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter44" userManagement="#//MediaStoreX64/UserManagement44" Name="AudioStore44" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter44" Name="UserManagement44" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder44" database="#//MediaStoreX64/DBAdapter44" Name="EncodingAdapter44" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder44" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient44" connection="#//MediaStoreX64/MySqlClient44" dataReader="#//MediaStoreX64/MySqlClient44" Name="DBAdapter44" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient44" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore45" Name="WebForm45" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter45" userManagement="#//MediaStoreX64/UserManagement45" Name="AudioStore45" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter45" Name="UserManagement45" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder45" database="#//MediaStoreX64/DBAdapter45" Name="EncodingAdapter45" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder45" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient45" connection="#//MediaStoreX64/MySqlClient45" dataReader="#//MediaStoreX64/MySqlClient45" Name="DBAdapter45" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient45" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore46" Name="WebForm46" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter46" userManagement="#//MediaStoreX64/UserManagement46" Name="AudioStore46" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter46" Name="UserManagement46" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder46" database="#//MediaStoreX64/DBAdapter46" Name="EncodingAdapter46" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder46" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient46" connection="#//MediaStoreX64/MySqlClient46" dataReader="#//MediaStoreX64/MySqlClient46" Name="DBAdapter46" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient46" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore47" Name="WebForm47" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter47" userManagement="#//MediaStoreX64/UserManagement47" Name="AudioStore47" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter47" Name="UserManagement47" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder47" database="#//MediaStoreX64/DBAdapter47" Name="EncodingAdapter47" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder47" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient47" connection="#//MediaStoreX64/MySqlClient47" dataReader="#//MediaStoreX64/MySqlClient47" Name="DBAdapter47" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient47" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore48" Name="WebForm48" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter48" userManagement="#//MediaStoreX64/UserManagement48" Name="AudioStore48" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter48" Name="UserManagement48" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder48" database="#//MediaStoreX64/DBAdapter48" Name="EncodingAdapter48" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder48" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient48" connection="#//MediaStoreX64/MySqlClient48" dataReader="#//MediaStoreX64/MySqlClient48" Name="DBAdapter48" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient48" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore49" Name="WebForm49" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter49" userManagement="#//MediaStoreX64/UserManagement49" Name="AudioStore49" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter49" Name="UserManagement49" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder49" database="#//MediaStoreX64/DBAdapter49" Name="EncodingAdapter49" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder49" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient49" connection="#//MediaStoreX64/MySqlClient49" dataReader="#//MediaStoreX64/MySqlClient49" Name="DBAdapter49" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient49" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore50" Name="WebForm50" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter50" userManagement="#//MediaStoreX64/UserManagement50" Name="AudioStore50" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter50" Name="UserManagement50" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder50" database="#//MediaStoreX64/DBAdapter50" Name="EncodingAdapter50" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder50" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient50" connection="#//MediaStoreX64/MySqlClient50" dataReader="#//MediaStoreX64/MySqlClient50" Name="DBAdapter50" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient50" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore51" Name="WebForm51" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter51" userManagement="#//MediaStoreX64/UserManagement51" Name="AudioStore51" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter51" Name="UserManagement51" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder51" database="#//MediaStoreX64/DBAdapter51" Name="EncodingAdapter51" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder51" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient51" connection="#//MediaStoreX64/MySqlClient51" dataReader="#//MediaStoreX64/MySqlClient51" Name="DBAdapter51" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient51" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore52" Name="WebForm52" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter52" userManagement="#//MediaStoreX64/UserManagement52" Name="AudioStore52" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter52" Name="UserManagement52" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder52" database="#//MediaStoreX64/DBAdapter52" Name="EncodingAdapter52" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder52" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient52" connection="#//MediaStoreX64/MySqlClient52" dataReader="#//MediaStoreX64/MySqlClient52" Name="DBAdapter52" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient52" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore53" Name="WebForm53" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter53" userManagement="#//MediaStoreX64/UserManagement53" Name="AudioStore53" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter53" Name="UserManagement53" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder53" database="#//MediaStoreX64/DBAdapter53" Name="EncodingAdapter53" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder53" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient53" connection="#//MediaStoreX64/MySqlClient53" dataReader="#//MediaStoreX64/MySqlClient53" Name="DBAdapter53" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient53" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore54" Name="WebForm54" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter54" userManagement="#//MediaStoreX64/UserManagement54" Name="AudioStore54" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter54" Name="UserManagement54" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder54" database="#//MediaStoreX64/DBAdapter54" Name="EncodingAdapter54" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder54" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient54" connection="#//MediaStoreX64/MySqlClient54" dataReader="#//MediaStoreX64/MySqlClient54" Name="DBAdapter54" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient54" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore55" Name="WebForm55" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter55" userManagement="#//MediaStoreX64/UserManagement55" Name="AudioStore55" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter55" Name="UserManagement55" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder55" database="#//MediaStoreX64/DBAdapter55" Name="EncodingAdapter55" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder55" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient55" connection="#//MediaStoreX64/MySqlClient55" dataReader="#//MediaStoreX64/MySqlClient55" Name="DBAdapter55" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient55" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore56" Name="WebForm56" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter56" userManagement="#//MediaStoreX64/UserManagement56" Name="AudioStore56" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter56" Name="UserManagement56" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder56" database="#//MediaStoreX64/DBAdapter56" Name="EncodingAdapter56" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder56" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient56" connection="#//MediaStoreX64/MySqlClient56" dataReader="#//MediaStoreX64/MySqlClient56" Name="DBAdapter56" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient56" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore57" Name="WebForm57" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter57" userManagement="#//MediaStoreX64/UserManagement57" Name="AudioStore57" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter57" Name="UserManagement57" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder57" database="#//MediaStoreX64/DBAdapter57" Name="EncodingAdapter57" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder57" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient57" connection="#//MediaStoreX64/MySqlClient57" dataReader="#//MediaStoreX64/MySqlClient57" Name="DBAdapter57" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient57" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore58" Name="WebForm58" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter58" userManagement="#//MediaStoreX64/UserManagement58" Name="AudioStore58" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter58" Name="UserManagement58" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder58" database="#//MediaStoreX64/DBAdapter58" Name="EncodingAdapter58" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder58" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient58" connection="#//MediaStoreX64/MySqlClient58" dataReader="#//MediaStoreX64/MySqlClient58" Name="DBAdapter58" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient58" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore59" Name="WebForm59" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter59" userManagement="#//MediaStoreX64/UserManagement59" Name="AudioStore59" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter59" Name="UserManagement59" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder59" database="#//MediaStoreX64/DBAdapter59" Name="EncodingAdapter59" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder59" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient59" connection="#//MediaStoreX64/MySqlClient59" dataReader="#//MediaStoreX64/MySqlClient59" Name="DBAdapter59" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient59" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore60" Name="WebForm60" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter60" userManagement="#//MediaStoreX64/UserManagement60" Name="AudioStore60" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter60" Name="UserManagement60" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder60" database="#//MediaStoreX64/DBAdapter60" Name="EncodingAdapter60" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder60" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient60" connection="#//MediaStoreX64/MySqlClient60" dataReader="#//MediaStoreX64/MySqlClient60" Name="DBAdapter60" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient60" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore61" Name="WebForm61" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter61" userManagement="#//MediaStoreX64/UserManagement61" Name="AudioStore61" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter61" Name="UserManagement61" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder61" database="#//MediaStoreX64/DBAdapter61" Name="EncodingAdapter61" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder61" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient61" connection="#//MediaStoreX64/MySqlClient61" dataReader="#//MediaStoreX64/MySqlClient61" Name="DBAdapter61" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient61" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore62" Name="WebForm62" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter62" userManagement="#//MediaStoreX64/UserManagement62" Name="AudioStore62" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter62" Name="UserManagement62" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder62" database="#//MediaStoreX64/DBAdapter62" Name="EncodingAdapter62" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder62" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient62" connection="#//MediaStoreX64/MySqlClient62" dataReader="#//MediaStoreX64/MySqlClient62" Name="DBAdapter62" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient62" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore63" Name="WebForm63" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter63" userManagement="#//MediaStoreX64/UserManagement63" Name="AudioStore63" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter63" Name="UserManagement63" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder63" database="#//MediaStoreX64/DBAdapter63" Name="EncodingAdapter63" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder63" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient63" connection="#//MediaStoreX64/MySqlClient63" dataReader="#//MediaStoreX64/MySqlClient63" Name="DBAdapter63" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient63" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX64/AudioStore64" Name="WebForm64" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX64/EncodingAdapter64" userManagement="#//MediaStoreX64/UserManagement64" Name="AudioStore64" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX64/DBAdapter64" Name="UserManagement64" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX64/OggEncoder64" database="#//MediaStoreX64/DBAdapter64" Name="EncodingAdapter64" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder64" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX64/MySqlClient64" connection="#//MediaStoreX64/MySqlClient64" dataReader="#//MediaStoreX64/MySqlClient64" Name="DBAdapter64" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient64" />
+  </Types>
+</nmeta:Namespace>

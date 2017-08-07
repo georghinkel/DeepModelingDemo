@@ -1,0 +1,57 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+using FZI.SoftwareEngineering.DeepModeling.DeepADL;
+using System;
+
+namespace FZI.SoftwareEngineering.DeepModeling.Benchmark
+{
+    public class DeepMediaStoreGenerator
+    {
+<# for (int i = 1; i <= 64; i*=2) { #>
+        public static ISystemAllocation CreateMediaStoreX<#= i #>Allocation(out Action[] manipulations)
+        {
+            var environment = new ResourceEnvironment();
+            var isolatedContainer = new ResourceContainer() { Name = "IsolatedContainer" };
+            environment.Container.Add(isolatedContainer);
+<# for (int j = 1; j <= i; j++) { #>
+            var appServer<#= j #> = new ResourceContainer() { Name = "AppServer<#= j #>" };
+            var databaseServer<#= j #> = new ResourceContainer() { Name = "DatabaseServer<#= j #>" };
+            environment.Container.Add(appServer<#= j #>);
+			environment.Container.Add(databaseServer<#= j #>);
+            var network<#= j #> = new ResourceLink();
+            environment.Links.Add(network<#= j #>);
+            network<#= j #>.Connects.Add(appServer<#= j #>);
+            network<#= j #>.Connects.Add(databaseServer<#= j #>);
+<# } #>
+            var mediaStore = new FZI.SoftwareEngineering.DeepModeling.AssemblyX<#= i #>.MediaStoreX<#= i #>()
+            {
+<# for (int j = 1; j <= i; j++) {  #>
+                AudioStore<#= j #> = appServer<#= j #>,
+                DBAdapter<#= j #> = appServer<#= j #>,
+                EncodingAdapter<#= j #> = appServer<#= j #>,
+                MySqlClient<#= j #> = databaseServer<#= j #>,
+                OggEncoder<#= j #> = appServer<#= j #>,
+                UserManagement<#= j #> = appServer<#= j #>,
+                WebForm<#= j #> = appServer<#= j #>,
+<# } #>
+                Environment = environment
+            };
+			manipulations = new Action[<#= 3*i #>];
+<# for (int j = 1; j <= i; j++) { #>
+			manipulations[<#= j-1 #>] = () => mediaStore.MySqlClient<#= j #> = isolatedContainer;
+<# } #>
+<# for (int j = 1; j <= i; j++) { #>
+			manipulations[<#= i+j-1 #>] = () => mediaStore.MySqlClient<#= j #> = databaseServer<#= j #>;
+<# } #>
+<# for (int j = 1; j <= i; j++) { #>
+			manipulations[<#= 2*i+j-1 #>] = () => network<#= j #>.Connects.Remove(databaseServer<#= j #>);
+<# } #>
+			return mediaStore;
+        }
+<# } #>
+    }
+}

@@ -43,6 +43,8 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// The Name property
         /// </summary>
+        [IdAttribute()]
+        [XmlAttributeAttribute(true)]
         string Name
         {
             get;
@@ -52,6 +54,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// The Implements property
         /// </summary>
+        [XmlAttributeAttribute(true)]
         ISignature Implements
         {
             get;

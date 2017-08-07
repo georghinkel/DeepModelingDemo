@@ -146,7 +146,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        ICollectionExpression<NMF.Models.Meta.IReference> NMF.Models.Meta.IReferenceType.References
+        ICollectionExpression<NMF.Models.Meta.IReference> IReferenceType.References
         {
             get
             {
@@ -154,7 +154,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        ICollectionExpression<NMF.Models.Meta.IReferenceConstraint> NMF.Models.Meta.IClass.ReferenceConstraints
+        ICollectionExpression<NMF.Models.Meta.IReferenceConstraint> IClass.ReferenceConstraints
         {
             get
             {
@@ -162,7 +162,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        ICollectionExpression<NMF.Models.Meta.IAttribute> NMF.Models.Meta.IStructuredType.Attributes
+        ICollectionExpression<NMF.Models.Meta.IAttribute> IStructuredType.Attributes
         {
             get
             {
@@ -170,7 +170,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        ICollectionExpression<NMF.Models.Meta.IAttributeConstraint> NMF.Models.Meta.IClass.AttributeConstraints
+        ICollectionExpression<NMF.Models.Meta.IAttributeConstraint> IClass.AttributeConstraints
         {
             get
             {
@@ -178,7 +178,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        ICollectionExpression<NMF.Models.Meta.IEvent> NMF.Models.Meta.IReferenceType.Events
+        ICollectionExpression<NMF.Models.Meta.IEvent> IReferenceType.Events
         {
             get
             {
@@ -186,7 +186,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        ICollectionExpression<NMF.Models.Meta.IOperation> NMF.Models.Meta.IStructuredType.Operations
+        ICollectionExpression<NMF.Models.Meta.IOperation> IStructuredType.Operations
         {
             get
             {
@@ -194,7 +194,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        NMF.Models.Meta.IAttribute NMF.Models.Meta.IClass.Identifier
+        NMF.Models.Meta.IAttribute IClass.Identifier
         {
             get
             {
@@ -209,7 +209,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        NMF.Models.Meta.IClass NMF.Models.Meta.IClass.InstanceOf
+        NMF.Models.Meta.IClass IClass.InstanceOf
         {
             get
             {
@@ -224,7 +224,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        ICollectionExpression<NMF.Models.Meta.IClass> NMF.Models.Meta.IClass.BaseTypes
+        ICollectionExpression<NMF.Models.Meta.IClass> IClass.BaseTypes
         {
             get
             {
@@ -232,7 +232,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        NMF.Models.Meta.IdentifierScope NMF.Models.Meta.IClass.IdentifierScope
+        NMF.Models.Meta.IdentifierScope IClass.IdentifierScope
         {
             get
             {
@@ -247,7 +247,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        bool NMF.Models.Meta.IClass.IsAbstract
+        bool IClass.IsAbstract
         {
             get
             {
@@ -301,7 +301,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         
         private static NMF.Models.Meta.ITypedElement RetrieveAssemblyContextsReference()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.SystemArchitecture.ClassInstance)).Resolve("AssemblyContexts")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(SystemArchitecture.ClassInstance)).Resolve("AssemblyContexts")));
         }
         
         /// <summary>

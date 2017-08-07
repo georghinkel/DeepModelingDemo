@@ -168,7 +168,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        ICollectionExpression<NMF.Models.Meta.IType> NMF.Models.Meta.INamespace.Types
+        ICollectionExpression<NMF.Models.Meta.IType> INamespace.Types
         {
             get
             {
@@ -176,7 +176,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
             }
         }
         
-        ICollectionExpression<NMF.Models.Meta.INamespace> NMF.Models.Meta.INamespace.ChildNamespaces
+        ICollectionExpression<NMF.Models.Meta.INamespace> INamespace.ChildNamespaces
         {
             get
             {
@@ -321,7 +321,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         
         private static NMF.Models.Meta.ITypedElement RetrieveComponentTypesReference()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.Repository.ClassInstance)).Resolve("ComponentTypes")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(Repository.ClassInstance)).Resolve("ComponentTypes")));
         }
         
         /// <summary>
@@ -346,7 +346,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         
         private static NMF.Models.Meta.ITypedElement RetrieveInterfacesReference()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.Repository.ClassInstance)).Resolve("Interfaces")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(Repository.ClassInstance)).Resolve("Interfaces")));
         }
         
         /// <summary>
@@ -371,7 +371,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         
         private static NMF.Models.Meta.ITypedElement RetrieveSystemSpecificationsReference()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.Repository.ClassInstance)).Resolve("SystemSpecifications")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(Repository.ClassInstance)).Resolve("SystemSpecifications")));
         }
         
         /// <summary>
@@ -396,7 +396,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         
         private static NMF.Models.Meta.ITypedElement RetrieveDelegatesReference()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.Repository.ClassInstance)).Resolve("Delegates")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(Repository.ClassInstance)).Resolve("Delegates")));
         }
         
         /// <summary>
@@ -550,6 +550,21 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         }
         
         /// <summary>
+        /// Resolves the given URI to a child model element
+        /// </summary>
+        /// <returns>The model element or null if it could not be found</returns>
+        /// <param name="reference">The requested reference name</param>
+        /// <param name="index">The index of this reference</param>
+        protected override NMF.Models.IModelElement GetModelElementForReference(string reference, int index)
+        {
+            if ((reference == "PARENTNAMESPACE"))
+            {
+                return this.ParentNamespace;
+            }
+            return base.GetModelElementForReference(reference, index);
+        }
+        
+        /// <summary>
         /// Resolves the given attribute name
         /// </summary>
         /// <returns>The attribute value or null if it could not be found</returns>
@@ -626,9 +641,13 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <param name="attribute">The requested attribute in upper case</param>
         protected override NMF.Expressions.INotifyExpression<object> GetExpressionForAttribute(string attribute)
         {
-            if ((attribute == "ParentNamespace"))
+            if ((attribute == "URI"))
             {
-                return new ParentNamespaceProxy(this);
+                return new UriProxy(this);
+            }
+            if ((attribute == "PREFIX"))
+            {
+                return new PrefixProxy(this);
             }
             return base.GetExpressionForAttribute(attribute);
         }
@@ -640,7 +659,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <param name="reference">The requested reference in upper case</param>
         protected override NMF.Expressions.INotifyExpression<NMF.Models.IModelElement> GetExpressionForReference(string reference)
         {
-            if ((reference == "ParentNamespace"))
+            if ((reference == "PARENTNAMESPACE"))
             {
                 return new ParentNamespaceProxy(this);
             }
@@ -993,7 +1012,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 }
                 if ((this._parent.ParentNamespace == null))
                 {
-                    NMF.Models.Meta.INamespace parentNamespaceCasted = item.As<NMF.Models.Meta.INamespace>();
+                    INamespace parentNamespaceCasted = item.As<INamespace>();
                     if ((parentNamespaceCasted != null))
                     {
                         this._parent.ParentNamespace = parentNamespaceCasted;

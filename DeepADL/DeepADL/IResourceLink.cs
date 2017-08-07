@@ -43,6 +43,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// The Environment property
         /// </summary>
+        [DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
+        [XmlAttributeAttribute(true)]
+        [XmlOppositeAttribute("Links")]
         IResourceEnvironment Environment
         {
             get;
@@ -52,6 +55,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// The Connects property
         /// </summary>
+        [DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Content)]
+        [XmlAttributeAttribute(true)]
+        [ConstantAttribute()]
         ICollectionExpression<IResourceContainer> Connects
         {
             get;

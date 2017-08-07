@@ -116,7 +116,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         
         private static NMF.Models.Meta.ITypedElement RetrieveNameAttribute()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.Signature.ClassInstance)).Resolve("Name")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(Signature.ClassInstance)).Resolve("Name")));
         }
         
         /// <summary>
@@ -173,6 +173,20 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
                 return;
             }
             base.SetFeature(feature, value);
+        }
+        
+        /// <summary>
+        /// Gets the property expression for the given attribute
+        /// </summary>
+        /// <returns>An incremental property expression</returns>
+        /// <param name="attribute">The requested attribute in upper case</param>
+        protected override NMF.Expressions.INotifyExpression<object> GetExpressionForAttribute(string attribute)
+        {
+            if ((attribute == "NAME"))
+            {
+                return new NameProxy(this);
+            }
+            return base.GetExpressionForAttribute(attribute);
         }
         
         /// <summary>

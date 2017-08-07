@@ -129,7 +129,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         
         private static NMF.Models.Meta.ITypedElement RetrieveEnvironmentReference()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.ResourceLink.ClassInstance)).Resolve("Environment")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(ResourceLink.ClassInstance)).Resolve("Environment")));
         }
         
         /// <summary>
@@ -197,7 +197,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         
         private static NMF.Models.Meta.ITypedElement RetrieveConnectsReference()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.ResourceLink.ClassInstance)).Resolve("Connects")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(ResourceLink.ClassInstance)).Resolve("Connects")));
         }
         
         /// <summary>
@@ -218,6 +218,21 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         private void ConnectsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             this.OnCollectionChanged("Connects", e, _connectsReference);
+        }
+        
+        /// <summary>
+        /// Resolves the given URI to a child model element
+        /// </summary>
+        /// <returns>The model element or null if it could not be found</returns>
+        /// <param name="reference">The requested reference name</param>
+        /// <param name="index">The index of this reference</param>
+        protected override NMF.Models.IModelElement GetModelElementForReference(string reference, int index)
+        {
+            if ((reference == "ENVIRONMENT"))
+            {
+                return this.Environment;
+            }
+            return base.GetModelElementForReference(reference, index);
         }
         
         /// <summary>
@@ -250,27 +265,13 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         }
         
         /// <summary>
-        /// Gets the property expression for the given attribute
-        /// </summary>
-        /// <returns>An incremental property expression</returns>
-        /// <param name="attribute">The requested attribute in upper case</param>
-        protected override NMF.Expressions.INotifyExpression<object> GetExpressionForAttribute(string attribute)
-        {
-            if ((attribute == "Environment"))
-            {
-                return new EnvironmentProxy(this);
-            }
-            return base.GetExpressionForAttribute(attribute);
-        }
-        
-        /// <summary>
         /// Gets the property expression for the given reference
         /// </summary>
         /// <returns>An incremental property expression</returns>
         /// <param name="reference">The requested reference in upper case</param>
         protected override NMF.Expressions.INotifyExpression<NMF.Models.IModelElement> GetExpressionForReference(string reference)
         {
-            if ((reference == "Environment"))
+            if ((reference == "ENVIRONMENT"))
             {
                 return new EnvironmentProxy(this);
             }

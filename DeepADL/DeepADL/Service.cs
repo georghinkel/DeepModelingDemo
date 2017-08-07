@@ -177,7 +177,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         
         private static NMF.Models.Meta.ITypedElement RetrieveNameAttribute()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.Service.ClassInstance)).Resolve("Name")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(Service.ClassInstance)).Resolve("Name")));
         }
         
         /// <summary>
@@ -208,7 +208,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         
         private static NMF.Models.Meta.ITypedElement RetrieveImplementsReference()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.Service.ClassInstance)).Resolve("Implements")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(Service.ClassInstance)).Resolve("Implements")));
         }
         
         /// <summary>
@@ -245,6 +245,21 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         private void OnResetImplements(object sender, System.EventArgs eventArgs)
         {
             this.Implements = null;
+        }
+        
+        /// <summary>
+        /// Resolves the given URI to a child model element
+        /// </summary>
+        /// <returns>The model element or null if it could not be found</returns>
+        /// <param name="reference">The requested reference name</param>
+        /// <param name="index">The index of this reference</param>
+        protected override NMF.Models.IModelElement GetModelElementForReference(string reference, int index)
+        {
+            if ((reference == "IMPLEMENTS"))
+            {
+                return this.Implements;
+            }
+            return base.GetModelElementForReference(reference, index);
         }
         
         /// <summary>
@@ -289,9 +304,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <param name="attribute">The requested attribute in upper case</param>
         protected override NMF.Expressions.INotifyExpression<object> GetExpressionForAttribute(string attribute)
         {
-            if ((attribute == "Implements"))
+            if ((attribute == "NAME"))
             {
-                return new ImplementsProxy(this);
+                return new NameProxy(this);
             }
             return base.GetExpressionForAttribute(attribute);
         }
@@ -303,7 +318,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <param name="reference">The requested reference in upper case</param>
         protected override NMF.Expressions.INotifyExpression<NMF.Models.IModelElement> GetExpressionForReference(string reference)
         {
-            if ((reference == "Implements"))
+            if ((reference == "IMPLEMENTS"))
             {
                 return new ImplementsProxy(this);
             }

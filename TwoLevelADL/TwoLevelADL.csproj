@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DA75B59C-8E19-4753-8F96-9289F08B2D0C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FZI.DeepModeling</RootNamespace>
+    <AssemblyName>FZI.DeepModeling.TwoLevelADL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NMF.Collections, Version=1.0.87.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMF-Repository.1.0.87\lib\net45\NMF.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="NMF.Expressions, Version=1.0.87.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMF-Expressions.1.0.87\lib\net45\NMF.Expressions.dll</HintPath>
+    </Reference>
+    <Reference Include="NMF.Expressions.Linq, Version=1.0.87.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMF-Expressions.1.0.87\lib\net45\NMF.Expressions.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="NMF.Models, Version=1.0.87.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMF-Repository.1.0.87\lib\net45\NMF.Models.dll</HintPath>
+    </Reference>
+    <Reference Include="NMF.Serialization, Version=1.0.87.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMF-Repository.1.0.87\lib\net45\NMF.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="NMF.Utilities, Version=1.0.87.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMF-Utilities.1.0.87\lib\net45\NMF.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ContainerAnalysis.cs" />
+    <Compile Include="MediaStoreGenerator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TwoLevelADL\Assembly\AssemblyConnector.cs" />
+    <Compile Include="TwoLevelADL\Assembly\AssemblyContext.cs" />
+    <Compile Include="TwoLevelADL\Assembly\CompositeComponent.cs" />
+    <Compile Include="TwoLevelADL\Assembly\DelegateConnector.cs" />
+    <Compile Include="TwoLevelADL\Assembly\IAssemblyConnector.cs" />
+    <Compile Include="TwoLevelADL\Assembly\IAssemblyContext.cs" />
+    <Compile Include="TwoLevelADL\Assembly\ICompositeComponent.cs" />
+    <Compile Include="TwoLevelADL\Assembly\IDelegateConnector.cs" />
+    <Compile Include="TwoLevelADL\Assembly\IProvidingDelegateConnector.cs" />
+    <Compile Include="TwoLevelADL\Assembly\IRequiringDelegateConnector.cs" />
+    <Compile Include="TwoLevelADL\Assembly\ISystem0.cs" />
+    <Compile Include="TwoLevelADL\Assembly\ProvidingDelegateConnector.cs" />
+    <Compile Include="TwoLevelADL\Assembly\RequiringDelegateConnector.cs" />
+    <Compile Include="TwoLevelADL\Assembly\System0.cs" />
+    <Compile Include="TwoLevelADL\Deployment\Allocation.cs" />
+    <Compile Include="TwoLevelADL\Deployment\AllocationContext.cs" />
+    <Compile Include="TwoLevelADL\Deployment\Container.cs" />
+    <Compile Include="TwoLevelADL\Deployment\ContainerLinksCollection.cs" />
+    <Compile Include="TwoLevelADL\Deployment\Environment.cs" />
+    <Compile Include="TwoLevelADL\Deployment\EnvironmentContainersCollection.cs" />
+    <Compile Include="TwoLevelADL\Deployment\IAllocation.cs" />
+    <Compile Include="TwoLevelADL\Deployment\IAllocationContext.cs" />
+    <Compile Include="TwoLevelADL\Deployment\IContainer.cs" />
+    <Compile Include="TwoLevelADL\Deployment\IEnvironment.cs" />
+    <Compile Include="TwoLevelADL\Deployment\ILink.cs" />
+    <Compile Include="TwoLevelADL\Deployment\Link.cs" />
+    <Compile Include="TwoLevelADL\Deployment\LinkConnectedContainersCollection.cs" />
+    <Compile Include="TwoLevelADL\INamedElement.cs" />
+    <Compile Include="TwoLevelADL\IRoot.cs" />
+    <Compile Include="TwoLevelADL\NamedElement.cs" />
+    <Compile Include="TwoLevelADL\Root.cs" />
+    <Compile Include="TwoLevelADL\SystemIndependent\Component.cs" />
+    <Compile Include="TwoLevelADL\SystemIndependent\IComponent.cs" />
+    <Compile Include="TwoLevelADL\SystemIndependent\IInterface.cs" />
+    <Compile Include="TwoLevelADL\SystemIndependent\Interface.cs" />
+    <Compile Include="TwoLevelADL\SystemIndependent\IParameter.cs" />
+    <Compile Include="TwoLevelADL\SystemIndependent\IRepository.cs" />
+    <Compile Include="TwoLevelADL\SystemIndependent\IService.cs" />
+    <Compile Include="TwoLevelADL\SystemIndependent\ISignature.cs" />
+    <Compile Include="TwoLevelADL\SystemIndependent\Parameter.cs" />
+    <Compile Include="TwoLevelADL\SystemIndependent\Repository.cs" />
+    <Compile Include="TwoLevelADL\SystemIndependent\Service.cs" />
+    <Compile Include="TwoLevelADL\SystemIndependent\Signature.cs" />
+    <Compile Include="TwoLevelADL\SystemIndependent\Type.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TwoLevelADL.nmeta" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

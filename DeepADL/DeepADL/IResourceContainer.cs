@@ -43,6 +43,8 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// The Name property
         /// </summary>
+        [IdAttribute()]
+        [XmlAttributeAttribute(true)]
         string Name
         {
             get;
@@ -52,6 +54,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// The Environment property
         /// </summary>
+        [DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
+        [XmlAttributeAttribute(true)]
+        [XmlOppositeAttribute("Container")]
         IResourceEnvironment Environment
         {
             get;

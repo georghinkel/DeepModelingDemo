@@ -95,8 +95,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         /// <summary>
         /// The WebForm property
         /// </summary>
-        [XmlAttributeAttribute(false)]
-        [ContainmentAttribute()]
+        [XmlAttributeAttribute(true)]
         public IResourceContainer WebForm
         {
             get
@@ -114,13 +113,11 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
                     this._webForm = value;
                     if ((old != null))
                     {
-                        old.Parent = null;
-                        old.ParentChanged -= this.OnResetWebForm;
+                        old.Deleted -= this.OnResetWebForm;
                     }
                     if ((value != null))
                     {
-                        value.Parent = this;
-                        value.ParentChanged += this.OnResetWebForm;
+                        value.Deleted += this.OnResetWebForm;
                     }
                     this.OnWebFormChanged(e);
                     this.OnPropertyChanged("WebForm", e, _webFormReference);
@@ -131,8 +128,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         /// <summary>
         /// The AudioStore property
         /// </summary>
-        [XmlAttributeAttribute(false)]
-        [ContainmentAttribute()]
+        [XmlAttributeAttribute(true)]
         public IResourceContainer AudioStore
         {
             get
@@ -150,13 +146,11 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
                     this._audioStore = value;
                     if ((old != null))
                     {
-                        old.Parent = null;
-                        old.ParentChanged -= this.OnResetAudioStore;
+                        old.Deleted -= this.OnResetAudioStore;
                     }
                     if ((value != null))
                     {
-                        value.Parent = this;
-                        value.ParentChanged += this.OnResetAudioStore;
+                        value.Deleted += this.OnResetAudioStore;
                     }
                     this.OnAudioStoreChanged(e);
                     this.OnPropertyChanged("AudioStore", e, _audioStoreReference);
@@ -167,8 +161,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         /// <summary>
         /// The UserManagement property
         /// </summary>
-        [XmlAttributeAttribute(false)]
-        [ContainmentAttribute()]
+        [XmlAttributeAttribute(true)]
         public IResourceContainer UserManagement
         {
             get
@@ -186,13 +179,11 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
                     this._userManagement = value;
                     if ((old != null))
                     {
-                        old.Parent = null;
-                        old.ParentChanged -= this.OnResetUserManagement;
+                        old.Deleted -= this.OnResetUserManagement;
                     }
                     if ((value != null))
                     {
-                        value.Parent = this;
-                        value.ParentChanged += this.OnResetUserManagement;
+                        value.Deleted += this.OnResetUserManagement;
                     }
                     this.OnUserManagementChanged(e);
                     this.OnPropertyChanged("UserManagement", e, _userManagementReference);
@@ -203,8 +194,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         /// <summary>
         /// The EncodingAdapter property
         /// </summary>
-        [XmlAttributeAttribute(false)]
-        [ContainmentAttribute()]
+        [XmlAttributeAttribute(true)]
         public IResourceContainer EncodingAdapter
         {
             get
@@ -222,13 +212,11 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
                     this._encodingAdapter = value;
                     if ((old != null))
                     {
-                        old.Parent = null;
-                        old.ParentChanged -= this.OnResetEncodingAdapter;
+                        old.Deleted -= this.OnResetEncodingAdapter;
                     }
                     if ((value != null))
                     {
-                        value.Parent = this;
-                        value.ParentChanged += this.OnResetEncodingAdapter;
+                        value.Deleted += this.OnResetEncodingAdapter;
                     }
                     this.OnEncodingAdapterChanged(e);
                     this.OnPropertyChanged("EncodingAdapter", e, _encodingAdapterReference);
@@ -239,8 +227,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         /// <summary>
         /// The OggEncoder property
         /// </summary>
-        [XmlAttributeAttribute(false)]
-        [ContainmentAttribute()]
+        [XmlAttributeAttribute(true)]
         public IResourceContainer OggEncoder
         {
             get
@@ -258,13 +245,11 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
                     this._oggEncoder = value;
                     if ((old != null))
                     {
-                        old.Parent = null;
-                        old.ParentChanged -= this.OnResetOggEncoder;
+                        old.Deleted -= this.OnResetOggEncoder;
                     }
                     if ((value != null))
                     {
-                        value.Parent = this;
-                        value.ParentChanged += this.OnResetOggEncoder;
+                        value.Deleted += this.OnResetOggEncoder;
                     }
                     this.OnOggEncoderChanged(e);
                     this.OnPropertyChanged("OggEncoder", e, _oggEncoderReference);
@@ -275,8 +260,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         /// <summary>
         /// The DBAdapter property
         /// </summary>
-        [XmlAttributeAttribute(false)]
-        [ContainmentAttribute()]
+        [XmlAttributeAttribute(true)]
         public IResourceContainer DBAdapter
         {
             get
@@ -294,13 +278,11 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
                     this._dBAdapter = value;
                     if ((old != null))
                     {
-                        old.Parent = null;
-                        old.ParentChanged -= this.OnResetDBAdapter;
+                        old.Deleted -= this.OnResetDBAdapter;
                     }
                     if ((value != null))
                     {
-                        value.Parent = this;
-                        value.ParentChanged += this.OnResetDBAdapter;
+                        value.Deleted += this.OnResetDBAdapter;
                     }
                     this.OnDBAdapterChanged(e);
                     this.OnPropertyChanged("DBAdapter", e, _dBAdapterReference);
@@ -311,8 +293,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         /// <summary>
         /// The MySqlClient property
         /// </summary>
-        [XmlAttributeAttribute(false)]
-        [ContainmentAttribute()]
+        [XmlAttributeAttribute(true)]
         public IResourceContainer MySqlClient
         {
             get
@@ -330,28 +311,15 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
                     this._mySqlClient = value;
                     if ((old != null))
                     {
-                        old.Parent = null;
-                        old.ParentChanged -= this.OnResetMySqlClient;
+                        old.Deleted -= this.OnResetMySqlClient;
                     }
                     if ((value != null))
                     {
-                        value.Parent = this;
-                        value.ParentChanged += this.OnResetMySqlClient;
+                        value.Deleted += this.OnResetMySqlClient;
                     }
                     this.OnMySqlClientChanged(e);
                     this.OnPropertyChanged("MySqlClient", e, _mySqlClientReference);
                 }
-            }
-        }
-        
-        /// <summary>
-        /// Gets the child model elements of this model element
-        /// </summary>
-        public override IEnumerableExpression<NMF.Models.IModelElement> Children
-        {
-            get
-            {
-                return base.Children.Concat(new MediaStoreChildrenCollection(this));
             }
         }
         
@@ -468,7 +436,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         
         private static NMF.Models.Meta.ITypedElement RetrieveWebFormReference()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.Assembly.MediaStore.ClassInstance)).Resolve("WebForm")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(MediaStore.ClassInstance)).Resolve("WebForm")));
         }
         
         /// <summary>
@@ -509,7 +477,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         
         private static NMF.Models.Meta.ITypedElement RetrieveAudioStoreReference()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.Assembly.MediaStore.ClassInstance)).Resolve("AudioStore")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(MediaStore.ClassInstance)).Resolve("AudioStore")));
         }
         
         /// <summary>
@@ -550,7 +518,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         
         private static NMF.Models.Meta.ITypedElement RetrieveUserManagementReference()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.Assembly.MediaStore.ClassInstance)).Resolve("UserManagement")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(MediaStore.ClassInstance)).Resolve("UserManagement")));
         }
         
         /// <summary>
@@ -591,7 +559,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         
         private static NMF.Models.Meta.ITypedElement RetrieveEncodingAdapterReference()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.Assembly.MediaStore.ClassInstance)).Resolve("EncodingAdapter")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(MediaStore.ClassInstance)).Resolve("EncodingAdapter")));
         }
         
         /// <summary>
@@ -632,7 +600,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         
         private static NMF.Models.Meta.ITypedElement RetrieveOggEncoderReference()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.Assembly.MediaStore.ClassInstance)).Resolve("OggEncoder")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(MediaStore.ClassInstance)).Resolve("OggEncoder")));
         }
         
         /// <summary>
@@ -673,7 +641,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         
         private static NMF.Models.Meta.ITypedElement RetrieveDBAdapterReference()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.Assembly.MediaStore.ClassInstance)).Resolve("DBAdapter")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(MediaStore.ClassInstance)).Resolve("DBAdapter")));
         }
         
         /// <summary>
@@ -714,7 +682,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         
         private static NMF.Models.Meta.ITypedElement RetrieveMySqlClientReference()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.Assembly.MediaStore.ClassInstance)).Resolve("MySqlClient")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(MediaStore.ClassInstance)).Resolve("MySqlClient")));
         }
         
         /// <summary>
@@ -751,44 +719,6 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         private void OnResetMySqlClient(object sender, System.EventArgs eventArgs)
         {
             this.MySqlClient = null;
-        }
-        
-        /// <summary>
-        /// Gets the relative URI fragment for the given child model element
-        /// </summary>
-        /// <returns>A fragment of the relative URI</returns>
-        /// <param name="element">The element that should be looked for</param>
-        protected override string GetRelativePathForNonIdentifiedChild(NMF.Models.IModelElement element)
-        {
-            if ((element == this.WebForm))
-            {
-                return ModelHelper.CreatePath("WebForm");
-            }
-            if ((element == this.AudioStore))
-            {
-                return ModelHelper.CreatePath("AudioStore");
-            }
-            if ((element == this.UserManagement))
-            {
-                return ModelHelper.CreatePath("UserManagement");
-            }
-            if ((element == this.EncodingAdapter))
-            {
-                return ModelHelper.CreatePath("EncodingAdapter");
-            }
-            if ((element == this.OggEncoder))
-            {
-                return ModelHelper.CreatePath("OggEncoder");
-            }
-            if ((element == this.DBAdapter))
-            {
-                return ModelHelper.CreatePath("DBAdapter");
-            }
-            if ((element == this.MySqlClient))
-            {
-                return ModelHelper.CreatePath("MySqlClient");
-            }
-            return base.GetRelativePathForNonIdentifiedChild(element);
         }
         
         /// <summary>
@@ -876,75 +806,37 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         }
         
         /// <summary>
-        /// Gets the property expression for the given attribute
-        /// </summary>
-        /// <returns>An incremental property expression</returns>
-        /// <param name="attribute">The requested attribute in upper case</param>
-        protected override NMF.Expressions.INotifyExpression<object> GetExpressionForAttribute(string attribute)
-        {
-            if ((attribute == "WebForm"))
-            {
-                return new WebFormProxy(this);
-            }
-            if ((attribute == "AudioStore"))
-            {
-                return new AudioStoreProxy(this);
-            }
-            if ((attribute == "UserManagement"))
-            {
-                return new UserManagementProxy(this);
-            }
-            if ((attribute == "EncodingAdapter"))
-            {
-                return new EncodingAdapterProxy(this);
-            }
-            if ((attribute == "OggEncoder"))
-            {
-                return new OggEncoderProxy(this);
-            }
-            if ((attribute == "DBAdapter"))
-            {
-                return new DBAdapterProxy(this);
-            }
-            if ((attribute == "MySqlClient"))
-            {
-                return new MySqlClientProxy(this);
-            }
-            return base.GetExpressionForAttribute(attribute);
-        }
-        
-        /// <summary>
         /// Gets the property expression for the given reference
         /// </summary>
         /// <returns>An incremental property expression</returns>
         /// <param name="reference">The requested reference in upper case</param>
         protected override NMF.Expressions.INotifyExpression<NMF.Models.IModelElement> GetExpressionForReference(string reference)
         {
-            if ((reference == "WebForm"))
+            if ((reference == "WEBFORM"))
             {
                 return new WebFormProxy(this);
             }
-            if ((reference == "AudioStore"))
+            if ((reference == "AUDIOSTORE"))
             {
                 return new AudioStoreProxy(this);
             }
-            if ((reference == "UserManagement"))
+            if ((reference == "USERMANAGEMENT"))
             {
                 return new UserManagementProxy(this);
             }
-            if ((reference == "EncodingAdapter"))
+            if ((reference == "ENCODINGADAPTER"))
             {
                 return new EncodingAdapterProxy(this);
             }
-            if ((reference == "OggEncoder"))
+            if ((reference == "OGGENCODER"))
             {
                 return new OggEncoderProxy(this);
             }
-            if ((reference == "DBAdapter"))
+            if ((reference == "DBADAPTER"))
             {
                 return new DBAdapterProxy(this);
             }
-            if ((reference == "MySqlClient"))
+            if ((reference == "MYSQLCLIENT"))
             {
                 return new MySqlClientProxy(this);
             }
@@ -972,6 +864,22 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         }
         
         /// <summary>
+        /// Gets the referenced value for a AssemblyContexts of the enclosing SystemArchitecture.
+        /// </summary>
+        public override INotifyValue<IResourceContainer> GetAssemblyContextsProxy(IAssemblyContext reference)
+        {
+            if ((reference == null))
+            {
+                throw new System.ArgumentOutOfRangeException("reference");
+            }
+            if ((reference.UpperBound == 1))
+            {
+                return Observable.As<IModelElement, IResourceContainer>(this.GetExpressionForReference(reference.Name.ToUpperInvariant()));
+            }
+            throw new NotSupportedException();
+        }
+        
+        /// <summary>
         /// Gets the Class for this model element
         /// </summary>
         public override NMF.Models.Meta.IClass GetClass()
@@ -981,306 +889,6 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
                 _classInstance = ((NMF.Models.Meta.IClass)(MetaRepository.Instance.Resolve("http://github.com/georghinkel/mediaStore/Assembly#//MediaStore")));
             }
             return _classInstance;
-        }
-        
-        /// <summary>
-        /// The collection class to to represent the children of the MediaStore class
-        /// </summary>
-        public class MediaStoreChildrenCollection : ReferenceCollection, ICollectionExpression<NMF.Models.IModelElement>, ICollection<NMF.Models.IModelElement>
-        {
-            
-            private MediaStore _parent;
-            
-            /// <summary>
-            /// Creates a new instance
-            /// </summary>
-            public MediaStoreChildrenCollection(MediaStore parent)
-            {
-                this._parent = parent;
-            }
-            
-            /// <summary>
-            /// Gets the amount of elements contained in this collection
-            /// </summary>
-            public override int Count
-            {
-                get
-                {
-                    int count = 0;
-                    if ((this._parent.WebForm != null))
-                    {
-                        count = (count + 1);
-                    }
-                    if ((this._parent.AudioStore != null))
-                    {
-                        count = (count + 1);
-                    }
-                    if ((this._parent.UserManagement != null))
-                    {
-                        count = (count + 1);
-                    }
-                    if ((this._parent.EncodingAdapter != null))
-                    {
-                        count = (count + 1);
-                    }
-                    if ((this._parent.OggEncoder != null))
-                    {
-                        count = (count + 1);
-                    }
-                    if ((this._parent.DBAdapter != null))
-                    {
-                        count = (count + 1);
-                    }
-                    if ((this._parent.MySqlClient != null))
-                    {
-                        count = (count + 1);
-                    }
-                    return count;
-                }
-            }
-            
-            protected override void AttachCore()
-            {
-                this._parent.WebFormChanged += this.PropagateValueChanges;
-                this._parent.AudioStoreChanged += this.PropagateValueChanges;
-                this._parent.UserManagementChanged += this.PropagateValueChanges;
-                this._parent.EncodingAdapterChanged += this.PropagateValueChanges;
-                this._parent.OggEncoderChanged += this.PropagateValueChanges;
-                this._parent.DBAdapterChanged += this.PropagateValueChanges;
-                this._parent.MySqlClientChanged += this.PropagateValueChanges;
-            }
-            
-            protected override void DetachCore()
-            {
-                this._parent.WebFormChanged -= this.PropagateValueChanges;
-                this._parent.AudioStoreChanged -= this.PropagateValueChanges;
-                this._parent.UserManagementChanged -= this.PropagateValueChanges;
-                this._parent.EncodingAdapterChanged -= this.PropagateValueChanges;
-                this._parent.OggEncoderChanged -= this.PropagateValueChanges;
-                this._parent.DBAdapterChanged -= this.PropagateValueChanges;
-                this._parent.MySqlClientChanged -= this.PropagateValueChanges;
-            }
-            
-            /// <summary>
-            /// Adds the given element to the collection
-            /// </summary>
-            /// <param name="item">The item to add</param>
-            public override void Add(NMF.Models.IModelElement item)
-            {
-                if ((this._parent.WebForm == null))
-                {
-                    IResourceContainer webFormCasted = item.As<IResourceContainer>();
-                    if ((webFormCasted != null))
-                    {
-                        this._parent.WebForm = webFormCasted;
-                        return;
-                    }
-                }
-                if ((this._parent.AudioStore == null))
-                {
-                    IResourceContainer audioStoreCasted = item.As<IResourceContainer>();
-                    if ((audioStoreCasted != null))
-                    {
-                        this._parent.AudioStore = audioStoreCasted;
-                        return;
-                    }
-                }
-                if ((this._parent.UserManagement == null))
-                {
-                    IResourceContainer userManagementCasted = item.As<IResourceContainer>();
-                    if ((userManagementCasted != null))
-                    {
-                        this._parent.UserManagement = userManagementCasted;
-                        return;
-                    }
-                }
-                if ((this._parent.EncodingAdapter == null))
-                {
-                    IResourceContainer encodingAdapterCasted = item.As<IResourceContainer>();
-                    if ((encodingAdapterCasted != null))
-                    {
-                        this._parent.EncodingAdapter = encodingAdapterCasted;
-                        return;
-                    }
-                }
-                if ((this._parent.OggEncoder == null))
-                {
-                    IResourceContainer oggEncoderCasted = item.As<IResourceContainer>();
-                    if ((oggEncoderCasted != null))
-                    {
-                        this._parent.OggEncoder = oggEncoderCasted;
-                        return;
-                    }
-                }
-                if ((this._parent.DBAdapter == null))
-                {
-                    IResourceContainer dBAdapterCasted = item.As<IResourceContainer>();
-                    if ((dBAdapterCasted != null))
-                    {
-                        this._parent.DBAdapter = dBAdapterCasted;
-                        return;
-                    }
-                }
-                if ((this._parent.MySqlClient == null))
-                {
-                    IResourceContainer mySqlClientCasted = item.As<IResourceContainer>();
-                    if ((mySqlClientCasted != null))
-                    {
-                        this._parent.MySqlClient = mySqlClientCasted;
-                        return;
-                    }
-                }
-            }
-            
-            /// <summary>
-            /// Clears the collection and resets all references that implement it.
-            /// </summary>
-            public override void Clear()
-            {
-                this._parent.WebForm = null;
-                this._parent.AudioStore = null;
-                this._parent.UserManagement = null;
-                this._parent.EncodingAdapter = null;
-                this._parent.OggEncoder = null;
-                this._parent.DBAdapter = null;
-                this._parent.MySqlClient = null;
-            }
-            
-            /// <summary>
-            /// Gets a value indicating whether the given element is contained in the collection
-            /// </summary>
-            /// <returns>True, if it is contained, otherwise False</returns>
-            /// <param name="item">The item that should be looked out for</param>
-            public override bool Contains(NMF.Models.IModelElement item)
-            {
-                if ((item == this._parent.WebForm))
-                {
-                    return true;
-                }
-                if ((item == this._parent.AudioStore))
-                {
-                    return true;
-                }
-                if ((item == this._parent.UserManagement))
-                {
-                    return true;
-                }
-                if ((item == this._parent.EncodingAdapter))
-                {
-                    return true;
-                }
-                if ((item == this._parent.OggEncoder))
-                {
-                    return true;
-                }
-                if ((item == this._parent.DBAdapter))
-                {
-                    return true;
-                }
-                if ((item == this._parent.MySqlClient))
-                {
-                    return true;
-                }
-                return false;
-            }
-            
-            /// <summary>
-            /// Copies the contents of the collection to the given array starting from the given array index
-            /// </summary>
-            /// <param name="array">The array in which the elements should be copied</param>
-            /// <param name="arrayIndex">The starting index</param>
-            public override void CopyTo(NMF.Models.IModelElement[] array, int arrayIndex)
-            {
-                if ((this._parent.WebForm != null))
-                {
-                    array[arrayIndex] = this._parent.WebForm;
-                    arrayIndex = (arrayIndex + 1);
-                }
-                if ((this._parent.AudioStore != null))
-                {
-                    array[arrayIndex] = this._parent.AudioStore;
-                    arrayIndex = (arrayIndex + 1);
-                }
-                if ((this._parent.UserManagement != null))
-                {
-                    array[arrayIndex] = this._parent.UserManagement;
-                    arrayIndex = (arrayIndex + 1);
-                }
-                if ((this._parent.EncodingAdapter != null))
-                {
-                    array[arrayIndex] = this._parent.EncodingAdapter;
-                    arrayIndex = (arrayIndex + 1);
-                }
-                if ((this._parent.OggEncoder != null))
-                {
-                    array[arrayIndex] = this._parent.OggEncoder;
-                    arrayIndex = (arrayIndex + 1);
-                }
-                if ((this._parent.DBAdapter != null))
-                {
-                    array[arrayIndex] = this._parent.DBAdapter;
-                    arrayIndex = (arrayIndex + 1);
-                }
-                if ((this._parent.MySqlClient != null))
-                {
-                    array[arrayIndex] = this._parent.MySqlClient;
-                    arrayIndex = (arrayIndex + 1);
-                }
-            }
-            
-            /// <summary>
-            /// Removes the given item from the collection
-            /// </summary>
-            /// <returns>True, if the item was removed, otherwise False</returns>
-            /// <param name="item">The item that should be removed</param>
-            public override bool Remove(NMF.Models.IModelElement item)
-            {
-                if ((this._parent.WebForm == item))
-                {
-                    this._parent.WebForm = null;
-                    return true;
-                }
-                if ((this._parent.AudioStore == item))
-                {
-                    this._parent.AudioStore = null;
-                    return true;
-                }
-                if ((this._parent.UserManagement == item))
-                {
-                    this._parent.UserManagement = null;
-                    return true;
-                }
-                if ((this._parent.EncodingAdapter == item))
-                {
-                    this._parent.EncodingAdapter = null;
-                    return true;
-                }
-                if ((this._parent.OggEncoder == item))
-                {
-                    this._parent.OggEncoder = null;
-                    return true;
-                }
-                if ((this._parent.DBAdapter == item))
-                {
-                    this._parent.DBAdapter = null;
-                    return true;
-                }
-                if ((this._parent.MySqlClient == item))
-                {
-                    this._parent.MySqlClient = null;
-                    return true;
-                }
-                return false;
-            }
-            
-            /// <summary>
-            /// Gets an enumerator that enumerates the collection
-            /// </summary>
-            /// <returns>A generic enumerator</returns>
-            public override IEnumerator<NMF.Models.IModelElement> GetEnumerator()
-            {
-                return Enumerable.Empty<NMF.Models.IModelElement>().Concat(this._parent.WebForm).Concat(this._parent.AudioStore).Concat(this._parent.UserManagement).Concat(this._parent.EncodingAdapter).Concat(this._parent.OggEncoder).Concat(this._parent.DBAdapter).Concat(this._parent.MySqlClient).GetEnumerator();
-            }
         }
         
         /// <summary>

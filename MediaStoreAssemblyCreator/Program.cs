@@ -16,54 +16,82 @@ namespace MediaStoreAssemblyCreator
     {
         static void Main(string[] args)
         {
-            var uri = new Uri("http://github.com/georghinkel/mediaStore/Assembly");
-            var mediaStoreL2 = CreateMediaStoreAssembly(uri);
+            GenerateMediaStoreAssembly(null, @"..\..\..\MediaStoreAssembly\MediaStoreAssembly", @"..\..\..\MediaStoreAssembly.nmf");
+            for (int i = 1; i <= 64; i*=2)
+            {
+                GenerateMediaStoreAssembly(i, $@"..\..\..\MediaStoreAssemblyX{i}\MediaStoreAssembly", $@"..\..\..\MediaStoreAssemblyX{i}\MediaStoreAssemblyX{i}.nmf");
+            }
+        }
+
+        private static void GenerateMediaStoreAssembly(int? factor, string codeLocation, string metamodelLocation)
+        {
+            var uri = new Uri("http://github.com/georghinkel/mediaStore/Assembly" + (factor.HasValue ? "X" + factor.Value.ToString() : ""));
+
+            var system = new MediaStoreSystem()
+            {
+                Name = "MediaStore" + (factor.HasValue ? "X" + factor.Value.ToString() : "")
+            };
+            var mediaStoreL2 = new Namespace()
+            {
+                Name = "Assembly" + (factor.HasValue ? "X" + factor.Value.ToString() : ""),
+                Uri = uri,
+                Prefix = "mediaStore" + (factor.HasValue ? "X" + factor.Value.ToString() : "")
+            };
+
+            mediaStoreL2.Types.Add(system);
+            if (!factor.HasValue)
+            {
+                CreateMediaStoreAssembly(system, string.Empty);
+            }
+            else
+            {
+                for (int i = 1; i <= factor.Value; i++)
+                {
+                    CreateMediaStoreAssembly(system, i.ToString());
+                }
+            }
             var model = new Model()
             {
                 ModelUri = uri
             };
             model.RootElements.Add(mediaStoreL2);
             var unit = MetaFacade.CreateCode(mediaStoreL2, "FZI.SoftwareEngineering.DeepModeling");
-            MetaFacade.GenerateCode(unit, new Microsoft.CSharp.CSharpCodeProvider(), @"..\..\..\MediaStoreAssembly\MediaStoreAssembly", true);
-            using (var fs = File.OpenWrite(@"..\..\..\MediaStoreAssembly.nmf"))
+            MetaFacade.GenerateCode(unit, new Microsoft.CSharp.CSharpCodeProvider(), codeLocation , true);
+            using (var fs = File.OpenWrite(metamodelLocation))
             {
                 MetaRepository.Instance.Serializer.Serialize(mediaStoreL2, fs);
             }
         }
 
-        public static INamespace CreateMediaStoreAssembly(Uri uri)
+        public static void CreateMediaStoreAssembly(MediaStoreSystem system, string suffix)
         {
-            var system = new MediaStoreSystem()
-            {
-                Name = "MediaStore"
-            };
             var webForm = new WebForm()
             {
-                Name = "WebForm"
+                Name = "WebForm" + suffix
             };
             var audioStore = new AudioStore()
             {
-                Name = "AudioStore"
+                Name = "AudioStore" + suffix
             };
             var encodingadapter = new EncodingAdapter()
             {
-                Name = "EncodingAdapter"
+                Name = "EncodingAdapter" + suffix
             };
             var encoder = new OggEncoder()
             {
-                Name = "OggEncoder"
+                Name = "OggEncoder" + suffix
             };
             var userMgmt = new UserManagement()
             {
-                Name = "UserManagement"
+                Name = "UserManagement" + suffix
             };
             var dbAdapter = new DBAdapter()
             {
-                Name = "DBAdapter"
+                Name = "DBAdapter" + suffix
             };
             var mySqlClient = new MySqlClient()
             {
-                Name = "MySqlClient"
+                Name = "MySqlClient" + suffix
             };
             system.AssemblyContexts.Add(webForm);
             system.AssemblyContexts.Add(audioStore);
@@ -88,16 +116,6 @@ namespace MediaStoreAssemblyCreator
             dbAdapter.DataReader = mySqlClient;
 
             system.Frontend = webForm;
-
-            var mediaStoreL2 = new Namespace()
-            {
-                Name = "Assembly",
-                Uri = uri,
-                Prefix = "mediaStore"
-            };
-
-            mediaStoreL2.Types.Add(system);
-            return mediaStoreL2;
         }
     }
 }

@@ -127,11 +127,17 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// Gets the referenced value for a AssemblyContexts of the enclosing SystemArchitecture.
         /// </summary>
+        [ObservableProxyAttribute(typeof(ISystemAllocation), "GetAssemblyContextsProxy")]
         public abstract IResourceContainer GetAssemblyContextsValue(IAssemblyContext reference);
+        
+        /// <summary>
+        /// Gets a proxy for the referenced value for a AssemblyContexts of the enclosing SystemArchitecture.
+        /// </summary>
+        public abstract INotifyValue<IResourceContainer> GetAssemblyContextsProxy(IAssemblyContext reference);
         
         private static NMF.Models.Meta.ITypedElement RetrieveEnvironmentReference()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.SystemAllocation.ClassInstance)).Resolve("Environment")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(SystemAllocation.ClassInstance)).Resolve("Environment")));
         }
         
         /// <summary>
@@ -171,6 +177,21 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         }
         
         /// <summary>
+        /// Resolves the given URI to a child model element
+        /// </summary>
+        /// <returns>The model element or null if it could not be found</returns>
+        /// <param name="reference">The requested reference name</param>
+        /// <param name="index">The index of this reference</param>
+        protected override NMF.Models.IModelElement GetModelElementForReference(string reference, int index)
+        {
+            if ((reference == "ENVIRONMENT"))
+            {
+                return this.Environment;
+            }
+            return base.GetModelElementForReference(reference, index);
+        }
+        
+        /// <summary>
         /// Sets a value to the given feature
         /// </summary>
         /// <param name="feature">The requested feature</param>
@@ -186,27 +207,13 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         }
         
         /// <summary>
-        /// Gets the property expression for the given attribute
-        /// </summary>
-        /// <returns>An incremental property expression</returns>
-        /// <param name="attribute">The requested attribute in upper case</param>
-        protected override NMF.Expressions.INotifyExpression<object> GetExpressionForAttribute(string attribute)
-        {
-            if ((attribute == "Environment"))
-            {
-                return new EnvironmentProxy(this);
-            }
-            return base.GetExpressionForAttribute(attribute);
-        }
-        
-        /// <summary>
         /// Gets the property expression for the given reference
         /// </summary>
         /// <returns>An incremental property expression</returns>
         /// <param name="reference">The requested reference in upper case</param>
         protected override NMF.Expressions.INotifyExpression<NMF.Models.IModelElement> GetExpressionForReference(string reference)
         {
-            if ((reference == "Environment"))
+            if ((reference == "ENVIRONMENT"))
             {
                 return new EnvironmentProxy(this);
             }

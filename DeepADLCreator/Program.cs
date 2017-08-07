@@ -99,7 +99,7 @@ namespace DeepADLCreator
                 IsAbstract = true
             };
             assemblyContext.BaseTypes.Add(referenceClass);
-            ApplyReferenceConstraints(assemblyContext, true);
+            ApplyReferenceConstraints(assemblyContext, false);
             assemblyContext.ConstrainReference("Refines");
 
             var interfaceDecl = new Class()
@@ -487,6 +487,8 @@ namespace DeepADLCreator
             referenceType.ConstrainAttribute("IsContainment", isContainment.ToString());
             referenceType.ConstrainAttribute("IsOrdered", "False");
             referenceType.ConstrainAttribute("IsUnique", "False");
+            referenceType.ConstrainReference("Opposite");
+            referenceType.ConstrainReference("Anchor");
         }
     }
 

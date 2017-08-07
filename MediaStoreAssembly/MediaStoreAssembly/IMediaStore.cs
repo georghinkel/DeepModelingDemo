@@ -43,6 +43,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         /// <summary>
         /// The WebForm property
         /// </summary>
+        [XmlAttributeAttribute(true)]
         IResourceContainer WebForm
         {
             get;
@@ -52,6 +53,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         /// <summary>
         /// The AudioStore property
         /// </summary>
+        [XmlAttributeAttribute(true)]
         IResourceContainer AudioStore
         {
             get;
@@ -61,6 +63,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         /// <summary>
         /// The UserManagement property
         /// </summary>
+        [XmlAttributeAttribute(true)]
         IResourceContainer UserManagement
         {
             get;
@@ -70,6 +73,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         /// <summary>
         /// The EncodingAdapter property
         /// </summary>
+        [XmlAttributeAttribute(true)]
         IResourceContainer EncodingAdapter
         {
             get;
@@ -79,6 +83,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         /// <summary>
         /// The OggEncoder property
         /// </summary>
+        [XmlAttributeAttribute(true)]
         IResourceContainer OggEncoder
         {
             get;
@@ -88,6 +93,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         /// <summary>
         /// The DBAdapter property
         /// </summary>
+        [XmlAttributeAttribute(true)]
         IResourceContainer DBAdapter
         {
             get;
@@ -97,6 +103,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.Assembly
         /// <summary>
         /// The MySqlClient property
         /// </summary>
+        [XmlAttributeAttribute(true)]
         IResourceContainer MySqlClient
         {
             get;

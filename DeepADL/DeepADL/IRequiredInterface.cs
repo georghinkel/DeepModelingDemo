@@ -43,6 +43,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// The Interface property
         /// </summary>
+        [XmlAttributeAttribute(true)]
         IInterface Interface
         {
             get;

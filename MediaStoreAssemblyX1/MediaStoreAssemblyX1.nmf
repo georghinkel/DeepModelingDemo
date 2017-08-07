@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<nmeta:Namespace xmi:version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Uri="http://github.com/georghinkel/mediaStore/AssemblyX1" Prefix="mediaStoreX1" Name="AssemblyX1" xmlns:xmi="http://www.omg.org/XMI" xmlns:nmeta="http://nmf.codeplex.com/nmeta/">
+  <Types xmlns:repo="http://github.com/georghinkel/mediaStore/Repository" xsi:type="repo:MediaStoreSystem" Frontend="#//MediaStoreX1/WebForm1" Name="MediaStoreX1">
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX1/AudioStore1" Name="WebForm1" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX1/EncodingAdapter1" userManagement="#//MediaStoreX1/UserManagement1" Name="AudioStore1" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX1/DBAdapter1" Name="UserManagement1" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX1/OggEncoder1" database="#//MediaStoreX1/DBAdapter1" Name="EncodingAdapter1" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder1" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX1/MySqlClient1" connection="#//MediaStoreX1/MySqlClient1" dataReader="#//MediaStoreX1/MySqlClient1" Name="DBAdapter1" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient1" />
+  </Types>
+</nmeta:Namespace>

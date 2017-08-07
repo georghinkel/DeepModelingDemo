@@ -43,6 +43,10 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// The AssemblyContexts property
         /// </summary>
+        [DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Content)]
+        [XmlAttributeAttribute(false)]
+        [ContainmentAttribute()]
+        [ConstantAttribute()]
         ICollectionExpression<IAssemblyContext> AssemblyContexts
         {
             get;

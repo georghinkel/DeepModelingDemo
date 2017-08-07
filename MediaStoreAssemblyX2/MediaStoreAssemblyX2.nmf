@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<nmeta:Namespace xmi:version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Uri="http://github.com/georghinkel/mediaStore/AssemblyX2" Prefix="mediaStoreX2" Name="AssemblyX2" xmlns:xmi="http://www.omg.org/XMI" xmlns:nmeta="http://nmf.codeplex.com/nmeta/">
+  <Types xmlns:repo="http://github.com/georghinkel/mediaStore/Repository" xsi:type="repo:MediaStoreSystem" Frontend="#//MediaStoreX2/WebForm2" Name="MediaStoreX2">
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX2/AudioStore1" Name="WebForm1" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX2/EncodingAdapter1" userManagement="#//MediaStoreX2/UserManagement1" Name="AudioStore1" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX2/DBAdapter1" Name="UserManagement1" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX2/OggEncoder1" database="#//MediaStoreX2/DBAdapter1" Name="EncodingAdapter1" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder1" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX2/MySqlClient1" connection="#//MediaStoreX2/MySqlClient1" dataReader="#//MediaStoreX2/MySqlClient1" Name="DBAdapter1" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient1" />
+    <AssemblyContexts xsi:type="repo:WebForm" application="#//MediaStoreX2/AudioStore2" Name="WebForm2" />
+    <AssemblyContexts xsi:type="repo:AudioStore" audioDB="#//MediaStoreX2/EncodingAdapter2" userManagement="#//MediaStoreX2/UserManagement2" Name="AudioStore2" />
+    <AssemblyContexts xsi:type="repo:UserManagement" database="#//MediaStoreX2/DBAdapter2" Name="UserManagement2" />
+    <AssemblyContexts xsi:type="repo:EncodingAdapter" encoder="#//MediaStoreX2/OggEncoder2" database="#//MediaStoreX2/DBAdapter2" Name="EncodingAdapter2" />
+    <AssemblyContexts xsi:type="repo:OggEncoder" Name="OggEncoder2" />
+    <AssemblyContexts xsi:type="repo:DBAdapter" command="#//MediaStoreX2/MySqlClient2" connection="#//MediaStoreX2/MySqlClient2" dataReader="#//MediaStoreX2/MySqlClient2" Name="DBAdapter2" />
+    <AssemblyContexts xsi:type="repo:MySqlClient" Name="MySqlClient2" />
+  </Types>
+</nmeta:Namespace>

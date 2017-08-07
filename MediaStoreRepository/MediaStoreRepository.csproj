@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FZI.DeepModeling.MediaStore.Repository</RootNamespace>
     <AssemblyName>FZI.DeepModeling.MediaStore.Repository</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,23 +31,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NMF.Collections, Version=1.0.81.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NMF-Repository.1.0.81\lib\net40\NMF.Collections.dll</HintPath>
+    <Reference Include="NMF.Collections, Version=1.0.87.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMF-Repository.1.0.87\lib\net45\NMF.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="NMF.Expressions, Version=1.0.81.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NMF-Expressions.1.0.81\lib\net40\NMF.Expressions.dll</HintPath>
+    <Reference Include="NMF.Expressions, Version=1.0.87.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMF-Expressions.1.0.87\lib\net45\NMF.Expressions.dll</HintPath>
     </Reference>
-    <Reference Include="NMF.Expressions.Linq, Version=1.0.81.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NMF-Expressions.1.0.81\lib\net40\NMF.Expressions.Linq.dll</HintPath>
+    <Reference Include="NMF.Expressions.Linq, Version=1.0.87.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMF-Expressions.1.0.87\lib\net45\NMF.Expressions.Linq.dll</HintPath>
     </Reference>
-    <Reference Include="NMF.Models, Version=1.0.81.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NMF-Repository.1.0.81\lib\net40\NMF.Models.dll</HintPath>
+    <Reference Include="NMF.Models, Version=1.0.87.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMF-Repository.1.0.87\lib\net45\NMF.Models.dll</HintPath>
     </Reference>
-    <Reference Include="NMF.Serialization, Version=1.0.81.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NMF-Repository.1.0.81\lib\net40\NMF.Serialization.dll</HintPath>
+    <Reference Include="NMF.Serialization, Version=1.0.87.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMF-Repository.1.0.87\lib\net45\NMF.Serialization.dll</HintPath>
     </Reference>
-    <Reference Include="NMF.Utilities, Version=1.0.81.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NMF-Utilities.1.0.81\lib\net40\NMF.Utilities.dll</HintPath>
+    <Reference Include="NMF.Utilities, Version=1.0.87.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMF-Utilities.1.0.87\lib\net45\NMF.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -100,7 +101,6 @@
       <Link>MediaStoreRepository.nmf</Link>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DeepADL\DeepADL.csproj">
@@ -108,7 +108,9 @@
       <Name>DeepADL</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

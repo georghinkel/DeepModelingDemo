@@ -43,6 +43,10 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// The Signatures property
         /// </summary>
+        [DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Content)]
+        [XmlAttributeAttribute(false)]
+        [ContainmentAttribute()]
+        [ConstantAttribute()]
         ICollectionExpression<ISignature> Signatures
         {
             get;
@@ -51,6 +55,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// The Repository property
         /// </summary>
+        [DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
+        [XmlAttributeAttribute(true)]
+        [XmlOppositeAttribute("Interfaces")]
         IRepository Repository
         {
             get;

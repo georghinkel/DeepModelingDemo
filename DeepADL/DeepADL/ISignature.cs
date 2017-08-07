@@ -43,6 +43,8 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// The Name property
         /// </summary>
+        [IdAttribute()]
+        [XmlAttributeAttribute(true)]
         string Name
         {
             get;

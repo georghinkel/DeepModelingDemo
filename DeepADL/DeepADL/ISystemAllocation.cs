@@ -43,6 +43,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// The Environment property
         /// </summary>
+        [XmlAttributeAttribute(true)]
         IResourceEnvironment Environment
         {
             get;
@@ -67,7 +68,13 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// Gets the referenced value for a AssemblyContexts of the enclosing SystemArchitecture.
         /// </summary>
+        [ObservableProxyAttribute(typeof(ISystemAllocation), "GetAssemblyContextsProxy")]
         IResourceContainer GetAssemblyContextsValue(IAssemblyContext reference);
+        
+        /// <summary>
+        /// Gets a proxy for the referenced value for a AssemblyContexts of the enclosing SystemArchitecture.
+        /// </summary>
+        INotifyValue<IResourceContainer> GetAssemblyContextsProxy(IAssemblyContext reference);
     }
 }
 

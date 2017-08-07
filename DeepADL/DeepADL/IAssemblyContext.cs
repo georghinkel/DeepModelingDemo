@@ -48,7 +48,13 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// Gets the referenced value for a RequiredInterfaces of the enclosing ComponentType.
         /// </summary>
+        [ObservableProxyAttribute(typeof(IAssemblyContext), "GetRequiredInterfacesProxy")]
         IAssemblyContext GetRequiredInterfacesValue(IRequiredInterface reference);
+        
+        /// <summary>
+        /// Gets a proxy for the referenced value for a RequiredInterfaces of the enclosing ComponentType.
+        /// </summary>
+        INotifyValue<IAssemblyContext> GetRequiredInterfacesProxy(IRequiredInterface reference);
     }
 }
 

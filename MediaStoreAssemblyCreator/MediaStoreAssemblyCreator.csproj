@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MediaStoreAssemblyCreator</RootNamespace>
     <AssemblyName>MediaStoreAssemblyCreator</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,27 +33,43 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NMF.Collections, Version=1.0.81.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NMF-Repository.1.0.81\lib\net40\NMF.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="NMF.Expressions, Version=1.0.81.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NMF-Expressions.1.0.81\lib\net40\NMF.Expressions.dll</HintPath>
-    </Reference>
-    <Reference Include="NMF.Expressions.Linq, Version=1.0.81.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NMF-Expressions.1.0.81\lib\net40\NMF.Expressions.Linq.dll</HintPath>
-    </Reference>
-    <Reference Include="NMF.Models, Version=1.0.81.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NMF-Repository.1.0.81\lib\net40\NMF.Models.dll</HintPath>
-    </Reference>
-    <Reference Include="NMF.Models.MetaTransformation, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="NMF.CodeGen, Version=1.0.81.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NMF-Basics.1.0.81\tools\NMF.Models.MetaTransformation.dll</HintPath>
+      <HintPath>..\..\..\..\Projekte\NMF\Transformations\Models.MetaTransformation\bin\Debug\NMF.CodeGen.dll</HintPath>
     </Reference>
-    <Reference Include="NMF.Serialization, Version=1.0.81.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NMF-Repository.1.0.81\lib\net40\NMF.Serialization.dll</HintPath>
+    <Reference Include="NMF.Collections, Version=1.0.87.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMF-Repository.1.0.87\lib\net45\NMF.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="NMF.Utilities, Version=1.0.81.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NMF-Utilities.1.0.81\lib\net40\NMF.Utilities.dll</HintPath>
+    <Reference Include="NMF.Expressions, Version=1.0.87.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMF-Expressions.1.0.87\lib\net45\NMF.Expressions.dll</HintPath>
+    </Reference>
+    <Reference Include="NMF.Expressions.Linq, Version=1.0.87.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMF-Expressions.1.0.87\lib\net45\NMF.Expressions.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="NMF.Layering, Version=1.0.81.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Projekte\NMF\Transformations\Models.MetaTransformation\bin\Debug\NMF.Layering.dll</HintPath>
+    </Reference>
+    <Reference Include="NMF.Models, Version=1.0.87.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMF-Repository.1.0.87\lib\net45\NMF.Models.dll</HintPath>
+    </Reference>
+    <Reference Include="NMF.Models.MetaTransformation, Version=1.0.81.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Projekte\NMF\Transformations\Models.MetaTransformation\bin\Debug\NMF.Models.MetaTransformation.dll</HintPath>
+    </Reference>
+    <Reference Include="NMF.Serialization, Version=1.0.87.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMF-Repository.1.0.87\lib\net45\NMF.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="NMF.Transformations, Version=1.0.81.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Projekte\NMF\Transformations\Models.MetaTransformation\bin\Debug\NMF.Transformations.dll</HintPath>
+    </Reference>
+    <Reference Include="NMF.Transformations.Core, Version=1.0.81.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Projekte\NMF\Transformations\Models.MetaTransformation\bin\Debug\NMF.Transformations.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NMF.Utilities, Version=1.0.87.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NMF-Utilities.1.0.87\lib\net45\NMF.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

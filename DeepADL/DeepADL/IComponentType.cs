@@ -43,6 +43,10 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// The RequiredInterfaces property
         /// </summary>
+        [DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Content)]
+        [XmlAttributeAttribute(false)]
+        [ContainmentAttribute()]
+        [ConstantAttribute()]
         ICollectionExpression<IRequiredInterface> RequiredInterfaces
         {
             get;
@@ -51,6 +55,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// The ProvidedInterfaces property
         /// </summary>
+        [DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Content)]
+        [XmlAttributeAttribute(true)]
+        [ConstantAttribute()]
         ICollectionExpression<IInterface> ProvidedInterfaces
         {
             get;
@@ -59,6 +66,10 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// The Services property
         /// </summary>
+        [DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Content)]
+        [XmlAttributeAttribute(false)]
+        [ContainmentAttribute()]
+        [ConstantAttribute()]
         ICollectionExpression<IService> Services
         {
             get;
@@ -67,6 +78,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <summary>
         /// The Repository property
         /// </summary>
+        [DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
+        [XmlAttributeAttribute(true)]
+        [XmlOppositeAttribute("ComponentTypes")]
         IRepository Repository
         {
             get;

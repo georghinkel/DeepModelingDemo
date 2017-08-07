@@ -157,7 +157,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         
         private static NMF.Models.Meta.ITypedElement RetrieveNameAttribute()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.ResourceContainer.ClassInstance)).Resolve("Name")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(ResourceContainer.ClassInstance)).Resolve("Name")));
         }
         
         /// <summary>
@@ -188,7 +188,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         
         private static NMF.Models.Meta.ITypedElement RetrieveEnvironmentReference()
         {
-            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(FZI.SoftwareEngineering.DeepModeling.DeepADL.ResourceContainer.ClassInstance)).Resolve("Environment")));
+            return ((NMF.Models.Meta.ITypedElement)(((NMF.Models.ModelElement)(ResourceContainer.ClassInstance)).Resolve("Environment")));
         }
         
         /// <summary>
@@ -255,6 +255,21 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         }
         
         /// <summary>
+        /// Resolves the given URI to a child model element
+        /// </summary>
+        /// <returns>The model element or null if it could not be found</returns>
+        /// <param name="reference">The requested reference name</param>
+        /// <param name="index">The index of this reference</param>
+        protected override NMF.Models.IModelElement GetModelElementForReference(string reference, int index)
+        {
+            if ((reference == "ENVIRONMENT"))
+            {
+                return this.Environment;
+            }
+            return base.GetModelElementForReference(reference, index);
+        }
+        
+        /// <summary>
         /// Resolves the given attribute name
         /// </summary>
         /// <returns>The attribute value or null if it could not be found</returns>
@@ -296,9 +311,9 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <param name="attribute">The requested attribute in upper case</param>
         protected override NMF.Expressions.INotifyExpression<object> GetExpressionForAttribute(string attribute)
         {
-            if ((attribute == "Environment"))
+            if ((attribute == "NAME"))
             {
-                return new EnvironmentProxy(this);
+                return new NameProxy(this);
             }
             return base.GetExpressionForAttribute(attribute);
         }
@@ -310,7 +325,7 @@ namespace FZI.SoftwareEngineering.DeepModeling.DeepADL
         /// <param name="reference">The requested reference in upper case</param>
         protected override NMF.Expressions.INotifyExpression<NMF.Models.IModelElement> GetExpressionForReference(string reference)
         {
-            if ((reference == "Environment"))
+            if ((reference == "ENVIRONMENT"))
             {
                 return new EnvironmentProxy(this);
             }

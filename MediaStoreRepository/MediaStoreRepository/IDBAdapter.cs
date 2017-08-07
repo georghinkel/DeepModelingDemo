@@ -24,7 +24,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -44,6 +43,8 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// <summary>
         /// The command property
         /// </summary>
+        [XmlElementNameAttribute("command")]
+        [XmlAttributeAttribute(true)]
         ICommandInterface Command
         {
             get;
@@ -53,6 +54,8 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// <summary>
         /// The connection property
         /// </summary>
+        [XmlElementNameAttribute("connection")]
+        [XmlAttributeAttribute(true)]
         IConnectionInterface Connection
         {
             get;
@@ -62,6 +65,8 @@ namespace FZI.SoftwareEngineering.DeepModeling.Repository
         /// <summary>
         /// The dataReader property
         /// </summary>
+        [XmlElementNameAttribute("dataReader")]
+        [XmlAttributeAttribute(true)]
         IDataReaderInterface DataReader
         {
             get;
